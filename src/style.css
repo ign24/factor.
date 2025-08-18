@@ -123,22 +123,24 @@ input, textarea, select {
   outline: none;
 }
 
-/* Scrollbar with new gradient */
+/* Scrollbar with custom gradient styling */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+  background: rgba(51, 62, 173, 0.1);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, #333ead, #31ccf0, #00ffbf);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gradient-secondary);
+  background: linear-gradient(135deg, #4a4fc7, #66e6ff, #33ffcc);
 }
 
 /* Selection with new colors */

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="section-header" :class="{ 'animate-in': isVisible }">
         <h2 class="section-title">Soluciones Adaptadas a Tus Necesidades</h2>
-        <p class="section-subtitle gradient-text-gray-white">
+        <p class="section-subtitle gradient-text-gray-white" style="text-align: justify;">
           Ya sea que seas responsable del desarrollo de productos o innovación, busques mejoras en tus operaciones de negocio, apuntes a implementar y operar IA más eficientemente, o busques un equipo de expertos en IA, estamos aquí para ayudarte.
         </p>
       </div>
@@ -196,7 +196,7 @@ onMounted(() => {
 .section-subtitle {
   font-size: 1.25rem;
   color: var(--text-secondary);
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
   line-height: 1.6;
 }

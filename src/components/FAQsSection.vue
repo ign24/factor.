@@ -2,50 +2,33 @@
   <section id="faqs" class="faqs">
     <div class="container">
       <div class="section-header" :class="{ 'animate-in': isVisible }">
-        <h2 class="section-title">Preguntas frecuentes.</h2>
+        <h2 class="section-title">Preguntas frecuentes</h2>
+        <p class="section-subtitle">Todo lo que necesitas saber sobre nuestras soluciones de IA empresarial de factor.</p>
       </div>
       
-      <div class="faqs-grid" :class="{ 'animate-in': isVisible }">
-        <div class="faq-item" :style="{ animationDelay: '0.1s' }">
-          <h3 class="faq-question">¿Qué hace diferente a su IA de otras?</h3>
-          <p class="faq-answer gradient-text-gray-white">
-            Nos enfocamos en sistemas listos para producción, no prototipos. Nuestra IA está construida para despliegue real, con explicabilidad, confiabilidad e impacto de negocio medible desde el primer día.
-          </p>
-        </div>
-        
-        <div class="faq-item" :style="{ animationDelay: '0.2s' }">
-          <h3 class="faq-question">¿Cuánto cuesta construir un sistema de IA?</h3>
-          <p class="faq-answer gradient-text-gray-white">
-            El costo varía según la complejidad, pero nuestros MVPs típicamente van de $25K a $75K. Ofrecemos precios transparentes y nos enfocamos en el ROI: cada sistema que construimos se paga solo mediante eficiencia o aumento de ingresos.
-          </p>
-        </div>
-        
-        <div class="faq-item" :style="{ animationDelay: '0.3s' }">
-          <h3 class="faq-question">¿Cuánto tiempo toma construir y desplegar?</h3>
-          <p class="faq-answer gradient-text-gray-white">
-            Nuestros MVPs listos para producción suelen tomar de 6 a 12 semanas desde el concepto hasta el despliegue. Usamos arquitecturas probadas y componentes preconstruidos para acelerar el desarrollo sin sacrificar calidad.
-          </p>
-        </div>
-        
-        <div class="faq-item" :style="{ animationDelay: '0.4s' }">
-          <h3 class="faq-question">¿Qué tecnologías utilizan?</h3>
-          <p class="faq-answer gradient-text-gray-white">
-            Somos agnósticos en tecnología y elegimos las mejores herramientas para cada proyecto. Nuestro stack común incluye Python, TensorFlow/PyTorch, FastAPI, React, AWS/GCP y pipelines de MLOps personalizados.
-          </p>
-        </div>
-        
-        <div class="faq-item" :style="{ animationDelay: '0.5s' }">
-          <h3 class="faq-question">¿Ofrecen soporte y mantenimiento continuo?</h3>
-          <p class="faq-answer gradient-text-gray-white">
-            Sí. Cada sistema incluye 3 meses de soporte, monitoreo y optimización post-despliegue. Ofrecemos paquetes de mantenimiento para asegurar que tu IA siga rindiendo al máximo nivel.
-          </p>
-        </div>
-        
-        <div class="faq-item" :style="{ animationDelay: '0.6s' }">
-          <h3 class="faq-question">¿Cómo miden el éxito y el ROI?</h3>
-          <p class="faq-answer gradient-text-gray-white">
-            Definimos KPIs claros antes de comenzar el desarrollo e incorporamos monitoreo integral en cada sistema. Tendrás dashboards en tiempo real mostrando precisión, rendimiento y métricas de impacto de negocio.
-          </p>
+      <div class="faqs-container" :class="{ 'animate-in': isVisible }">
+        <div class="faq-item" 
+             v-for="(faq, index) in faqs" 
+             :key="index"
+             :class="{ 'active': activeFaq === index }"
+             @click="toggleFaq(index)"
+             :style="{ animationDelay: `${0.1 + index * 0.1}s` }">
+          
+          <div class="faq-header">
+            <h3 class="faq-question">{{ faq.question }}</h3>
+            <div class="faq-toggle">
+              <svg class="toggle-icon" :class="{ 'rotated': activeFaq === index }" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="faq-content" :class="{ 'expanded': activeFaq === index }">
+            <p class="faq-answer">{{ faq.answer }}</p>
+            <div class="faq-meta" v-if="faq.meta">
+              <span class="meta-tag">{{ faq.meta }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -56,6 +39,74 @@
 import { ref, onMounted } from 'vue'
 
 const isVisible = ref(false)
+const activeFaq = ref<number | null>(null)
+
+const faqs = ref([
+  {
+    question: "¿Qué hace factor.?",
+    answer: "Diseñamos y lanzamos MVPs de IA listos para producción, con arquitectura clara, automatización real y mínimo overhead operativo. Entregamos producto, no piezas sueltas.",
+    meta: "Servicios"
+  },
+  {
+    question: "¿Cómo es el proceso?",
+    answer: "Discovery → Blueprint → Build → Launch & Monitor. Definimos KPIs, diseñamos el sistema, construimos el MVP y lo dejamos operando con métricas y runbooks.",
+    meta: "Proceso"
+  },
+  {
+    question: "¿Qué recibo al final del sprint?",
+    answer: "Repo privado, endpoints/API, UI mínima usable, documentación de uso y despliegue, variables seguras, pruebas de aceptación y un video de handoff.",
+    meta: "Entregables"
+  },
+  {
+    question: "¿Con qué casos trabajamos mejor?",
+    answer: "Automatización con LLMs/RAG, visión por computadora, detección de fraude, dashboards ejecutivos, optimización de e-commerce y análisis predictivo.",
+    meta: "Casos de uso"
+  },
+  {
+    question: "¿Necesito equipo técnico interno?",
+    answer: "No. Co-diseñamos con PMs y founders. factor. se encarga de la complejidad y deja una operación simple para tu equipo.",
+    meta: "Equipo"
+  },
+  {
+    question: "¿Cómo aseguramos calidad y explicabilidad?",
+    answer: "Criterios de aceptación, métricas (latencia/precisión/cobertura) y explicabilidad operable: qué decide el sistema y por qué. Sin cajas negras.",
+    meta: "Calidad"
+  },
+  {
+    question: "¿Qué pasa si no tengo datos listos?",
+    answer: "Arrancamos con un MVP de valor mínimo: fuentes públicas o datos de arranque, instrumentación y aprendizaje iterativo sobre datos reales.",
+    meta: "Datos"
+  },
+  {
+    question: "¿Cómo manejan seguridad y privacidad?",
+    answer: "Mínimos privilegios, gestión de secretos, roles segregados y logging. Elegimos servicios que cumplan lo necesario sin sumar complejidad.",
+    meta: "Seguridad"
+  },
+  {
+    question: "¿Quién es dueño del código y los modelos?",
+    answer: "El cliente. Con cada hito, la propiedad intelectual y los artefactos quedan a tu nombre.",
+    meta: "Propiedad"
+  },
+  {
+    question: "¿Qué pasa después del lanzamiento?",
+    answer: "Launch & Monitor: tablero de métricas, alertas, retraining programado y roadmap de mejoras. factor. puede acompañar con soporte evolutivo.",
+    meta: "Post-lanzamiento"
+  },
+  {
+    question: "¿Cómo se cotiza?",
+    answer: "Por alcance cerrado (MVP Sprint / MVP+ / Soporte). Cada propuesta incluye entregables, tiempos y criterios de aceptación definidos.",
+    meta: "Cotización"
+  },
+  {
+    question: "¿Por qué elegir factor.?",
+    answer: "Porque entregamos soluciones de IA reales, explicables, escalables y listas para negocio. factor. no es freelance. Es inteligencia aplicada.",
+    meta: "Diferenciación"
+  }
+])
+
+const toggleFaq = (index: number) => {
+  activeFaq.value = activeFaq.value === index ? null : index
+}
 
 onMounted(() => {
   const observer = new IntersectionObserver(
@@ -79,14 +130,16 @@ onMounted(() => {
 <style scoped>
 /* Entrance animations */
 .section-header,
-.faqs-grid {
+.faqs-container,
+.faq-cta {
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .section-header.animate-in,
-.faqs-grid.animate-in {
+.faqs-container.animate-in,
+.faq-cta.animate-in {
   opacity: 1;
   transform: translateY(0);
 }
@@ -95,8 +148,12 @@ onMounted(() => {
   transition-delay: 0.1s;
 }
 
-.faqs-grid {
+.faqs-container {
   transition-delay: 0.2s;
+}
+
+.faq-cta {
+  transition-delay: 0.3s;
 }
 
 .faq-item {
@@ -105,15 +162,26 @@ onMounted(() => {
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.faqs-grid.animate-in .faq-item {
+.faqs-container.animate-in .faq-item {
   opacity: 1;
   transform: translateY(0);
 }
 
 .faqs {
   padding: 120px 0;
-  background: rgb(4,8,9);
+  background: linear-gradient(180deg, rgb(4,8,9) 0%, rgb(8,16,18) 100%);
   color: white;
+  position: relative;
+}
+
+.faqs::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(51, 157, 191, 0.3) 50%, transparent 100%);
 }
 
 .container {
@@ -127,48 +195,206 @@ onMounted(() => {
   margin-bottom: 80px;
 }
 
-.section-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  color: white;
-  line-height: 1.2;
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(51, 157, 191, 0.1) 0%, rgba(15, 88, 107, 0.1) 100%);
+  border: 1px solid rgba(51, 157, 191, 0.2);
+  border-radius: 50px;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
 }
 
-.faqs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 3rem;
+.brand-icon {
+  font-size: 16px;
+  color: #33c9bf;
+}
+
+.brand-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #33c9bf;
+  letter-spacing: 0.5px;
+}
+
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  color: #a0a0a0;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.faqs-container {
+  margin-bottom: 80px;
 }
 
 .faq-item {
-  padding: 2rem;
-  background: rgba(15, 88, 107, 0.05);
-  border: 1px solid rgba(51, 157, 191, 0.1);
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  background: rgba(15, 88, 107, 0.03);
+  border: 1px solid rgba(51, 157, 191, 0.08);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 
 .faq-item:hover {
-  background: rgba(15, 88, 107, 0.1);
-  border-color: rgba(51, 157, 191, 0.2);
-  transform: translateY(-4px);
+  background: rgba(15, 88, 107, 0.06);
+  border-color: rgba(51, 157, 191, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item.active {
+  background: rgba(15, 88, 107, 0.08);
+  border-color: rgba(51, 157, 191, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.faq-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  transition: all 0.3s ease;
 }
 
 .faq-question {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: white;
-  margin-bottom: 1rem;
-  line-height: 1.3;
+  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+  padding-right: 20px;
+}
+
+.faq-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(51, 157, 191, 0.1);
+  color: #33c9bf;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover .faq-toggle {
+  background: rgba(51, 157, 191, 0.2);
+}
+
+.toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-content.expanded {
+  max-height: 200px;
 }
 
 .faq-answer {
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  color: #a0a0a0;
+  color: #d0d0d0;
   line-height: 1.6;
+  margin: 0 0 20px 0;
+  padding: 0 28px 0 28px;
+}
+
+.faq-meta {
+  padding: 0 28px 24px 28px;
+}
+
+.meta-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(51, 157, 191, 0.1) 0%, rgba(15, 88, 107, 0.1) 100%);
+  border: 1px solid rgba(51, 157, 191, 0.2);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #33c9bf;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.faq-cta {
+  text-align: center;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(51, 157, 191, 0.05) 0%, rgba(15, 88, 107, 0.05) 100%);
+  border: 1px solid rgba(51, 157, 191, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.cta-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 24px;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #33c9bf 0%, #0f586b 100%);
+  border: none;
+  border-radius: 50px;
+  padding: 16px 32px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(51, 201, 191, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(51, 201, 191, 0.4);
+  background: linear-gradient(135deg, #3dd8ce 0%, #117a8f 100%);
+}
+
+.cta-button svg {
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover svg {
+  transform: translateX(4px);
 }
 
 @media (max-width: 768px) {
@@ -176,17 +402,57 @@ onMounted(() => {
     padding: 80px 0;
   }
   
-  .faqs-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .section-header {
+    margin-bottom: 60px;
   }
   
-  .faq-item {
-    padding: 1.5rem;
+  .faq-header {
+    padding: 20px 24px;
   }
   
   .faq-question {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    padding-right: 16px;
+  }
+  
+  .faq-answer {
+    padding: 0 24px 0 24px;
+  }
+  
+  .faq-meta {
+    padding: 0 24px 20px 24px;
+  }
+  
+  .faq-cta {
+    padding: 32px 24px;
+  }
+  
+  .cta-button {
+    padding: 14px 28px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+  
+  .faq-header {
+    padding: 18px 20px;
+  }
+  
+  .faq-question {
+    font-size: 0.95rem;
+  }
+  
+  .faq-answer {
+    padding: 0 20px 0 20px;
+    font-size: 0.95rem;
+  }
+  
+  .faq-meta {
+    padding: 0 20px 18px 20px;
   }
 }
 </style> 

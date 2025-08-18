@@ -13,27 +13,27 @@
           </p>
           
           <div class="contact-methods">
-            <a href="mailto:ignacio@cicloml.com" class="contact-method" :style="{ animationDelay: '0.1s' }">
+            <a href="mailto:hola@factor.ai" class="contact-method" :style="{ animationDelay: '0.1s' }">
               <EmailIcon />
               <div>
                 <div class="method-label">Email</div>
-                <div class="method-value">ignacio@cicloml.com</div>
+                <div class="method-value">hola@factor.ai</div>
               </div>
             </a>
             
-            <a href="https://linkedin.com/in/ignacioz" class="contact-method" :style="{ animationDelay: '0.2s' }">
+            <a href="https://linkedin.com/company/factor-ai" class="contact-method" :style="{ animationDelay: '0.2s' }">
               <LinkedinIcon />
               <div>
                 <div class="method-label">LinkedIn</div>
-                <div class="method-value">/in/ignacioz</div>
+                <div class="method-value">/company/factor-ai</div>
               </div>
             </a>
             
-            <a href="https://calendly.com/ignacioz" class="contact-method" :style="{ animationDelay: '0.3s' }">
+            <a href="https://calendly.com/factor-ai" class="contact-method" :style="{ animationDelay: '0.3s' }">
               <CalendarIcon />
               <div>
-                <div class="method-label">Agendar call</div>
-                <div class="method-value">15 minutos gratis</div>
+                <div class="method-label">Agendar demo</div>
+                <div class="method-value">30 minutos gratis</div>
               </div>
             </a>
           </div>

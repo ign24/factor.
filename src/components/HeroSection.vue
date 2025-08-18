@@ -345,7 +345,7 @@ onUnmounted(() => {
   max-height: clamp(25px, 4vw, 30px);
   position: relative;
   z-index: 0;
-  padding-right: clamp(25vw, 30vw, 35vw);
+  padding-right: clamp(15vw, 20vw, 35vw);
   margin-left: -10vw;
 }
 
@@ -456,7 +456,10 @@ onUnmounted(() => {
 
 .hero-description {
   font-size: 1rem;
-  color: var(--text-secondary);
+  background: linear-gradient(135deg, #ffffff 0%, #cccccc 50%, #999999 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1.6;
   margin: 1.2rem 0 1.5rem 0;
   max-width: 500px;
