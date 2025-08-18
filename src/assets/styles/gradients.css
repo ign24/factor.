@@ -1,0 +1,63 @@
+/* Global Gradient Styles */
+:root {
+  /* Gradient Colors - Change these values to update all gradients */
+  --gradient-gray-start: #7b8089;
+  --gradient-gray-middle: #d1d5db;
+  --gradient-gray-end: #ffffff;
+  
+  /* Primary gradient colors */
+  --gradient-primary-start: #333ead;
+  --gradient-primary-middle: #31ccf0;
+  --gradient-primary-end: #00ffbf;
+}
+
+/* Gray to White Diagonal Gradient */
+.gradient-text-gray-white {
+  background: linear-gradient(
+    225deg, 
+    var(--gradient-gray-start) 0%, 
+    var(--gradient-gray-middle) 50%, 
+    var(--gradient-gray-end) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Primary Gradient (Blue to Cyan) */
+.gradient-text-primary {
+  background: linear-gradient(
+    135deg, 
+    var(--gradient-primary-start) 0%, 
+    var(--gradient-primary-middle) 50%, 
+    var(--gradient-primary-end) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Alternative gradient styles */
+.gradient-text-gray-white-linear {
+  background: linear-gradient(
+    135deg, 
+    var(--gradient-gray-start) 0%, 
+    var(--gradient-gray-middle) 50%, 
+    var(--gradient-gray-end) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gray-white-diagonal {
+  background: linear-gradient(
+    45deg, 
+    var(--gradient-gray-start) 0%, 
+    var(--gradient-gray-middle) 50%, 
+    var(--gradient-gray-end) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

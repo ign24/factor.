@@ -1,0 +1,26 @@
+{
+  "name": "vite-vue-typescript-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@videojs/themes": "^1.0.1",
+    "@vueuse/core": "^13.5.0",
+    "three": "^0.178.0",
+    "video.js": "^8.23.4",
+    "vue": "^3.4.38",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.178.1",
+    "@vitejs/plugin-vue": "^5.1.3",
+    "typescript": "^5.5.3",
+    "vite": "^7.0.5",
+    "vue-tsc": "^2.1.4"
+  }
+}
