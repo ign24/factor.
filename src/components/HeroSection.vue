@@ -1,5 +1,5 @@
 <template>
-  <section id="hero" class="hero">
+  <section id="hero" class="hero" @wheel="handleWheelScroll">
     <!-- First video for seamless looping -->
     <video 
       class="hero-video-background video-1" 
@@ -46,9 +46,16 @@
         </button>
       </div>
       <div class="hero-secondary-cta animate-secondary">
-        <a href="#expertise" class="see-how-link">
+        <a href="#expertise" class="see-how-link" @click="scrollToExpertise">
           Ver cómo funciona ↓
         </a>
+      </div>
+      
+      <!-- Indicador de scroll -->
+      <div class="scroll-indicator-hero animate-scroll-indicator">
+        <div class="scroll-dot"></div>
+        <div class="scroll-dot"></div>
+        <div class="scroll-dot"></div>
       </div>
     </div>
     <div class="hero-effect-right animate-effect">
@@ -72,6 +79,7 @@ const video2Ref = ref<HTMLVideoElement>()
 const currentVideo = ref(1)
 const isTransitioning = ref(false)
 const fadeDuration = 5000 // 5 segundos de transición
+const isScrolling = ref(false)
 
 const onVideo1Loaded = () => {
   if (video1Ref.value) {
@@ -180,6 +188,63 @@ const scrollToContact = () => {
       behavior: 'smooth',
       block: 'start'
     })
+  }
+}
+
+const handleWheelScroll = (e: WheelEvent) => {
+  // Solo procesar si no estamos ya haciendo scroll
+  if (isScrolling.value) return
+  
+  // Detectar si estamos en la Hero Section (viewport completo)
+  const heroSection = document.getElementById('hero')
+  if (!heroSection) return
+  
+  const rect = heroSection.getBoundingClientRect()
+  const isInHeroViewport = rect.top >= 0 && rect.bottom <= window.innerHeight
+  
+  if (isInHeroViewport) {
+    e.preventDefault()
+    
+    // Determinar dirección del scroll
+    const deltaY = e.deltaY
+    
+    if (deltaY > 0) { // Scroll hacia abajo
+      isScrolling.value = true
+      
+      // Scroll suave a la sección de expertise
+      const expertiseSection = document.querySelector('#expertise')
+      if (expertiseSection) {
+        // Scroll exactamente a la parte superior de la sección
+        expertiseSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        })
+        
+        // Resetear el flag después de un delay
+        setTimeout(() => {
+          isScrolling.value = false
+        }, 1500)
+      }
+    }
+  }
+}
+
+// Función para scroll manual al hacer click en el enlace
+const scrollToExpertise = (e: Event) => {
+  e.preventDefault()
+  isScrolling.value = true
+  
+  const expertiseSection = document.querySelector('#expertise')
+  if (expertiseSection) {
+    // Scroll exactamente a la parte superior de la sección
+    expertiseSection.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    })
+    
+    setTimeout(() => {
+      isScrolling.value = false
+    }, 1500)
   }
 }
 
@@ -345,7 +410,7 @@ onUnmounted(() => {
   max-height: clamp(25px, 4vw, 30px);
   position: relative;
   z-index: 0;
-  padding-right: clamp(15vw, 20vw, 35vw);
+  padding-right: clamp(15vw,20vw,25vw);
   margin-left: -10vw;
 }
 
@@ -378,6 +443,53 @@ onUnmounted(() => {
   opacity: 0;
   transform: translateX(30px) scale(0.9);
   transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate-scroll-indicator {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Indicador de scroll */
+.scroll-indicator-hero {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.scroll-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--brand-cyan);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: scroll-pulse 2s infinite;
+}
+
+.scroll-dot:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.scroll-dot:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes scroll-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
 }
 
 #container {

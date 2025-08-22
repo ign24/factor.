@@ -3,7 +3,7 @@
     <div class="container">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text-primary">
-          Explora Nuestra Expertise en Tecnología IA
+          Explora Nuestra Expertise
         </h2>
         <p class="text-xl gradient-text-gray-white max-w-4xl mx-auto leading-relaxed text-justify">
           Aprovecha nuestra experiencia en tecnologías avanzadas: LLMs, RAG, MLOps, computer vision, edge solutions y predictive analytics. Entregamos soluciones escalables y listas para producción para optimizar workflows, mejorar decisiones y generar resultados reales.

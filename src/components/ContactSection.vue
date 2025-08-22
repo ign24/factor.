@@ -13,21 +13,6 @@
           </p>
           
           <div class="contact-methods">
-            <a href="mailto:hola@factor.ai" class="contact-method" :style="{ animationDelay: '0.1s' }">
-              <EmailIcon />
-              <div>
-                <div class="method-label">Email</div>
-                <div class="method-value">hola@factor.ai</div>
-              </div>
-            </a>
-            
-            <a href="https://linkedin.com/company/factor-ai" class="contact-method" :style="{ animationDelay: '0.2s' }">
-              <LinkedinIcon />
-              <div>
-                <div class="method-label">LinkedIn</div>
-                <div class="method-value">/company/factor-ai</div>
-              </div>
-            </a>
             
             <a href="https://calendly.com/factor-ai" class="contact-method" :style="{ animationDelay: '0.3s' }">
               <CalendarIcon />
@@ -286,32 +271,76 @@ onMounted(() => {
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   color: inherit;
+  position: relative;
+  overflow: hidden;
 }
 
 .contact-method:hover {
-  border-color: var(--border-primary);
-  background: rgba(236, 72, 153, 0.1);
-  transform: translateX(8px);
+  border-color: var(--color-blue-light);
+  background: linear-gradient(135deg, 
+    rgba(51, 157, 191, 0.08) 0%, 
+    rgba(49, 204, 240, 0.12) 100%
+  );
+  transform: translateX(6px);
+  backdrop-filter: blur(8px);
+}
+
+.contact-method:hover svg {
+  color: var(--color-blue-light);
+  transform: scale(1.1);
+}
+
+.contact-method:hover .method-label {
+  color: var(--color-blue-light);
+}
+
+.contact-method:hover .method-value {
+  color: var(--text-primary);
+}
+
+.contact-method::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    var(--color-blue-light) 0%, 
+    var(--color-blue) 50%, 
+    var(--color-blue-dark) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+  z-index: -1;
+}
+
+.contact-method:hover::before {
+  opacity: 0.03;
 }
 
 .contact-method svg {
   width: 24px;
   height: 24px;
-  color: var(--color-magenta);
+  color: var(--color-blue);
   flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .method-label {
   color: var(--text-subtle);
   font-size: 14px;
   margin-bottom: 4px;
+  transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .method-value {
   color: var(--text-primary);
   font-weight: 500;
+  transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contact-form-container {
@@ -320,6 +349,35 @@ onMounted(() => {
   border-radius: 20px;
   padding: 40px;
   backdrop-filter: blur(10px);
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    var(--color-blue-light) 0%, 
+    var(--color-blue) 50%, 
+    var(--color-blue-dark) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 20px;
+  z-index: -1;
+}
+
+.contact-form-container:hover::before {
+  opacity: 0.05;
+}
+
+.contact-form-container:hover {
+  border-color: var(--color-blue-light);
+  box-shadow: 0 8px 32px rgba(51, 157, 191, 0.1);
 }
 
 .contact-form {
@@ -349,8 +407,26 @@ onMounted(() => {
   padding: 12px 16px;
   color: var(--text-primary);
   font-size: 16px;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: inherit;
+  position: relative;
+}
+
+/* El select mantiene su borde inicial pero las opciones no tienen bordes */
+.form-group select {
+  border: 1px solid var(--border-subtle);
+}
+
+/* El select no debe tener transiciones en la flecha */
+.form-group select {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.form-group input:hover,
+.form-group textarea:hover,
+.form-group select:hover {
+  border-color: var(--color-blue);
+  background: rgba(51, 157, 191, 0.02);
 }
 
 .form-group input::placeholder,
@@ -362,8 +438,135 @@ onMounted(() => {
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: var(--color-magenta);
-  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
+  border-color: var(--color-blue-light);
+  box-shadow: 0 0 0 3px rgba(51, 157, 191, 0.15);
+  background: rgba(51, 157, 191, 0.03);
+  transform: translateY(-1px);
+}
+
+.form-group input::before,
+.form-group textarea::before,
+.form-group select::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(135deg, 
+    var(--color-blue-light) 0%, 
+    var(--color-blue) 50%, 
+    var(--color-blue-dark) 100%
+  );
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.form-group input:focus::before,
+.form-group textarea:focus::before,
+.form-group select:focus::before {
+  opacity: 0.1;
+}
+
+/* Estilos específicos para el dropdown del select */
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2300AEEF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 18px;
+  padding-right: 48px;
+  cursor: pointer;
+  background-color: rgb(4,8,9);
+  color: white;
+  /* Asegurar que la flecha no tenga animaciones */
+  transition: none;
+  animation: none;
+}
+
+.form-group select option {
+  background-color: rgb(4,8,9);
+  color: var(--text-primary);
+  padding: 16px 20px;
+  border: none;
+  font-size: 15px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Estilos para el dropdown nativo en diferentes navegadores */
+.form-group select::-ms-expand {
+  display: none;
+}
+
+/* Firefox */
+.form-group select {
+  -moz-appearance: none;
+}
+
+/* Webkit browsers */
+.form-group select::-webkit-select-placeholder {
+  color: var(--text-subtle);
+}
+
+/* Estilos para la opción placeholder */
+.form-group select option[value=""] {
+  color: var(--text-subtle);
+  font-style: italic;
+}
+
+/* Mejorar la legibilidad del dropdown */
+.form-group select:invalid {
+  color: var(--text-subtle);
+}
+
+.form-group select:valid {
+  color: var(--text-primary);
+}
+
+/* Estilos adicionales para el dropdown */
+.form-group select:focus option {
+  background-color: rgb(4,8,9);
+}
+
+.form-group select:focus option:hover {
+  background-color: rgba(0, 174, 239, 0.3);
+}
+
+/* Estilos para el dropdown abierto */
+.form-group select:focus {
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.12);
+  background: rgb(4,8,9);
+  outline: none;
+}
+
+.form-group select:hover {
+  border-color: var(--color-blue);
+  background: rgb(4,8,9);
+}
+
+/* Estilos específicos para las opciones del select */
+.form-group select option {
+  background-color: rgb(4,8,9) !important;
+  color: white !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.form-group select option:hover,
+.form-group select option:focus {
+  background-color: rgba(0, 174, 239, 0.3) !important;
+  color: white !important;
+}
+
+.form-group select option:checked {
+  background-color: rgba(0, 174, 239, 0.4) !important;
+  color: white !important;
+  font-weight: 500;
 }
 
 .submit-button {

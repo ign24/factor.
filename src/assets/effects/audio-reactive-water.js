@@ -609,11 +609,12 @@ function togglePanel() {
     helpHint.classList.remove("hidden");
   }
 }
-document.addEventListener("keydown", (event) => {
-  if (event.key.toLowerCase() === "h") {
-    togglePanel();
-  }
-});
+// Comando Shift + H desactivado
+// document.addEventListener("keydown", (event) => {
+//   if (event.key.toLowerCase() === "h") {
+//     togglePanel();
+//   }
+// });
 const presetBinding = pane.addBinding(settings, "preset", {
   options: Object.keys(colorPresets).reduce((acc, key) => {
     acc[key] = key;
