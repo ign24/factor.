@@ -1,21 +1,33 @@
 <template>
   <div id="app" style="position:relative; min-height:100vh;">
-    <Navigation />
-    <main>
-      <HeroSection />
-      <TrustedExpertsSection />
-      <AIExpertiseSection />
-      <SolutionsSection />
-      <CaseStudiesSection />
-      <AboutFactorSection />
-      <FAQsSection />
-      <ContactSection />
-    </main>
-    <Footer />
+    <!-- Loading Screen -->
+    <LoadingScreen 
+      v-if="isLoading" 
+      :progress="loadingProgress"
+      @loading-complete="onLoadingComplete"
+      ref="loadingScreenRef"
+    />
+    
+    <!-- Main Content -->
+    <div v-show="!isLoading" class="main-content">
+      <Navigation />
+      <main>
+        <HeroSection @background-ready="onBackgroundReady" />
+        <TrustedExpertsSection />
+        <AIExpertiseSection />
+        <SolutionsSection />
+        <CaseStudiesSection />
+        <AboutFactorSection />
+        <FAQsSection />
+        <ContactSection />
+      </main>
+      <Footer />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import Navigation from './components/Navigation.vue'
 import HeroSection from './components/HeroSection.vue'
 import TrustedExpertsSection from './components/TrustedExpertsSection.vue'
@@ -26,6 +38,142 @@ import AboutFactorSection from './components/AboutFactorSection.vue'
 import ContactSection from './components/ContactSection.vue'
 import FAQsSection from './components/FAQsSection.vue'
 import Footer from './components/Footer.vue'
+import LoadingScreen from './components/LoadingScreen.vue'
+
+// Loading state
+const isLoading = ref(true)
+const loadingProgress = ref(0)
+const loadingScreenRef = ref<InstanceType<typeof LoadingScreen>>()
+const backgroundReady = ref(false)
+const loadingStartTime = ref(0)
+
+
+// Simulate loading progress (más lento para sincronizar con la pantalla de carga)
+const simulateLoading = () => {
+  loadingStartTime.value = Date.now()
+  const interval = setInterval(() => {
+    if (loadingProgress.value < 90) {
+      // Progreso más lento para sincronizar con el tiempo total de la pantalla de carga
+      const remaining = 90 - loadingProgress.value
+      const increment = Math.max(0.3, remaining * 0.05) // 5% del remanente
+      loadingProgress.value += increment
+    } else {
+      clearInterval(interval)
+    }
+  }, 200) // Más lento para mayor duración
+}
+
+// Handle background ready event (opcional, para sincronización si es necesario)
+const onBackgroundReady = () => {
+  backgroundReady.value = true
+  // No forzamos el fade out, dejamos que la pantalla de carga dure su tiempo natural
+}
+
+// Handle loading complete
+const onLoadingComplete = () => {
+  isLoading.value = false
+  
+  // Trigger entrance animations after main content fade in completes
+  setTimeout(() => {
+    triggerEntranceAnimations()
+  }, 1300) // Wait for main-content animation (1s) + delay (0.3s) + extra buffer
+}
+
+// Function to trigger entrance animations
+const triggerEntranceAnimations = () => {
+  // Trigger Navigation animations
+  const logo = document.querySelector('.animate-logo') as HTMLElement
+  const navigation = document.querySelector('.navigation') as HTMLElement
+  const navLinks = document.querySelector('.animate-nav-links') as HTMLElement
+  const navItems = document.querySelectorAll('.animate-nav-item') as NodeListOf<HTMLElement>
+
+  if (logo) {
+    logo.style.opacity = '1'
+    logo.style.transform = 'translateY(0)'
+  }
+
+  // First animate the glassmorphism container
+  if (navigation) {
+    setTimeout(() => {
+      navigation.style.transform = 'translateX(-50%) scaleX(1)'
+      navigation.style.background = 'rgba(4, 8, 9, 0.26)'
+      navigation.style.backdropFilter = 'blur(30px)'
+      navigation.style.border = '1px solid var(--border-primary)'
+    }, 300)
+  }
+
+  // Then animate the navigation buttons after container is deployed
+  if (navLinks) {
+    setTimeout(() => {
+      navLinks.style.opacity = '1'
+      navLinks.style.transform = 'translateX(0)'
+    }, 800)
+  }
+
+  // Animate nav items with staggered timing after container and nav links
+  navItems.forEach((item, index) => {
+    setTimeout(() => {
+      if (item) {
+        item.style.opacity = '1'
+        item.style.transform = 'translateX(0)'
+      }
+    }, 1000 + (index * 100))
+  })
+
+  // Trigger Hero Section animations
+  setTimeout(() => {
+    const title = document.querySelector('.animate-title') as HTMLElement
+    const description = document.querySelector('.animate-description') as HTMLElement
+    const actions = document.querySelector('.animate-actions') as HTMLElement
+    const secondary = document.querySelector('.animate-secondary') as HTMLElement
+    const effect = document.querySelector('.animate-effect') as HTMLElement
+    const scrollIndicator = document.querySelector('.animate-scroll-indicator') as HTMLElement
+
+    if (title) {
+      title.style.opacity = '1'
+      title.style.transform = 'translateY(0)'
+    }
+
+    setTimeout(() => {
+      if (description) {
+        description.style.opacity = '1'
+        description.style.transform = 'translateY(0)'
+      }
+    }, 300)
+
+    setTimeout(() => {
+      if (actions) {
+        actions.style.opacity = '1'
+        actions.style.transform = 'translateY(0)'
+      }
+    }, 600)
+
+    setTimeout(() => {
+      if (secondary) {
+        secondary.style.opacity = '1'
+        secondary.style.transform = 'translateY(0)'
+      }
+    }, 900)
+
+    setTimeout(() => {
+      if (effect) {
+        effect.style.opacity = '1'
+        effect.style.transform = 'translateX(0) scale(1)'
+      }
+    }, 1200)
+
+    setTimeout(() => {
+      if (scrollIndicator) {
+        scrollIndicator.style.opacity = '1'
+        scrollIndicator.style.transform = 'translateY(0)'
+      }
+    }, 1500)
+  }, 1200) // Start hero animations after navigation is mostly complete
+}
+
+onMounted(() => {
+  simulateLoading()
+})
 </script>
 
 <style>
@@ -75,6 +223,24 @@ body {
 
 /* Remove background from main to avoid covering hero video */
 /* Background will be added to individual sections instead */
+
+/* Main content transition */
+.main-content {
+  opacity: 0;
+  animation: fadeInContent 1s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* Global animations */
 @keyframes gradient-move {

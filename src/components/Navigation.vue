@@ -46,50 +46,8 @@ const updateActiveSection = () => {
 }
 
 onMounted(() => {
-  // Add entrance animations
-  const animateNavigation = () => {
-    const logo = document.querySelector('.animate-logo') as HTMLElement
-    const navigation = document.querySelector('.navigation') as HTMLElement
-    const navLinks = document.querySelector('.animate-nav-links') as HTMLElement
-    const navItems = document.querySelectorAll('.animate-nav-item') as NodeListOf<HTMLElement>
-
-    if (logo) {
-      logo.style.opacity = '1'
-      logo.style.transform = 'translateY(0)'
-    }
-
-    // First animate the glassmorphism container
-    if (navigation) {
-      setTimeout(() => {
-        navigation.style.transform = 'translateX(-50%) scaleX(1)'
-        navigation.style.background = 'rgba(4, 8, 9, 0.26)'
-        navigation.style.backdropFilter = 'blur(30px)'
-        navigation.style.border = '1px solid var(--border-primary)'
-
-      }, 300)
-    }
-
-    // Then animate the navigation buttons after container is deployed
-    if (navLinks) {
-      setTimeout(() => {
-        navLinks.style.opacity = '1'
-        navLinks.style.transform = 'translateX(0)'
-      }, 800)
-    }
-
-    // Animate nav items with staggered timing after container and nav links
-    navItems.forEach((item, index) => {
-      setTimeout(() => {
-        if (item) {
-          item.style.opacity = '1'
-          item.style.transform = 'translateX(0)'
-        }
-      }, 1000 + (index * 100))
-    })
-  }
-
-  // Start animations after a brief delay
-  setTimeout(animateNavigation, 100)
+  // Animations are now controlled by App.vue after loading screen completes
+  // This prevents animations from running while content is hidden
 
   window.addEventListener('scroll', updateActiveSection)
   updateActiveSection()

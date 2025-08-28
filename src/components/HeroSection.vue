@@ -50,13 +50,6 @@
           Ver cómo funciona ↓
         </a>
       </div>
-      
-      <!-- Indicador de scroll -->
-      <div class="scroll-indicator-hero animate-scroll-indicator">
-        <div class="scroll-dot"></div>
-        <div class="scroll-dot"></div>
-        <div class="scroll-dot"></div>
-      </div>
     </div>
     <div class="hero-effect-right animate-effect">
       <div id="container">
@@ -81,12 +74,19 @@ const isTransitioning = ref(false)
 const fadeDuration = 5000 // 5 segundos de transición
 const isScrolling = ref(false)
 
+const emit = defineEmits<{
+  'background-ready': []
+}>()
+
 const onVideo1Loaded = () => {
   if (video1Ref.value) {
     video1Ref.value.currentTime = 0
     video1Ref.value.play().catch(() => {
       console.log('Video 1 autoplay prevented')
     })
+    
+    // Emit event when background is ready
+    emit('background-ready')
   }
 }
 
@@ -269,50 +269,8 @@ onMounted(() => {
     }
   }
 
-  // Add entrance animations
-  const animateElements = () => {
-    const title = document.querySelector('.animate-title') as HTMLElement
-    const description = document.querySelector('.animate-description') as HTMLElement
-    const actions = document.querySelector('.animate-actions') as HTMLElement
-    const secondary = document.querySelector('.animate-secondary') as HTMLElement
-    const effect = document.querySelector('.animate-effect') as HTMLElement
-
-    if (title) {
-      title.style.opacity = '1'
-      title.style.transform = 'translateY(0)'
-    }
-
-    setTimeout(() => {
-      if (description) {
-        description.style.opacity = '1'
-        description.style.transform = 'translateY(0)'
-      }
-    }, 300)
-
-    setTimeout(() => {
-      if (actions) {
-        actions.style.opacity = '1'
-        actions.style.transform = 'translateY(0)'
-      }
-    }, 600)
-
-    setTimeout(() => {
-      if (secondary) {
-        secondary.style.opacity = '1'
-        secondary.style.transform = 'translateY(0)'
-      }
-    }, 900)
-
-    setTimeout(() => {
-      if (effect) {
-        effect.style.opacity = '1'
-        effect.style.transform = 'translateX(0) scale(1)'
-      }
-    }, 1200)
-  }
-
-  // Start animations after a brief delay
-  setTimeout(animateElements, 200)
+  // Animations are now controlled by App.vue after loading screen completes
+  // This prevents animations from running while content is hidden
 
   // Import the audio effect
   import('@/assets/effects/audio-reactive-water.js').catch(() => {
@@ -408,8 +366,8 @@ onUnmounted(() => {
   max-height: clamp(25px, 4vw, 30px);
   position: relative;
   z-index: 0;
-  padding-right: clamp(15vw,20vw,25vw);
-  margin-left: -10vw;
+  padding-right: clamp(15vw,20vw,30vw);
+  margin-left: -30vw;
 }
 
 /* Entrance animations */
@@ -443,52 +401,7 @@ onUnmounted(() => {
   transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.animate-scroll-indicator {
-  opacity: 0;
-  transform: translateY(15px);
-  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
 
-/* Indicador de scroll */
-.scroll-indicator-hero {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  z-index: 10;
-}
-
-.scroll-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--brand-cyan);
-  border-radius: 50%;
-  opacity: 0.6;
-  animation: scroll-pulse 2s infinite;
-}
-
-.scroll-dot:nth-child(2) {
-  animation-delay: 0.3s;
-}
-
-.scroll-dot:nth-child(3) {
-  animation-delay: 0.6s;
-}
-
-@keyframes scroll-pulse {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-}
 
 #container {
   width: 100%;
@@ -516,26 +429,45 @@ onUnmounted(() => {
   border: none;
   cursor: pointer;
   position: absolute;
-  top: 50%;
-  right: 5%;
+  top: clamp(25%, 30%, 35%);
+  right: clamp(10%, 15%, 20%);
   transform: translateY(-50%);
   z-index: 150;
   width: auto;
   height: auto;
-  padding: 4px 8px;
+  padding: clamp(4px, 0.5vw, 8px) clamp(6px, 1vw, 12px);
   transition: all 0.3s ease;
   color: var(--text-primary);
-  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  font-size: clamp(0.8rem, 1.5vw, 1.1rem);
   font-family: 'Inter', monospace;
   font-weight: 400;
   white-space: nowrap;
-  letter-spacing: 0.5px;
+  letter-spacing: clamp(0.3px, 0.5px, 0.7px);
   text-align: center;
   line-height: 1;
+  animation: buttonEntrance 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.8) translateX(20px);
 }
 
 .effect-button:hover {
   opacity: 0.8;
+  transform: translateY(-50%) scale(1.05);
+}
+
+@keyframes buttonEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.8) translateX(20px);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(-50%) scale(1.1) translateX(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1) translateX(0);
+  }
 }
 
 /* Removed glow animation for cleaner look */
