@@ -436,7 +436,7 @@ const initAudioAnalysis = () => {
 // Update audio analysis
 const updateAudioAnalysis = () => {
   if (analyser && dataArray && isPlaying.value) {
-    analyser.getByteFrequencyData(dataArray)
+    analyser.getByteFrequencyData(dataArray as Uint8Array<ArrayBuffer>)
     
     const bassEnd = Math.floor(dataArray.length * 0.1)
     const midEnd = Math.floor(dataArray.length * 0.5)
