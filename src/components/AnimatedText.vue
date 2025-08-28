@@ -7,14 +7,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted } from 'vue'
 
 interface Props {
   text: string
   className?: string
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 
 const containerRef = ref<HTMLElement>()
 

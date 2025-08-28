@@ -177,9 +177,7 @@ const onVideo2Ended = () => {
   }
 }
 
-const scrollToProjects = () => {
-  document.querySelector('#proyectos')?.scrollIntoView({ behavior: 'smooth' })
-}
+
 
 const scrollToContact = () => {
   const contactSection = document.querySelector('#contacto')

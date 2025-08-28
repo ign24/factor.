@@ -10,7 +10,7 @@
       
       <div class="solutions-grid" :class="{ 'animate-in': isVisible }">
         <!-- Integra IA en tus productos -->
-        <div class="solution-card" ref="card1" @mousemove="e => handleTilt(e, card1)" @mouseleave="resetTilt" tabindex="0" :style="{ animationDelay: '0.1s' }">
+        <div class="solution-card" ref="card1" @mousemove="handleTilt" @mouseleave="resetTilt" tabindex="0" :style="{ animationDelay: '0.1s' }">
           <div class="card-content">
             <div class="card-icon">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +28,7 @@
         </div>
         
         <!-- Aplica IA a tus operaciones -->
-        <div class="solution-card" ref="card2" @mousemove="e => handleTilt(e, card2)" @mouseleave="resetTilt" tabindex="0" :style="{ animationDelay: '0.2s' }">
+        <div class="solution-card" ref="card2" @mousemove="handleTilt" @mouseleave="resetTilt" tabindex="0" :style="{ animationDelay: '0.2s' }">
           <div class="card-content">
             <div class="card-icon">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +44,7 @@
         </div>
         
         <!-- Eleva tus operaciones de IA -->
-        <div class="solution-card" ref="card3" @mousemove="e => handleTilt(e, card3)" @mouseleave="resetTilt" tabindex="0" :style="{ animationDelay: '0.3s' }">
+        <div class="solution-card" ref="card3" @mousemove="handleTilt" @mouseleave="resetTilt" tabindex="0" :style="{ animationDelay: '0.3s' }">
           <div class="card-content">
             <div class="card-icon">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +61,7 @@
         </div>
         
         <!-- Mejora tu equipo con nuestros expertos -->
-        <div class="solution-card" ref="card4" @mousemove="e => handleTilt(e, card4)" @mouseleave="resetTilt" tabindex="0" :style="{ animationDelay: '0.4s' }">
+        <div class="solution-card" ref="card4" @mousemove="handleTilt" @mouseleave="resetTilt" tabindex="0" :style="{ animationDelay: '0.4s' }">
           <div class="card-content">
             <div class="card-icon">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,7 +100,7 @@ const card2 = ref<HTMLElement>()
 const card3 = ref<HTMLElement>()
 const card4 = ref<HTMLElement>()
 
-const handleTilt = (event: MouseEvent, cardRef: any) => {
+const handleTilt = (event: MouseEvent) => {
   const target = event.currentTarget as HTMLElement
   const rect = target.getBoundingClientRect()
   const x = event.clientX - rect.left

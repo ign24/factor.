@@ -127,24 +127,6 @@ const handleSubmit = async () => {
 }
 
 // Icon Components
-const EmailIcon = {
-  template: `
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  `
-}
-
-const LinkedinIcon = {
-  template: `
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M16 8A6 6 0 0 1 22 14V21H18V14A2 2 0 0 0 16 12A2 2 0 0 0 14 14V21H10V9H14V11A6 6 0 0 1 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2"/>
-      <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2"/>
-    </svg>
-  `
-}
 
 const CalendarIcon = {
   template: `

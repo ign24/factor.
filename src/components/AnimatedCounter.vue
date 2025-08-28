@@ -55,7 +55,7 @@ const parseValue = (value: string | number) => {
 const animateCounter = async () => {
   if (isAnimating.value) return
   
-  const { number, suffix, prefix } = parseValue(props.value)
+  const { number, suffix } = parseValue(props.value)
   isAnimating.value = true
   
   // Wait for delay
