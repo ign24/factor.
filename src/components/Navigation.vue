@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
     <div class="logo-container animate-logo">
-      <img src="/factor.png" alt="Factor logo" style="height:100px; width:auto; display:block;" />
+      <img src="/factor.webp" alt="Factor logo" style="height:100px; width:auto; display:block;" />
     </div>
     
     <nav class="navigation">

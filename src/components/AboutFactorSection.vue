@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="about-visual">
-          <img src="/src/assets/image/conocenos.png" alt="Conócenos">
+          <img src="/src/assets/image/conocenos.webp" alt="Conócenos">
         </div>
       </div>
     </div>

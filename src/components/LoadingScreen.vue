@@ -4,7 +4,7 @@
     <div class="loading-content">
       <!-- Logo de Factor -->
       <div class="factor-logo">
-        <img src="/factor.png" alt="Factor" />
+        <img src="/factor.webp" alt="Factor" />
       </div>
       
       <div class="loading-text">
@@ -75,9 +75,9 @@ const words = [
 
 const currentWordIndex = ref(0)
 const currentWord = ref(words[0])
-let wordInterval: number | null = null
-let progressInterval: number | null = null
-let loadingTimer: number | null = null
+let wordInterval: ReturnType<typeof setInterval> | null = null
+let progressInterval: ReturnType<typeof setInterval> | null = null
+let loadingTimer: ReturnType<typeof setTimeout> | null = null
 
 // Círculo de progreso
 const radius = 52

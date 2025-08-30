@@ -46,12 +46,12 @@
 </template>
 
 <script setup lang="ts">
-import cubo from '@/assets/image/llms.png'
-import flower from '@/assets/image/vision.png'
-import prisma from '@/assets/image/analysis.png'
-import rings from '@/assets/image/mlops.png'
-import sphere from '@/assets/image/paraboloide.png'
-import torus from '@/assets/image/toroide.png'
+import cubo from '@/assets/image/llms.webp'
+import flower from '@/assets/image/vision.webp'
+import prisma from '@/assets/image/analysis.webp'
+import rings from '@/assets/image/mlops.webp'
+import sphere from '@/assets/image/paraboloide.webp'
+import torus from '@/assets/image/toroide.webp'
 
 const expertiseItems = [
   {

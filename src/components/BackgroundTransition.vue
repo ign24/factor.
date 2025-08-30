@@ -13,7 +13,7 @@
       playsinline
       preload="auto"
     >
-      <source src="/src/assets/image/fondo.mp4" type="video/mp4">
+      <source src="/src/assets/image/fondo.webm" type="video/webm">
     </video>
     
     <!-- Capa de gradiente que se desvanece -->
@@ -59,7 +59,7 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/src/assets/image/fondo.png');
+  background-image: url('/src/assets/image/fondo.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

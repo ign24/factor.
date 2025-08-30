@@ -200,7 +200,7 @@ body {
   min-height: 100vh;
   position: relative;
   z-index: 1;
-  background: url('./assets/image/fondo.png') no-repeat center center;
+  background: url('./assets/image/fondo.webp') no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
 }

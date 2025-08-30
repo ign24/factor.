@@ -13,7 +13,7 @@
       @timeupdate="onVideo1TimeUpdate"
       @ended="onVideo1Ended"
     >
-      <source src="/src/assets/image/fondo.mp4" type="video/mp4">
+      <source src="/src/assets/image/fondo.webm" type="video/mp4">
     </video>
     
     <!-- Second video for seamless transition -->
@@ -28,7 +28,7 @@
       @timeupdate="onVideo2TimeUpdate"
       @ended="onVideo2Ended"
     >
-      <source src="/src/assets/image/fondo.mp4" type="video/mp4">
+      <source src="/src/assets/image/fondo.webm" type="video/mp4">
     </video>
     
     <div class="hero-content-left">

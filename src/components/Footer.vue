@@ -4,7 +4,7 @@
       <div class="footer-content">
         <div class="footer-brand">
           <div class="logo">
-            <img src="/factor.png" alt="Factor" class="brand-logo" />
+            <img src="/factor.webp" alt="Factor" class="brand-logo" />
           </div>
           <p class="footer-description">
             Soluciones de IA reales para productos escalables. Entregamos MVPs listos para producción con mínima complejidad operativa.
