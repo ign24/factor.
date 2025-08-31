@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - Factor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success { background: #2d5a2d; }
+        .error { background: #5a2d2d; }
+        .info { background: #2d4a5a; }
+        #console-output {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 10px;
+            margin: 20px 0;
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Factor - Diagnóstico de Producción</h1>
+    
+    <div id="basic-check" class="status info">
+        ✅ Página de diagnóstico cargada correctamente
+    </div>
+    
+    <div id="js-check" class="status">
+        <script>
+            document.getElementById('js-check').innerHTML = '✅ JavaScript funcionando';
+            document.getElementById('js-check').className = 'status success';
+        </script>
+        <noscript>❌ JavaScript no está funcionando</noscript>
+    </div>
+    
+    <div id="files-check" class="status info">
+        🔍 Verificando archivos estáticos...
+    </div>
+    
+    <div id="console-output">
+        <strong>Console Output:</strong><br>
+        <div id="console-log"></div>
+    </div>
+    
+    <script>
+        // Capturar errores de console
+        const consoleLog = document.getElementById('console-log');
+        const originalConsole = {
+            log: console.log,
+            error: console.error,
+            warn: console.warn
+        };
+        
+        function addToLog(type, message) {
+            const timestamp = new Date().toLocaleTimeString();
+            consoleLog.innerHTML += `<div>[${timestamp}] ${type}: ${message}</div>`;
+            consoleLog.scrollTop = consoleLog.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            addToLog('LOG', args.join(' '));
+            originalConsole.log.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            addToLog('ERROR', args.join(' '));
+            originalConsole.error.apply(console, args);
+        };
+        
+        console.warn = function(...args) {
+            addToLog('WARN', args.join(' '));
+            originalConsole.warn.apply(console, args);
+        };
+        
+        // Verificar archivos críticos
+        async function checkFiles() {
+            const files = [
+                '/factor.webp',
+                '/circulo.webp',
+                '/assets/index-P7IKwoUQ.js',
+                '/assets/index-6q43IzDC.css'
+            ];
+            
+            const results = await Promise.allSettled(
+                files.map(file => fetch(file).then(r => ({ file, ok: r.ok, status: r.status })))
+            );
+            
+            let allGood = true;
+            results.forEach((result, i) => {
+                if (result.status === 'fulfilled') {
+                    const { file, ok, status } = result.value;
+                    if (ok) {
+                        console.log(`✅ ${file} - OK (${status})`);
+                    } else {
+                        console.error(`❌ ${file} - FAILED (${status})`);
+                        allGood = false;
+                    }
+                } else {
+                    console.error(`❌ ${files[i]} - NETWORK ERROR`);
+                    allGood = false;
+                }
+            });
+            
+            const filesCheck = document.getElementById('files-check');
+            if (allGood) {
+                filesCheck.innerHTML = '✅ Todos los archivos estáticos disponibles';
+                filesCheck.className = 'status success';
+            } else {
+                filesCheck.innerHTML = '❌ Algunos archivos estáticos fallan';
+                filesCheck.className = 'status error';
+            }
+        }
+        
+        // Verificar funcionalidad de Vue/Vite
+        console.log('🔍 Iniciando diagnósticos...');
+        console.log('📍 URL actual:', window.location.href);
+        console.log('🌐 User Agent:', navigator.userAgent);
+        
+        // Verificar archivos
+        checkFiles();
+        
+        // Test básico de fetch a la app principal
+        fetch('/')
+            .then(response => {
+                console.log(`📄 Página principal: ${response.ok ? 'OK' : 'FAILED'} (${response.status})`);
+            })
+            .catch(error => {
+                console.error('📄 Error al cargar página principal:', error);
+            });
+        
+        // Manejo de errores globales
+        window.addEventListener('error', (event) => {
+            console.error('💥 Error JavaScript:', event.error?.message || event.message);
+        });
+        
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('💥 Promise rechazada:', event.reason);
+        });
+        
+        console.log('✅ Diagnóstico completado');
+    </script>
+    
+    <div style="margin-top: 30px;">
+        <h3>🔗 Enlaces de Prueba</h3>
+        <ul>
+            <li><a href="/" style="color: #4a9eff;">← Volver a la aplicación principal</a></li>
+            <li><a href="/factor.webp" style="color: #4a9eff;">Verificar logo Factor</a></li>
+            <li><a href="/circulo.webp" style="color: #4a9eff;">Verificar icono</a></li>
+        </ul>
+    </div>
+</body>
+</html>
