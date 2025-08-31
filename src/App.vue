@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted } from 'vue'
 import Navigation from './components/Navigation.vue'
 import HeroSection from './components/HeroSection.vue'
 import TrustedExpertsSection from './components/TrustedExpertsSection.vue'
@@ -92,9 +92,6 @@ const onLoadingComplete = () => {
     }
   }, 1500) // Wait a bit longer to ensure all content is loaded
 }
-
-// Fallback timer to show content if loading takes too long
-let fallbackTimer: ReturnType<typeof setTimeout> | null = null
 
 // Function to trigger entrance animations
 const triggerEntranceAnimations = () => {
@@ -191,31 +188,11 @@ const triggerEntranceAnimations = () => {
 onMounted(() => {
   simulateLoading()
   
-  // Fallback timer - show content after 15 seconds regardless
-  fallbackTimer = setTimeout(() => {
-    if (isLoading.value) {
-      console.warn('Loading screen taking too long, showing content')
-      onLoadingComplete()
-    }
-  }, 15000)
-  
   // Ensure page always starts at hero section on initial load
   if (window.location.hash !== '#hero') {
     // Update the URL immediately to show #hero
     window.location.hash = '#hero'
   }
-})
-
-// Clean up timers on unmount
-const cleanup = () => {
-  if (fallbackTimer) {
-    clearTimeout(fallbackTimer)
-    fallbackTimer = null
-  }
-}
-
-onBeforeUnmount(() => {
-  cleanup()
 })
 </script>
 

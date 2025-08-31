@@ -359,9 +359,9 @@ onUnmounted(() => {
   max-height: clamp(25px, 4vw, 30px);
   position: relative;
   z-index: 0;
-  padding-right: clamp(15vw,28vw,30vw);
-  margin-bottom: clamp(5vw,15vw,20vw);
-  margin-top: clamp(10vw,15vw,15vw);
+  padding-right: clamp(15vw,20vw,30vw);
+  margin-bottom: clamp(5vw,30vw,20vw);
+  margin-top: clamp(10vw,10vw,20vw);
 }
 
 /* Entrance animations */
