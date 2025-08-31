@@ -77,6 +77,20 @@ const onLoadingComplete = () => {
   setTimeout(() => {
     triggerEntranceAnimations()
   }, 1300) // Wait for main-content animation (1s) + delay (0.3s) + extra buffer
+  
+  // Ensure page starts at hero section
+  setTimeout(() => {
+    // Check if we're not already at the hero section
+    if (window.location.hash !== '#hero') {
+      // Update the URL to include #hero
+      window.location.hash = '#hero'
+      // Scroll to hero section smoothly
+      const heroSection = document.querySelector('#hero')
+      if (heroSection) {
+        heroSection.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }, 1500) // Wait a bit longer to ensure all content is loaded
 }
 
 // Function to trigger entrance animations
@@ -173,6 +187,12 @@ const triggerEntranceAnimations = () => {
 
 onMounted(() => {
   simulateLoading()
+  
+  // Ensure page always starts at hero section on initial load
+  if (window.location.hash !== '#hero') {
+    // Update the URL immediately to show #hero
+    window.location.hash = '#hero'
+  }
 })
 </script>
 
@@ -234,11 +254,9 @@ body {
 @keyframes fadeInContent {
   from {
     opacity: 0;
-    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 

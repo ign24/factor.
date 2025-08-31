@@ -12,6 +12,16 @@
   --brand-cyan: rgb(49, 204, 240);
   --brand-green: rgb(0, 255, 191);
   
+  /* Professional Cyan & Silver-Blue Palette */
+  --cyan-primary: #00d4ff;
+  --cyan-secondary: #31ccf0;
+  --cyan-tertiary: #66e6ff;
+  --silver-blue: #8b9dc3;
+  --silver-light: #b8c5d1;
+  --silver-dark: #6b7a8f;
+  --platinum: #e5e7eb;
+  --steel-blue: #4682b4;
+  
   /* Color Variations */
   --brand-purple-light: #4a4fc7;
   --brand-purple-dark: #2a2f8a;
@@ -86,6 +96,13 @@
   --gradient-primary: linear-gradient(135deg, var(--brand-purple) 0%, var(--brand-cyan) 50%, var(--brand-green) 100%);
   --gradient-secondary: linear-gradient(90deg, var(--brand-cyan) 0%, var(--brand-purple) 50%, var(--brand-green) 100%);
   --gradient-accent: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-purple) 50%, var(--brand-cyan) 100%);
+  
+  /* Professional Cyan & Silver-Blue Gradients */
+  --gradient-cyan-silver: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 15%, #8a8a8a 30%, #c0c0c0 45%, #ffffff 60%, #e8e8e8 75%, #b8b8b8 90%, #2a2a2a 100%);
+  --gradient-silver-cyan: linear-gradient(90deg, var(--silver-light) 0%, var(--cyan-secondary) 50%, var(--steel-blue) 100%);
+  --gradient-cyan-radial: radial-gradient(circle, var(--cyan-primary) 0%, var(--silver-blue) 70%, transparent 100%);
+  --gradient-geometric: linear-gradient(45deg, var(--cyan-primary) 0%, var(--silver-blue) 25%, var(--cyan-tertiary) 50%, var(--silver-dark) 75%, var(--platinum) 100%);
+  --gradient-subtle-cyan: linear-gradient(180deg, rgba(0, 212, 255, 0.1) 0%, rgba(139, 157, 195, 0.05) 100%);
   
   /* Interactive States */
   --hover-purple: var(--brand-purple-light);
@@ -257,4 +274,191 @@
     --brand-cyan-80: rgba(49, 204, 240, 0.7);
     --brand-green-80: rgba(0, 255, 191, 0.7);
   }
+}
+
+/* ========================================
+   PROFESSIONAL GEOMETRIC ELEMENTS
+   ======================================== */
+
+/* Geometric Shapes */
+.geometric-accent {
+  position: relative;
+}
+
+.geometric-accent::before {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-cyan-radial);
+  border-radius: 50%;
+  top: -30px;
+  right: -30px;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.geometric-lines {
+  position: relative;
+  overflow: hidden;
+}
+
+.geometric-lines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(45deg, transparent 40%, rgba(0, 212, 255, 0.1) 50%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, rgba(139, 157, 195, 0.05) 50%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.semi-circle-accent {
+  position: relative;
+}
+
+.semi-circle-accent::before {
+  content: '';
+  position: absolute;
+  width: 120px;
+  height: 60px;
+  background: var(--gradient-cyan-silver);
+  border-radius: 120px 120px 0 0;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.2;
+  z-index: -1;
+}
+
+/* Professional Borders */
+.professional-border {
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 12px;
+  position: relative;
+}
+
+.professional-border::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: var(--gradient-cyan-silver);
+  border-radius: 12px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.professional-border:hover::before {
+  opacity: 0.1;
+}
+
+/* Subtle Gradient Backgrounds */
+.section-bg-professional {
+  background: var(--gradient-subtle-cyan);
+  position: relative;
+}
+
+.section-bg-professional::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(139, 157, 195, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Geometric Dividers */
+.geometric-divider {
+  position: relative;
+  height: 2px;
+  background: var(--gradient-cyan-silver);
+  margin: 2rem 0;
+  border-radius: 1px;
+}
+
+.geometric-divider::before,
+.geometric-divider::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--cyan-primary);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.geometric-divider::before {
+  left: -4px;
+}
+
+.geometric-divider::after {
+  right: -4px;
+}
+
+/* Professional Card Enhancements */
+.professional-card {
+  background: rgba(4, 8, 9, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.professional-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-cyan-silver);
+  opacity: 0.3;
+}
+
+.professional-card:hover {
+  border-color: rgba(0, 212, 255, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+}
+
+/* Animated Geometric Elements */
+@keyframes geometric-float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+    opacity: 0.3;
+  }
+  50% { 
+    transform: translateY(-10px) rotate(180deg); 
+    opacity: 0.6;
+  }
+}
+
+.floating-geometric {
+  animation: geometric-float 6s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
 } 

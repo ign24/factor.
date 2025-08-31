@@ -216,7 +216,7 @@ defineExpose({
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 1;
   transition: opacity 0.8s ease-out;
 }
 
@@ -234,6 +234,7 @@ defineExpose({
   color: var(--neutral-white);
   max-width: 500px;
   padding: 2rem;
+  z-index: 100;
 }
 
 .factor-logo {
@@ -261,6 +262,7 @@ defineExpose({
   letter-spacing: var(--tracking-wide);
   max-width: 650px;
   margin: 0 auto;
+  z-index: 100;
 }
 
 .static-text {

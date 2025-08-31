@@ -13,7 +13,7 @@
       playsinline
       preload="auto"
     >
-      <source src="/src/assets/image/fondo.webm" type="video/webm">
+      <source src="/src/assets/image/fondo.webp" type="video/webm">
     </video>
     
     <!-- Capa de gradiente que se desvanece -->

@@ -60,16 +60,16 @@ onUnmounted(() => {
 
 <style scoped>
 .header-container {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1001;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: baseline;
   padding: 0 clamp(15px, 2vw, 40px);
-  pointer-events: none;
+  pointer-events:fill;
 }
 
 .logo-container {
@@ -83,15 +83,15 @@ onUnmounted(() => {
   position: absolute;
   left: 50%;
   transform: translateX(-50%) scaleX(0);
-  background: rgba(4, 8, 9, 0);
-  backdrop-filter: blur(0px);
+  background: rgba(4, 8, 9, 0.675);
+  backdrop-filter: blur(30px);
   border: 1px solid transparent;
   border-radius: 50px;
   padding: 0 clamp(20px, 3vw, 30px);
-  box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
   pointer-events: auto;
   transform-origin: left center;
   transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1002;
 }
 
 .nav-container {

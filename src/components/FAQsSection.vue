@@ -169,11 +169,12 @@ onMounted(() => {
 
 .faqs {
   padding: 120px 0;
-  background: linear-gradient(180deg, rgb(4,8,9) 0%, rgb(8,16,18) 100%);
+  background: linear-gradient(135deg, rgb(6,10,12) 0%, rgb(4,8,9) 30%, rgb(8,14,16) 70%, rgb(5,9,11) 100%);
   color: white;
   position: relative;
 }
 
+/* Separador superior plateado elegante */
 .faqs::before {
   content: '';
   position: absolute;
@@ -181,7 +182,36 @@ onMounted(() => {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(51, 157, 191, 0.3) 50%, transparent 100%);
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(170, 170, 170, 0.25) 18%, 
+    rgba(210, 210, 210, 0.55) 38%, 
+    rgba(245, 245, 245, 0.75) 50%, 
+    rgba(210, 210, 210, 0.55) 62%, 
+    rgba(170, 170, 170, 0.25) 82%, 
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* Separador inferior plateado elegante */
+.faqs::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(150, 150, 150, 0.2) 25%, 
+    rgba(180, 180, 180, 0.45) 45%, 
+    rgba(200, 200, 200, 0.65) 50%, 
+    rgba(180, 180, 180, 0.45) 55%, 
+    rgba(150, 150, 150, 0.2) 75%, 
+    transparent 100%
+  );
+  z-index: 2;
 }
 
 .container {

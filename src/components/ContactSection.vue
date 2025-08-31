@@ -206,6 +206,46 @@ onMounted(() => {
   position: relative;
 }
 
+/* Separador superior plateado elegante */
+.contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(180, 180, 180, 0.3) 15%, 
+    rgba(220, 220, 220, 0.6) 35%, 
+    rgba(255, 255, 255, 0.8) 50%, 
+    rgba(220, 220, 220, 0.6) 65%, 
+    rgba(180, 180, 180, 0.3) 85%, 
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* Separador inferior plateado elegante */
+.contact::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(160, 160, 160, 0.2) 20%, 
+    rgba(190, 190, 190, 0.4) 40%, 
+    rgba(210, 210, 210, 0.6) 50%, 
+    rgba(190, 190, 190, 0.4) 60%, 
+    rgba(160, 160, 160, 0.2) 80%, 
+    transparent 100%
+  );
+  z-index: 2;
+}
+
 .contact-content {
   display: grid;
   grid-template-columns: 1fr 1fr;

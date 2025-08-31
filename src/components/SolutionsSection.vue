@@ -158,7 +158,49 @@ onMounted(() => {
 <style scoped>
 .solutions {
   padding: 120px 0;
+  background: linear-gradient(160deg, rgb(3,7,8) 0%, rgb(5,10,12) 40%, rgb(7,13,16) 80%, rgb(4,8,10) 100%);
+  color: white;
   position: relative;
+}
+
+/* Separador superior plateado elegante */
+.solutions::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(165, 165, 165, 0.28) 16%, 
+    rgba(200, 200, 200, 0.58) 36%, 
+    rgba(235, 235, 235, 0.78) 50%, 
+    rgba(200, 200, 200, 0.58) 64%, 
+    rgba(165, 165, 165, 0.28) 84%, 
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* Separador inferior plateado elegante */
+.solutions::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(145, 145, 145, 0.22) 22%, 
+    rgba(175, 175, 175, 0.48) 42%, 
+    rgba(195, 195, 195, 0.68) 50%, 
+    rgba(175, 175, 175, 0.48) 58%, 
+    rgba(145, 145, 145, 0.22) 78%, 
+    transparent 100%
+  );
+  z-index: 2;
 }
 
 /* Entrance animations */

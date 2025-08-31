@@ -1,5 +1,5 @@
 <template>
-  <section :id="sectionId" class="section-padding">
+  <section :id="sectionId" class="section-padding content-section">
     <div class="container">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text-primary">
@@ -76,6 +76,52 @@ defineProps<Props>()
 </script>
 
 <style scoped>
+.content-section {
+  background: linear-gradient(245deg, rgb(3,6,8) 0%, rgb(5,9,12) 25%, rgb(7,12,15) 75%, rgb(4,7,10) 100%);
+  color: white;
+  position: relative;
+}
+
+/* Separador superior plateado elegante */
+.content-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(185, 185, 185, 0.29) 18%, 
+    rgba(215, 215, 215, 0.59) 38%, 
+    rgba(250, 250, 250, 0.79) 50%, 
+    rgba(215, 215, 215, 0.59) 62%, 
+    rgba(185, 185, 185, 0.29) 82%, 
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* Separador inferior plateado elegante */
+.content-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(165, 165, 165, 0.25) 21%, 
+    rgba(195, 195, 195, 0.51) 41%, 
+    rgba(215, 215, 215, 0.71) 50%, 
+    rgba(195, 195, 195, 0.51) 59%, 
+    rgba(165, 165, 165, 0.25) 79%, 
+    transparent 100%
+  );
+  z-index: 2;
+}
+
 .mb-16 {
   margin-bottom: 4rem;
 }

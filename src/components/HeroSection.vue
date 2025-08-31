@@ -13,7 +13,7 @@
       @timeupdate="onVideo1TimeUpdate"
       @ended="onVideo1Ended"
     >
-      <source src="/src/assets/image/fondo.webm" type="video/mp4">
+      <source src="/src/assets/image/fondo.webp" type="video/webm">
     </video>
     
     <!-- Second video for seamless transition -->
@@ -28,10 +28,12 @@
       @timeupdate="onVideo2TimeUpdate"
       @ended="onVideo2Ended"
     >
-      <source src="/src/assets/image/fondo.webm" type="video/mp4">
+      <source src="/src/assets/image/fondo.webp" type="video/webm">
     </video>
     
     <div class="hero-content-left">
+
+      
       <h1 class="animate-title">
         <span class="main-title">IA REAL</span><br />
         <span class="subtitle">diseñada para generar impacto.</span>
@@ -317,7 +319,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 80vh;
   position: relative;
   background: var(--bg-primary);
   overflow: hidden;
@@ -326,26 +328,17 @@ onUnmounted(() => {
 }
 
 .hero-video-background {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   object-position: center;
   z-index: -1;
   transition: opacity 5s ease-in-out;
 }
 
-.video-1 {
-  opacity: 1;
-  z-index: -1;
-}
-
-.video-2 {
-  opacity: 0;
-  z-index: -2;
-}
 
 .hero-content-left {
   flex: 1 1 50%;
@@ -353,21 +346,22 @@ onUnmounted(() => {
   flex-direction: column;
   justify-content: flex-start;
   z-index: 1;
-  padding-left: clamp(5vw, 15vw, 20vw);
-  padding-top: clamp(5vh, 5vh, 20vh);
+  padding-left: clamp(5vw, 20vw, 18vw);
+  padding-top: clamp(0vh, 0vh, 0vh);
 }
 
 .hero-effect-right {
   flex: 1 1 50%;
-  display: flex;
+  display:flex;
   align-items: center;
-  justify-content: center;
+  justify-content:center;
   max-width: clamp(25px, 4vw, 30px);
   max-height: clamp(25px, 4vw, 30px);
   position: relative;
   z-index: 0;
-  padding-right: clamp(15vw,20vw,30vw);
-  margin-left: -30vw;
+  padding-right: clamp(15vw,28vw,30vw);
+  margin-bottom: clamp(5vw,15vw,20vw);
+  margin-top: clamp(10vw,15vw,15vw);
 }
 
 /* Entrance animations */
@@ -440,7 +434,7 @@ onUnmounted(() => {
   color: var(--text-primary);
   font-size: clamp(0.8rem, 1.5vw, 1.1rem);
   font-family: 'Inter', monospace;
-  font-weight: 400;
+  font-weight: 300;
   white-space: nowrap;
   letter-spacing: clamp(0.3px, 0.5px, 0.7px);
   text-align: center;
@@ -475,44 +469,45 @@ onUnmounted(() => {
 /* Removed gradient-move animation for cleaner look */
 
 .main-title {
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 700;
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  font-weight: 900;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 1.1;
-  margin-bottom: 0.4em;
+  line-height: 1.0;
+  margin-bottom: 0.05em;
   font-family: var(--font-primary);
   letter-spacing: -0.02em;
 }
 
 .subtitle {
-  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.7rem);
   font-weight: 400;
   color: var(--brand-cyan);
-  line-height: 1.3;
+  line-height: 1.1;
   font-family: var(--font-primary);
   letter-spacing: 0.01em;
+  margin-bottom: 0.2rem;
 }
 
 .hero-description {
-  font-size: 1rem;
+  font-size: 0.95rem;
   background: linear-gradient(135deg, #ffffff 0%, #cccccc 50%, #999999 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 1.6;
-  margin: 1.2rem 0 1.5rem 0;
-  max-width: 500px;
+  line-height: 1.2;
+  margin: 0.3rem 0 0.8rem 0;
+  max-width: 450px;
   font-family: var(--font-primary);
   font-weight: 400;
 }
 
 .hero-actions {
   display: flex;
-  gap: 0.8rem;
-  margin-bottom: 1.2rem;
+  gap: 0.7rem;
+  margin-bottom: 1.1rem;
 }
 
 .cta-primary {
@@ -522,10 +517,10 @@ onUnmounted(() => {
   border-image: linear-gradient(135deg, var(--brand-purple-80), var(--brand-cyan-80), var(--brand-green-80)) 1;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  padding: 0.8rem 1.5rem;
-  border-radius: 10px;
+  padding: 0.7rem 1.4rem;
+  border-radius: 9px;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(.4,1,.7,1.2);
   font-family: var(--font-primary);
@@ -557,13 +552,13 @@ onUnmounted(() => {
 }
 
 .hero-secondary-cta {
-  margin-top: 0.8rem;
+  margin-top: 0.7rem;
 }
 
 .see-how-link {
   color: var(--brand-cyan);
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-family: var(--font-primary);
   transition: color 0.3s ease;
 }
@@ -579,5 +574,45 @@ onUnmounted(() => {
 canvas {
   z-index: 0;
   pointer-events: none;
+}
+
+/* Professional Silver Gradient Text - Static Elegant Effect */
+.gradient-text-cyan-silver {
+  background: var(--gradient-cyan-silver);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
+
+/* Enhanced CTA Button */
+.cta-primary.professional-border {
+  background: var(--gradient-cyan-silver);
+  border: none;
+  color: var(--neutral-black);
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-primary.professional-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
+}
+
+.cta-primary.professional-border:hover::before {
+  left: 100%;
+}
+
+.cta-primary.professional-border:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
 }
 </style>

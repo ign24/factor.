@@ -100,6 +100,49 @@ const scrollRight = () => {
 <style scoped>
 .section-padding {
   padding: 4rem 0;
+  background: linear-gradient(200deg, rgb(2,5,7) 0%, rgb(4,9,11) 35%, rgb(6,11,14) 65%, rgb(3,7,9) 100%);
+  color: white;
+  position: relative;
+}
+
+/* Separador superior plateado elegante */
+.section-padding::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(175, 175, 175, 0.26) 19%, 
+    rgba(205, 205, 205, 0.56) 39%, 
+    rgba(240, 240, 240, 0.76) 50%, 
+    rgba(205, 205, 205, 0.56) 61%, 
+    rgba(175, 175, 175, 0.26) 81%, 
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+/* Separador inferior plateado elegante */
+.section-padding::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(155, 155, 155, 0.24) 24%, 
+    rgba(185, 185, 185, 0.49) 44%, 
+    rgba(205, 205, 205, 0.69) 50%, 
+    rgba(185, 185, 185, 0.49) 56%, 
+    rgba(155, 155, 155, 0.24) 76%, 
+    transparent 100%
+  );
+  z-index: 2;
 }
 
 .container {
