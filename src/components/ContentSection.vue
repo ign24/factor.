@@ -178,10 +178,6 @@ defineProps<Props>()
   max-width: 56rem;
 }
 
-.max-w-6xl {
-  max-width: 72rem;
-}
-
 .max-w-7xl {
   max-width: 80rem;
 }
@@ -191,46 +187,12 @@ defineProps<Props>()
   padding-right: 1.5rem;
 }
 
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.px-1 {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
-
 .trust-message-container {
   overflow: visible !important;
   word-wrap: normal !important;
   overflow-wrap: normal !important;
   word-break: normal !important;
   hyphens: none !important;
-}
-
-@media (min-width: 768px) {
-  .md\:px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .lg\:px-12 {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
 }
 
 .w-full {

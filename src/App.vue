@@ -1,11 +1,11 @@
 <template>
   <div id="app" style="position:relative; min-height:100vh;">
-    <!-- Loading Screen -->
-    <LoadingScreen 
+    <!-- Skeleton Loading -->
+    <SkeletonLoading 
       v-if="isLoading" 
-      :progress="loadingProgress"
-      @loading-complete="onLoadingComplete"
-      ref="loadingScreenRef"
+      :duration="2000"
+      @skeleton-complete="onSkeletonComplete"
+      ref="skeletonLoadingRef"
     />
     
     <!-- Main Content -->
@@ -38,39 +38,19 @@ import AboutFactorSection from './components/AboutFactorSection.vue'
 import ContactSection from './components/ContactSection.vue'
 import FAQsSection from './components/FAQsSection.vue'
 import Footer from './components/Footer.vue'
-import LoadingScreen from './components/LoadingScreen.vue'
+import SkeletonLoading from './components/SkeletonLoading.vue'
 
 // Loading state
 const isLoading = ref(true)
-const loadingProgress = ref(0)
-const loadingScreenRef = ref<InstanceType<typeof LoadingScreen>>()
-const backgroundReady = ref(false)
-const loadingStartTime = ref(0)
+const skeletonLoadingRef = ref<InstanceType<typeof SkeletonLoading>>()
 
-
-// Simulate loading progress (más lento para sincronizar con la pantalla de carga)
-const simulateLoading = () => {
-  loadingStartTime.value = Date.now()
-  const interval = setInterval(() => {
-    if (loadingProgress.value < 90) {
-      // Progreso más lento para sincronizar con el tiempo total de la pantalla de carga
-      const remaining = 90 - loadingProgress.value
-      const increment = Math.max(0.3, remaining * 0.05) // 5% del remanente
-      loadingProgress.value += increment
-    } else {
-      clearInterval(interval)
-    }
-  }, 200) // Más lento para mayor duración
-}
-
-// Handle background ready event (opcional, para sincronización si es necesario)
+// Handle background ready event
 const onBackgroundReady = () => {
-  backgroundReady.value = true
-  // No forzamos el fade out, dejamos que la pantalla de carga dure su tiempo natural
+  // Background is ready, but we still wait for skeleton loading to complete
 }
 
-// Handle loading complete
-const onLoadingComplete = () => {
+// Handle skeleton loading complete  
+const onSkeletonComplete = () => {
   isLoading.value = false
   
   // Trigger entrance animations after main content fade in completes
@@ -186,8 +166,6 @@ const triggerEntranceAnimations = () => {
 }
 
 onMounted(() => {
-  simulateLoading()
-  
   // Ensure page always starts at hero section on initial load
   if (window.location.hash !== '#hero') {
     // Update the URL immediately to show #hero

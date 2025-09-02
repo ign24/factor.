@@ -263,15 +263,11 @@ onMounted(() => {
   --gradient-angle: 135deg;
 }
 
-
-
 .solution-card:hover {
   border: 1.8px solid transparent;
   border-image: linear-gradient(135deg, #333ead, #31ccf0, #00ffbf) 1;
   transform: translateY(-4px);
 }
-
-
 
 .card-content {
   position: relative;

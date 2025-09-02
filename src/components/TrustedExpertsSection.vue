@@ -1,11 +1,5 @@
 <template>
-  <div class="trusted-experts-wrapper section-bg-professional geometric-lines">
-    <!-- Professional geometric decorations -->
-    <div class="section-geometric-decoration">
-      <div class="floating-circle floating-geometric"></div>
-      <div class="geometric-divider-accent"></div>
-    </div>
-    
+  <div class="trusted-experts-wrapper">
     <ContentSection
       section-id="expertise"
       title="Tus Expertos en IA de Confianza"

@@ -167,10 +167,6 @@ const scrollRight = () => {
   margin-bottom: 0.75rem;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
 .mt-16 {
   margin-top: 4rem;
 }
@@ -195,16 +191,8 @@ const scrollRight = () => {
   font-size: 1.25rem;
 }
 
-.text-lg {
-  font-size: 1.125rem;
-}
-
 .font-bold {
   font-weight: 700;
-}
-
-.font-semibold {
-  font-weight: 600;
 }
 
 .leading-relaxed {
@@ -220,44 +208,8 @@ const scrollRight = () => {
   margin-right: auto;
 }
 
-.grid {
-  display: grid;
-}
-
-.grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-.gap-8 {
-  gap: 2rem;
-}
-
-.w-16 {
-  width: 4rem;
-}
-
-.h-16 {
-  height: 4rem;
-}
-
-.w-12 {
-  width: 3rem;
-}
-
-.h-12 {
-  height: 3rem;
-}
-
-.text-lg {
-  font-size: 1.125rem;
-}
-
 .text-sm {
   font-size: 0.875rem;
-}
-
-.text-white {
-  color: white;
 }
 
 /* Cards Container Styles */
@@ -296,10 +248,6 @@ const scrollRight = () => {
 
 .scroll-arrow {
   animation: slide-right 1.5s ease-in-out infinite;
-}
-
-.scroll-text {
-  white-space: nowrap;
 }
 
 @keyframes pulse {
@@ -440,18 +388,8 @@ const scrollRight = () => {
 
 /* Responsive Design */
 @media (min-width: 768px) {
-  .md\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  
   .md\:text-5xl {
     font-size: 3rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .lg\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

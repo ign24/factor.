@@ -434,13 +434,9 @@ onMounted(() => {
   position: relative;
 }
 
-/* El select mantiene su borde inicial pero las opciones no tienen bordes */
+/* Estilos específicos para el select */
 .form-group select {
   border: 1px solid var(--border-subtle);
-}
-
-/* El select no debe tener transiciones en la flecha */
-.form-group select {
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
@@ -503,9 +499,6 @@ onMounted(() => {
   cursor: pointer;
   background-color: rgb(4,8,9);
   color: white;
-  /* Asegurar que la flecha no tenga animaciones */
-  transition: none;
-  animation: none;
 }
 
 .form-group select option {
@@ -524,12 +517,10 @@ onMounted(() => {
   display: none;
 }
 
-/* Firefox */
 .form-group select {
   -moz-appearance: none;
 }
 
-/* Webkit browsers */
 .form-group select::-webkit-select-placeholder {
   color: var(--text-subtle);
 }
@@ -558,19 +549,6 @@ onMounted(() => {
   background-color: rgba(0, 174, 239, 0.3);
 }
 
-/* Estilos para el dropdown abierto */
-.form-group select:focus {
-  border-color: var(--color-blue);
-  box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.12);
-  background: rgb(4,8,9);
-  outline: none;
-}
-
-.form-group select:hover {
-  border-color: var(--color-blue);
-  background: rgb(4,8,9);
-}
-
 /* Estilos específicos para las opciones del select */
 .form-group select option {
   background-color: rgb(4,8,9) !important;
@@ -580,14 +558,14 @@ onMounted(() => {
 }
 
 .form-group select option:hover,
-.form-group select option:focus {
+.form-group select option:focus,
+.form-group select option:checked {
   background-color: rgba(0, 174, 239, 0.3) !important;
   color: white !important;
 }
 
 .form-group select option:checked {
   background-color: rgba(0, 174, 239, 0.4) !important;
-  color: white !important;
   font-weight: 500;
 }
 

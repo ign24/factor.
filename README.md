@@ -56,19 +56,26 @@ Landing/
 
 ## 🎯 Secciones de la Landing Page
 
-### 1. **Hero Section** (`HeroSection.vue`)
+### 1. **Navigation** (`Navigation.vue`)
+- **Barra de navegación sticky** con backdrop blur
+- **Logo de Factor AI** con animación de entrada
+- **Menú de navegación** con scroll suave entre secciones
+- **Indicador de sección activa** dinámico
+- **Animaciones escalonadas** para elementos del menú
+
+### 2. **Hero Section** (`HeroSection.vue`)
 - **Video de fondo en loop** con transiciones suaves
 - **Título principal**: "IA REAL diseñada para generar impacto"
 - **Descripción**: Soluciones completas con IA integrada
 - **CTA principal**: "Quiero mi solución IA"
 - **Efectos de agua reactivos** al audio de fondo
 
-### 2. **Trusted Experts** (`TrustedExpertsSection.vue`)
+### 3. **Trusted Experts** (`TrustedExpertsSection.vue`)
 - **Sección de confianza** con testimonios y credenciales
 - **Contadores animados** para métricas de la empresa
 - **Efectos visuales** que refuerzan la autoridad
 
-### 3. **AI Expertise** (`AIExpertiseSection.vue`)
+### 4. **AI Expertise** (`AIExpertiseSection.vue`)
 - **6 áreas de expertise** en tecnologías de IA:
   - LLMs y RAG (Recuperación de Información)
   - Visión por computadora
@@ -79,7 +86,7 @@ Landing/
 - **Cards interactivas** con efectos hover y información detallada
 - **Scroll horizontal** para navegación entre expertise
 
-### 4. **Solutions** (`SolutionsSection.vue`)
+### 5. **Solutions** (`SolutionsSection.vue`)
 - **4 soluciones principales**:
   - Integra IA en tus productos
   - Aplica IA a tus operaciones
@@ -88,22 +95,22 @@ Landing/
 - **Cards con efectos 3D** y animaciones de tilt
 - **CTA secundario** para AI Guidance
 
-### 5. **Case Studies** (`CaseStudiesSection.vue`)
+### 6. **Case Studies** (`CaseStudiesSection.vue`)
 - **Casos de estudio** y proyectos exitosos
 - **Métricas y resultados** con contadores animados
 - **Testimonios** de clientes satisfechos
 
-### 6. **About Factor** (`AboutFactorSection.vue`)
+### 7. **About Factor** (`AboutFactorSection.vue`)
 - **Información de la empresa** y su misión
 - **Valores y principios** que guían el trabajo
 - **Historia y trayectoria** en el sector de IA
 
-### 7. **FAQs** (`FAQsSection.vue`)
+### 8. **FAQs** (`FAQsSection.vue`)
 - **Preguntas frecuentes** sobre servicios y soluciones
 - **Acordeón interactivo** para mejor organización
 - **Respuestas detalladas** a dudas comunes
 
-### 8. **Contact** (`ContactSection.vue`)
+### 9. **Contact** (`ContactSection.vue`)
 - **Formulario de contacto** completo con validación
 - **Métodos alternativos** de contacto (Calendly)
 - **Campos del formulario**:
@@ -112,10 +119,55 @@ Landing/
   - Presupuesto estimado
 - **Diseño responsive** y accesible
 
-### 9. **Footer** (`Footer.vue`)
+### 10. **Footer** (`Footer.vue`)
 - **Enlaces importantes** y navegación secundaria
 - **Información legal** y de contacto
 - **Redes sociales** y enlaces externos
+
+## 🔧 Componentes Auxiliares
+
+### **AnimatedCounter** (`AnimatedCounter.vue`)
+- **Contador animado** con easing suave
+- **Soporte para múltiples formatos**: números, porcentajes, multiplicadores (+, x, %)
+- **Animación por intersección** (se activa al aparecer en pantalla)
+- **Duración y delay configurables**
+- **Usado en**: métricas de empresa, estadísticas de casos de estudio
+
+### **AnimatedText** (`AnimatedText.vue`)
+- **Animaciones de texto** con efectos de aparición
+- **Typing effect** y transiciones suaves
+- **Usado en**: títulos principales y elementos destacados
+
+### **AudioReactiveWaterEffect** (`AudioReactiveWaterEffect.vue`)
+- **Efecto de agua 3D** reactivo al audio usando Three.js
+- **Análisis de frecuencia** en tiempo real con Web Audio API
+- **Shaders personalizados** para efectos realistas
+- **Optimización automática** para dispositivos móviles
+- **Controles de reproducción** integrados
+
+### **BackgroundTransition** (`BackgroundTransition.vue`)
+- **Transición de fondo** entre secciones
+- **Video de fondo opcional** para desktop
+- **Gradientes suaves** para transiciones visuales
+- **Elementos decorativos** (líneas y puntos animados)
+- **Responsive design** adaptado a móviles
+
+### **ContentSection** (`ContentSection.vue`)
+- **Contenedor base** para secciones de contenido
+- **Layout flexible** y reutilizable
+- **Espaciado consistente** entre secciones
+
+### **OptimizedImage** (`OptimizedImage.vue`)
+- **Carga optimizada** de imágenes con lazy loading
+- **Placeholder mientras carga** con skeleton loading
+- **Soporte para múltiples formatos** y resoluciones
+- **Fallback automático** en caso de error
+
+### **SkeletonLoading** (`SkeletonLoading.vue`)
+- **Loading placeholders** animados
+- **Múltiples variantes**: texto, imagen, card
+- **Animación de shimmer** suave
+- **Mejora la UX** durante cargas
 
 ## 🎨 Sistema de Diseño
 
@@ -324,6 +376,14 @@ Este proyecto está bajo la licencia [MIT](LICENSE) - ver el archivo de licencia
 - **Website**: [https://factor.ai]
 - **LinkedIn**: [Factor AI]
 - **Calendly**: [https://calendly.com/factor-ai]
+
+## 📋 Historial de Cambios Recientes
+
+### Diciembre 2024
+- ✅ **Eliminado LoadingScreen.vue**: Se removió el componente de pantalla de carga para optimizar la experiencia
+- ✅ **Optimizado SkeletonLoading.vue**: Mejorado para reemplazar funcionalidad de loading screen
+- ✅ **Actualizado OptimizedImage.vue**: Mejoras en lazy loading y fallbacks
+- ✅ **Documentación actualizada**: README.md sincronizado con estructura actual del proyecto
 
 ---
 

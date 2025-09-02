@@ -39,8 +39,6 @@ onMounted(() => {
 .animated-text-container {
   perspective: 1000px;
   width: 100%;
-  max-width: 100%;
-  overflow: visible;
 }
 
 .animated-text {
@@ -49,15 +47,7 @@ onMounted(() => {
   color: #e5e7eb;
   font-weight: 500;
   margin: 0;
-  white-space: normal;
-  max-width: 100%;
-  word-wrap: normal;
-  overflow-wrap: normal;
-  hyphens: none;
-  word-break: normal;
   text-align: justify;
-  text-overflow: clip;
-  overflow: visible;
   display: block;
 }
 
@@ -78,8 +68,6 @@ onMounted(() => {
     font-size: 1.1rem;
     line-height: 1.6;
     padding: 0 1rem;
-    word-wrap: normal;
-    overflow-wrap: normal;
   }
 }
 </style>

@@ -92,21 +92,10 @@ onMounted(() => {
   transform: translateY(0);
 }
 
-.section-title {
-  transition-delay: 0.1s;
-}
-
-.manifesto {
-  transition-delay: 0.2s;
-}
-
-.about-stats {
-  transition-delay: 0.3s;
-}
-
-.about-visual {
-  transition-delay: 0.4s;
-}
+.section-title { transition-delay: 0.1s; }
+.manifesto { transition-delay: 0.2s; }
+.about-stats { transition-delay: 0.3s; }
+.about-visual { transition-delay: 0.4s; }
 
 .stat {
   opacity: 0;
@@ -241,7 +230,5 @@ onMounted(() => {
   .stat-label {
     font-size: 0.8rem;
   }
-  
-
 }
 </style> 

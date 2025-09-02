@@ -1,5 +1,5 @@
 <template>
-  <div class="skeleton-container" v-if="!isLoaded">
+  <div class="skeleton-container" :class="{ 'fade-out': isLoaded }" v-show="!isCompleted">
     <!-- Header skeleton -->
     <div class="skeleton-header">
       <div class="skeleton-logo"></div>
@@ -40,10 +40,7 @@
         </div>
       </div>
       
-      <!-- Efecto derecho -->
-      <div class="skeleton-effect-right">
-        <div class="play-button"></div>
-      </div>
+
     </div>
 
     <!-- Botón flotante de llamada -->
@@ -71,11 +68,21 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const isLoaded = ref(false)
+const isCompleted = ref(false)
+
+const emit = defineEmits<{
+  'skeleton-complete': []
+}>()
 
 onMounted(() => {
   // Mostrar skeleton por un tiempo mínimo para evitar parpadeo
   setTimeout(() => {
     isLoaded.value = true
+    // Esperar que termine la animación de fade out antes de emitir el evento
+    setTimeout(() => {
+      isCompleted.value = true
+      emit('skeleton-complete')
+    }, 500) // Tiempo de la animación fade-out
   }, props.duration)
 })
 
@@ -93,9 +100,9 @@ defineExpose({
   height: 100vh;
   background: linear-gradient(135deg, var(--neutral-black) 0%, var(--neutral-black) 25%, var(--brand-purple-10) 50%, var(--brand-cyan-10) 75%, var(--neutral-black) 100%);
   z-index: 9999;
-  animation: fadeOut 0.5s ease-out forwards;
-  animation-delay: 1s;
   font-family: var(--font-primary);
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
 }
 
 .skeleton-container.fade-out {
@@ -110,7 +117,7 @@ defineExpose({
   left: 0;
   right: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content:space-evenly;
   align-items: center;
   padding: 2rem clamp(5vw, 10vw, 15vw);
   z-index: 10;

@@ -244,13 +244,8 @@ onMounted(() => {
   transform: translateY(0);
 }
 
-.section-header {
-  transition-delay: 0.1s;
-}
-
-.cases-grid {
-  transition-delay: 0.2s;
-}
+.section-header { transition-delay: 0.1s; }
+.cases-grid { transition-delay: 0.2s; }
 
 .case-study {
   opacity: 0;
@@ -451,7 +446,6 @@ onMounted(() => {
 @media (min-width: 769px) and (max-width: 1200px) {
   .cases-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
   }
 }
 </style> 

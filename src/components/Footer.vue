@@ -413,5 +413,5 @@ const TwitterIcon = {
     left: 50%;
     transform: translateX(-50%);
   }
- }
+}
 </style>

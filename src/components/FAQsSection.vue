@@ -130,31 +130,20 @@ onMounted(() => {
 <style scoped>
 /* Entrance animations */
 .section-header,
-.faqs-container,
-.faq-cta {
+.faqs-container {
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .section-header.animate-in,
-.faqs-container.animate-in,
-.faq-cta.animate-in {
+.faqs-container.animate-in {
   opacity: 1;
   transform: translateY(0);
 }
 
-.section-header {
-  transition-delay: 0.1s;
-}
-
-.faqs-container {
-  transition-delay: 0.2s;
-}
-
-.faq-cta {
-  transition-delay: 0.3s;
-}
+.section-header { transition-delay: 0.1s; }
+.faqs-container { transition-delay: 0.2s; }
 
 .faq-item {
   opacity: 0;
@@ -223,31 +212,6 @@ onMounted(() => {
 .section-header {
   text-align: center;
   margin-bottom: 80px;
-}
-
-.brand-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, rgba(51, 157, 191, 0.1) 0%, rgba(15, 88, 107, 0.1) 100%);
-  border: 1px solid rgba(51, 157, 191, 0.2);
-  border-radius: 50px;
-  padding: 8px 16px;
-  margin-bottom: 24px;
-  backdrop-filter: blur(10px);
-}
-
-.brand-icon {
-  font-size: 16px;
-  color: #33c9bf;
-}
-
-.brand-text {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: #33c9bf;
-  letter-spacing: 0.5px;
 }
 
 .section-title {
@@ -379,54 +343,6 @@ onMounted(() => {
   letter-spacing: 0.5px;
 }
 
-.faq-cta {
-  text-align: center;
-  padding: 40px;
-  background: linear-gradient(135deg, rgba(51, 157, 191, 0.05) 0%, rgba(15, 88, 107, 0.05) 100%);
-  border: 1px solid rgba(51, 157, 191, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-}
-
-.cta-text {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: white;
-  margin-bottom: 24px;
-}
-
-.cta-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: linear-gradient(135deg, #33c9bf 0%, #0f586b 100%);
-  border: none;
-  border-radius: 50px;
-  padding: 16px 32px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(51, 201, 191, 0.3);
-}
-
-.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(51, 201, 191, 0.4);
-  background: linear-gradient(135deg, #3dd8ce 0%, #117a8f 100%);
-}
-
-.cta-button svg {
-  transition: transform 0.3s ease;
-}
-
-.cta-button:hover svg {
-  transform: translateX(4px);
-}
-
 @media (max-width: 768px) {
   .faqs {
     padding: 80px 0;
@@ -451,15 +367,6 @@ onMounted(() => {
   
   .faq-meta {
     padding: 0 24px 20px 24px;
-  }
-  
-  .faq-cta {
-    padding: 32px 24px;
-  }
-  
-  .cta-button {
-    padding: 14px 28px;
-    font-size: 0.95rem;
   }
 }
 
