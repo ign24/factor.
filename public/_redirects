@@ -1,0 +1,10 @@
+# Redirecciones para el dominio personalizado
+# Redirigir www a la versión sin www
+https://www.factor.com.ar/* https://factor.com.ar/:splat 301!
+
+# Redirigir HTTP a HTTPS
+http://factor.com.ar/* https://factor.com.ar/:splat 301!
+http://www.factor.com.ar/* https://factor.com.ar/:splat 301!
+
+# Redirigir el dominio de Netlify al dominio personalizado
+https://factorhero.netlify.app/* https://factor.com.ar/:splat 301!
