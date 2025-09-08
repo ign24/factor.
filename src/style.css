@@ -1,4 +1,6 @@
 @import './assets/styles/gradients.css';
+@import './assets/brand-colors.css';
+@import './assets/animations-optimized.css';
 
 :root {
   /* Factor color palette */

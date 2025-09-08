@@ -248,8 +248,49 @@ onUnmounted(() => {
 </script>
 
 <style>
-@import './assets/brand-colors.css';
-@import './assets/animations-optimized.css';
+/* Critical CSS variables - moved from @import to prevent black screen */
+:root {
+  /* Primary Brand Colors */
+  --brand-purple: #333ead;
+  --brand-cyan: rgb(49, 204, 240);
+  --brand-green: rgb(0, 255, 191);
+  
+  /* Professional Cyan & Silver-Blue Palette */
+  --cyan-primary: #00d4ff;
+  --cyan-secondary: #31ccf0;
+  --cyan-tertiary: #66e6ff;
+  --silver-blue: #8b9dc3;
+  --silver-light: #b8c5d1;
+  --silver-dark: #6b7a8f;
+  --platinum: #e5e7eb;
+  --steel-blue: #4682b4;
+  
+  /* Color Variations */
+  --brand-purple-light: #4a4fc7;
+  --brand-purple-dark: #2a2f8a;
+  --brand-cyan-light: rgb(102, 230, 255);
+  --brand-cyan-dark: rgb(0, 153, 204);
+  --brand-green-light: rgb(51, 255, 204);
+  --brand-green-dark: rgb(0, 204, 153);
+  
+  /* Text and Background Colors */
+  --text-primary: #FFFFFF;
+  --text-secondary: #E0E0E0;
+  --text-muted: #B0B0B0;
+  --bg-primary: rgb(4,8,9);
+  
+  /* Neutral Colors for Skeleton */
+  --neutral-black: #000000;
+  --neutral-white: #FFFFFF;
+  
+  /* Brand Color Opacity Variations for Skeleton */
+  --brand-purple-10: rgba(51, 62, 173, 0.1);
+  --brand-cyan-10: rgba(49, 204, 240, 0.1);
+  
+  /* Font Variables */
+  --font-primary: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-secondary: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
 
 * {
   margin: 0;
@@ -263,7 +304,7 @@ html {
 
 body {
   font-family: var(--font-primary);
-  background: rgb(4, 8, 9);
+  background: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
 }
