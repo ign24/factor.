@@ -496,7 +496,7 @@ onMounted(() => {
   background-position: right 16px center;
   background-size: 18px;
   padding-right: 48px;
-  cursor: pointer;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
   background-color: rgb(4,8,9);
   color: white;
 }
@@ -508,7 +508,7 @@ onMounted(() => {
   border: none;
   font-size: 15px;
   line-height: 1.4;
-  cursor: pointer;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
   transition: background-color 0.2s ease;
 }
 
@@ -577,7 +577,7 @@ onMounted(() => {
   color: white;
   font-weight: 600;
   font-size: 16px;
-  cursor: pointer;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;

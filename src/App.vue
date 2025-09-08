@@ -12,8 +12,13 @@
     <div v-show="!isLoading" class="main-content">
       <Navigation />
       <main>
-        <HeroSection @background-ready="onBackgroundReady" />
+        <HeroSection v-if="!isMobile" @background-ready="onBackgroundReady" />
+        <HeroSectionMobile v-if="isMobile" @background-ready="onBackgroundReady" />
+        
+        <!-- Critical sections - load immediately -->
         <TrustedExpertsSection />
+        
+        <!-- All sections - load immediately for better mobile UX -->
         <AIExpertiseSection />
         <SolutionsSection />
         <CaseStudiesSection />
@@ -23,13 +28,28 @@
       </main>
       <Footer />
     </div>
+    
+    <!-- Async Font Loaders for non-critical fonts -->
+    <FontLoader 
+      font-family="Inter" 
+      :font-weight="300" 
+      :delay="2000" 
+      :priority="false" 
+    />
+    <FontLoader 
+      font-family="Inter" 
+      :font-weight="500" 
+      :delay="3000" 
+      :priority="false" 
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import Navigation from './components/Navigation.vue'
 import HeroSection from './components/HeroSection.vue'
+import HeroSectionMobile from './components/HeroSectionMobile.vue'
 import TrustedExpertsSection from './components/TrustedExpertsSection.vue'
 import AIExpertiseSection from './components/AIExpertiseSection.vue'
 import SolutionsSection from './components/SolutionsSection.vue'
@@ -39,10 +59,28 @@ import ContactSection from './components/ContactSection.vue'
 import FAQsSection from './components/FAQsSection.vue'
 import Footer from './components/Footer.vue'
 import SkeletonLoading from './components/SkeletonLoading.vue'
+import FontLoader from './components/FontLoader.vue'
+import { applyConnectionOptimizations } from './utils/connectionOptimizer'
+import { initLazyLoading, preloadCriticalComponents } from './utils/lazyLoader'
+import { initResourcePreloading } from './utils/resourcePreloader'
+import { startTiming, endTiming, logPerformanceReport } from './utils/performanceMonitor'
 
 // Loading state
 const isLoading = ref(true)
 const skeletonLoadingRef = ref<InstanceType<typeof SkeletonLoading>>()
+
+// Mobile detection
+const isMobile = ref(false)
+
+// Function to check if screen is mobile
+const checkMobile = () => {
+  isMobile.value = window.innerWidth < 768
+}
+
+// Function to handle resize
+const handleResize = () => {
+  checkMobile()
+}
 
 // Handle background ready event
 const onBackgroundReady = () => {
@@ -149,6 +187,7 @@ const triggerEntranceAnimations = () => {
       }
     }, 900)
 
+    // Only animate effect if it exists (not in mobile version)
     setTimeout(() => {
       if (effect) {
         effect.style.opacity = '1'
@@ -165,17 +204,50 @@ const triggerEntranceAnimations = () => {
   }, 1200) // Start hero animations after navigation is mostly complete
 }
 
-onMounted(() => {
+onMounted(async () => {
+  const mountStartTime = startTiming('app-mount')
+  
+  // Check mobile on mount
+  checkMobile()
+  
+  // Apply connection-based optimizations
+  applyConnectionOptimizations()
+  
+  // Initialize lazy loading system
+  initLazyLoading()
+  
+  // Initialize resource preloading
+  initResourcePreloading()
+  
+  // Preload critical components
+  await preloadCriticalComponents()
+  
+  // Add resize listener
+  window.addEventListener('resize', handleResize)
+  
   // Ensure page always starts at hero section on initial load
   if (window.location.hash !== '#hero') {
     // Update the URL immediately to show #hero
     window.location.hash = '#hero'
   }
+  
+  endTiming('app-mount', mountStartTime)
+  
+  // Log performance report after a delay
+  setTimeout(() => {
+    logPerformanceReport()
+  }, 3000)
+})
+
+// Cleanup on unmount
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
 })
 </script>
 
 <style>
 @import './assets/brand-colors.css';
+@import './assets/animations-optimized.css';
 
 * {
   margin: 0;

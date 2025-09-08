@@ -259,7 +259,7 @@ onMounted(() => {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
   --gradient-angle: 135deg;
 }
 
@@ -350,7 +350,7 @@ onMounted(() => {
   border-radius: 10px;
   font-weight: 500;
   font-size: 0.9rem;
-  cursor: pointer;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
   transition: all 0.3s cubic-bezier(.4,1,.7,1.2);
   font-family: var(--font-primary);
 }

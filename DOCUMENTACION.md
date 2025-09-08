@@ -1,50 +1,49 @@
-# 📚 Documentación Completa - Factor AI Landing Page
+# 📚 Documentación Técnica - Factor AI Landing Page
 
-## 🎯 Descripción del Proyecto
+## 🎯 Índice de Documentación Técnica
 
-**Factor AI Landing Page** es una landing page moderna y interactiva desarrollada con Vue.js 3, TypeScript y Vite. La página presenta los servicios de inteligencia artificial de Factor AI, una empresa especializada en soluciones de IA que entrega MVPs listos para producción.
+Este documento sirve como **índice central** de toda la documentación técnica del proyecto Factor AI Landing Page. Aquí encontrarás enlaces a documentación detallada de cada aspecto del proyecto.
 
-## 🚀 Características Destacadas
+## 📖 Documentación Principal
 
-- **🎨 Diseño Moderno**: Gradientes personalizados y efectos visuales avanzados
-- **🎵 Audio Reactivo**: Efectos de agua 3D que responden a la música de fondo
-- **📱 Responsivo**: Diseño mobile-first que se adapta a todos los dispositivos
-- **⚡ Alto Rendimiento**: Optimizado para velocidad y experiencia de usuario
-- **♿ Accesible**: Cumple estándares WCAG 2.1 AA
-- **🎭 Animaciones Fluidas**: Transiciones suaves y efectos interactivos
-
-## 📖 Índice de Documentación
-
-### 1. [README.md](./README.md) - Documentación Principal
-- **Descripción general** del proyecto
-- **Características principales** y funcionalidades
+### [README.md](./README.md) - Documentación Principal del Proyecto
+- **Descripción general** del proyecto y características principales
 - **Arquitectura** y estructura del proyecto
-- **Instalación** y scripts de desarrollo
+- **Tecnologías utilizadas** y versiones específicas
+- **Guía de instalación** y scripts de desarrollo
+- **Secciones de la landing page** y componentes principales
+- **Sistema de diseño** y paleta de colores
 - **Deployment** y optimización
-- **Contribución** y estándares de código
+- **Historial de cambios** y actualizaciones recientes
 
-### 2. [src/components/README-Componentes.md](./src/components/README-Componentes.md) - Documentación de Componentes
-- **Estructura** de todos los componentes Vue.js
-- **Funcionalidades** y props de cada componente
+## 🔧 Documentación Técnica Especializada
+
+### [src/components/README-Componentes.md](./src/components/README-Componentes.md) - Documentación de Componentes
+- **Estructura detallada** de todos los componentes Vue.js
+- **Props, eventos y funcionalidades** de cada componente
 - **Sistema de animaciones** y transiciones
 - **Responsividad** y adaptación por dispositivo
 - **Accesibilidad** y mejores prácticas
 - **Testing** y estrategias de calidad
+- **Ciclo de vida** de componentes Vue 3
 
-### 3. [src/assets/effects/README-AudioReactiveWaterEffect.md](./src/assets/effects/README-AudioReactiveWaterEffect.md) - Efectos de Audio
+### [src/assets/effects/README-AudioReactiveWaterEffect.md](./src/assets/effects/README-AudioReactiveWaterEffect.md) - Efectos de Audio
 - **Sistema de efectos** de agua reactivos al audio
-- **Tecnologías** utilizadas (Three.js, Web Audio API)
+- **Tecnologías utilizadas** (Three.js, Web Audio API)
 - **Configuración** y personalización de efectos
-- **Optimización** de rendimiento
+- **Optimización** de rendimiento para móviles
+- **Shaders personalizados** y efectos visuales
 - **Troubleshooting** y debugging
+- **Métricas de rendimiento** y monitoreo
 
-### 4. [src/assets/styles/README-SistemaEstilos.md](./src/assets/styles/README-SistemaEstilos.md) - Sistema de Estilos
+### [src/assets/styles/README-SistemaEstilos.md](./src/assets/styles/README-SistemaEstilos.md) - Sistema de Estilos
 - **Paleta de colores** y sistema de marca
 - **Gradientes** y efectos visuales
 - **Tipografía** y sistema de fuentes
 - **Espaciado** y layout system
-- **Animaciones** y transiciones
+- **Animaciones** y transiciones CSS
 - **Responsividad** y breakpoints
+- **Clases utilitarias** y helpers
 
 ## 🏗️ Arquitectura del Proyecto
 
@@ -53,7 +52,8 @@
 Landing/
 ├── 📁 public/                    # Archivos estáticos públicos
 │   ├── 🎵 audio/                 # Archivos de audio
-│   └── 🖼️ images/                # Imágenes públicas
+│   ├── 🖼️ images/                # Imágenes públicas
+│   └── 📄 archivos de configuración
 ├── 📁 src/                       # Código fuente principal
 │   ├── 📁 assets/                # Recursos estáticos
 │   │   ├── 🎵 audio/             # Archivos de audio
@@ -61,69 +61,56 @@ Landing/
 │   │   ├── 🖼️ image/             # Imágenes del proyecto
 │   │   └── 🎨 styles/            # Estilos CSS
 │   ├── 📁 components/            # Componentes Vue.js
+│   ├── 📁 utils/                 # Utilidades y helpers
 │   ├── 🎯 App.vue                # Componente principal
 │   └── 🚀 main.ts                # Punto de entrada
+├── 📁 scripts/                   # Scripts de automatización
 ├── 📄 package.json               # Dependencias y scripts
 ├── ⚙️ vite.config.ts             # Configuración de Vite
 └── 🔧 tsconfig.json              # Configuración de TypeScript
 ```
 
-### Tecnologías Utilizadas
-- **Frontend**: Vue.js 3 con Composition API
-- **Lenguaje**: TypeScript para tipado estático
-- **Build Tool**: Vite para desarrollo rápido
-- **Estilos**: CSS personalizado con variables CSS
-- **3D**: Three.js para efectos de agua reactivos
-- **Audio**: Web Audio API para análisis de frecuencia
-- **Responsive**: CSS Grid y Flexbox
+### Tecnologías y Versiones
+- **Vue.js**: 3.4.38 con Composition API
+- **TypeScript**: 5.5.3 para tipado estático
+- **Vite**: 7.0.5 para desarrollo y build
+- **Three.js**: 0.178.0 para efectos 3D
+- **VueUse**: 13.5.0 para composables
+- **Video.js**: 8.23.4 para manejo de videos
 
-## 🎯 Secciones de la Landing Page
+## 🎯 Componentes Principales
 
-### 1. **Hero Section** - Sección Principal
-- Video de fondo en loop con transiciones suaves
-- Título principal: "IA REAL diseñada para generar impacto"
-- Efectos de agua reactivos al audio
-- CTA principal para contacto
+### Secciones de la Landing Page
+1. **Navigation** - Navegación principal con menú responsive
+2. **HeroSection** - Sección principal con video de fondo y efectos de agua
+3. **HeroSectionMobile** - Versión optimizada para dispositivos móviles
+4. **TrustedExpertsSection** - Sección de confianza con testimonios
+5. **AIExpertiseSection** - 6 áreas de expertise en IA
+6. **SolutionsSection** - 4 soluciones principales
+7. **CaseStudiesSection** - Casos de estudio y proyectos
+8. **AboutFactorSection** - Información sobre la empresa
+9. **FAQsSection** - Preguntas frecuentes
+10. **ContactSection** - Formulario de contacto
+11. **Footer** - Pie de página
 
-### 2. **Trusted Experts** - Expertos de Confianza
-- Sección de credenciales y testimonios
-- Contadores animados para métricas
-- Efectos visuales de autoridad
+### Componentes Auxiliares
+- **AnimatedCounter** - Contadores animados para métricas
+- **AnimatedText** - Texto con animaciones de entrada
+- **AudioReactiveWaterEffect** - Efectos de agua 3D reactivos al audio
+- **ContentSection** - Contenedor base para secciones
+- **OptimizedImage** - Carga optimizada de imágenes
+- **SkeletonLoading** - Loading placeholders animados
+- **FontLoader** - Carga asíncrona de fuentes web
+- **ResponsiveImage** - Imágenes adaptativas
 
-### 3. **AI Expertise** - Áreas de Expertise
-- 6 áreas de especialización en IA
-- Cards interactivas con scroll horizontal
-- Información detallada de cada expertise
+## 🛠️ Utilidades del Proyecto
 
-### 4. **Solutions** - Soluciones Ofrecidas
-- 4 soluciones principales de Factor AI
-- Cards con efectos 3D y animaciones
-- CTA secundario para AI Guidance
-
-### 5. **Case Studies** - Casos de Estudio
-- Proyectos exitosos y resultados
-- Métricas con contadores animados
-- Testimonios de clientes
-
-### 6. **About Factor** - Sobre la Empresa
-- Información de la empresa y misión
-- Valores y principios
-- Historia y trayectoria
-
-### 7. **FAQs** - Preguntas Frecuentes
-- Acordeón interactivo de preguntas
-- Categorías organizadas
-- Respuestas detalladas
-
-### 8. **Contact** - Formulario de Contacto
-- Formulario completo con validación
-- Métodos alternativos (Calendly)
-- Diseño responsive y accesible
-
-### 9. **Footer** - Pie de Página
-- Enlaces importantes y navegación
-- Información legal y de contacto
-- Redes sociales
+### Archivos de Utilidades
+- **connectionOptimizer.ts** - Optimización basada en velocidad de red
+- **lazyLoader.ts** - Sistema de carga diferida de componentes
+- **mobileOptimization.ts** - Optimizaciones específicas para móviles
+- **performanceMonitor.ts** - Monitoreo de rendimiento en tiempo real
+- **resourcePreloader.ts** - Precarga de recursos críticos
 
 ## 🎨 Sistema de Diseño
 
@@ -143,11 +130,7 @@ Landing/
 - **Inter**: Fuente secundaria para texto
 - **Space Grotesk**: Fuente de display especial
 
-## 🚀 Guía de Inicio Rápido
-
-### Prerrequisitos
-- Node.js 18+
-- npm o pnpm
+## 🚀 Guía de Desarrollo
 
 ### Instalación
 ```bash
@@ -166,35 +149,16 @@ npm run build
 
 # Preview del build
 npm run preview
+
+# Optimizar imágenes
+npm run optimize-images
 ```
 
 ### Scripts Disponibles
-- `npm run dev`: Servidor de desarrollo
-- `npm run build`: Build optimizado para producción
-- `npm run preview`: Preview del build de producción
-
-## 🔧 Configuración y Personalización
-
-### Personalización de Colores
-Edita `src/assets/brand-colors.css` para cambiar la paleta de colores:
-```css
-:root {
-  --brand-purple: #tu_color_purpura;
-  --brand-cyan: #tu_color_cyan;
-  --brand-green: #tu_color_verde;
-}
-```
-
-### Personalización de Contenido
-- **Textos**: Edita los componentes Vue.js en `src/components/`
-- **Imágenes**: Reemplaza archivos en `src/assets/image/`
-- **Audio**: Cambia el archivo en `public/audio/speech.mp3`
-
-### Personalización de Efectos
-Modifica `src/assets/effects/audio-reactive-water.js` para:
-- Cambiar resolución del agua
-- Ajustar sensibilidad al audio
-- Modificar colores y efectos visuales
+- `npm run dev` - Servidor de desarrollo
+- `npm run build` - Build optimizado para producción
+- `npm run preview` - Preview del build de producción
+- `npm run optimize-images` - Optimización de imágenes
 
 ## 📱 Responsividad y Accesibilidad
 
@@ -214,10 +178,10 @@ Modifica `src/assets/effects/audio-reactive-water.js` para:
 ## 🧪 Testing y Calidad
 
 ### Herramientas de Testing
-- **Vue Test Utils**: Testing de componentes
-- **Vitest**: Testing unitario
-- **Playwright**: Testing E2E (opcional)
-- **axe-core**: Testing de accesibilidad
+- **Vue Test Utils** - Testing de componentes
+- **Vitest** - Testing unitario
+- **Playwright** - Testing E2E (opcional)
+- **axe-core** - Testing de accesibilidad
 
 ### Checklist de Calidad
 - [ ] Componentes Vue.js funcionando correctamente
@@ -230,11 +194,11 @@ Modifica `src/assets/effects/audio-reactive-water.js` para:
 ## 🚀 Deployment
 
 ### Plataformas Soportadas
-- **Vercel**: Deploy automático con Git
-- **Netlify**: Deploy automático con Git
-- **GitHub Pages**: Deploy estático
-- **AWS S3 + CloudFront**: Hosting empresarial
-- **Docker**: Containerización
+- **Vercel** - Deploy automático con Git
+- **Netlify** - Deploy automático con Git
+- **GitHub Pages** - Deploy estático
+- **AWS S3 + CloudFront** - Hosting empresarial
+- **Docker** - Containerización
 
 ### Configuración de Servidor
 ```nginx
@@ -250,22 +214,22 @@ add_header X-XSS-Protection "1; mode=block";
 
 ### Problemas Comunes
 
-#### 1. **Audio no funciona**
+#### 1. Audio no funciona
 - Verificar permisos de audio del navegador
 - Comprobar autoplay policy
 - Verificar que el archivo de audio existe
 
-#### 2. **Efectos 3D no se muestran**
+#### 2. Efectos 3D no se muestran
 - Verificar soporte de WebGL
 - Comprobar que Three.js se carga correctamente
 - Verificar consola del navegador para errores
 
-#### 3. **Rendimiento bajo**
+#### 3. Rendimiento bajo
 - Reducir resolución de efectos en dispositivos móviles
 - Comprobar uso de memoria del navegador
 - Verificar que no hay múltiples instancias ejecutándose
 
-#### 4. **Estilos no se aplican**
+#### 4. Estilos no se aplican
 - Verificar que las variables CSS están definidas
 - Comprobar que los archivos CSS se importan correctamente
 - Verificar que no hay conflictos de CSS
@@ -325,6 +289,8 @@ Este proyecto está bajo la licencia MIT - ver el archivo de licencia para más 
 - ✅ Sistema de estilos con variables CSS
 - ✅ Componentes Vue.js optimizados
 - ✅ Documentación completa del proyecto
+- ✅ Sistema de utilidades para optimización
+- ✅ Documentación unificada y actualizada
 
 ---
 
@@ -336,7 +302,7 @@ Este proyecto está bajo la licencia MIT - ver el archivo de licencia para más 
 
 ## 📋 Checklist de Documentación
 
-- [x] README.md principal
+- [x] README.md principal actualizado
 - [x] Documentación de componentes
 - [x] Documentación de efectos de audio
 - [x] Documentación del sistema de estilos
@@ -346,5 +312,6 @@ Este proyecto está bajo la licencia MIT - ver el archivo de licencia para más 
 - [x] Recursos adicionales y enlaces
 - [x] Guías de contribución
 - [x] Información de contacto y soporte
+- [x] Documentación unificada y consistente
 
-**Estado**: ✅ **COMPLETADO** - Documentación completa y actualizada
+**Estado**: ✅ **COMPLETADO** - Documentación técnica completa y actualizada

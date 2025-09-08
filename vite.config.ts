@@ -8,4 +8,22 @@ export default defineConfig({
       '@': '/src',
     },
   },
+  build: {
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['vue'],
+          three: ['three'],
+          vueuse: ['@vueuse/core'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+    target: 'es2015',
+  },
+  optimizeDeps: {
+    include: ['vue', '@vueuse/core'],
+    exclude: ['@/assets/effects/audio-reactive-water.js'],
+  },
 })

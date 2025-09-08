@@ -25,7 +25,15 @@
           >
             <div class="card-front">
               <div class="icon-container">
-                <img :src="item.image" :alt="item.title" class="card-image">
+                <ResponsiveImage
+                  :base-name="item.baseName"
+                  :alt="item.title"
+                  :width="320"
+                  :height="380"
+                  :lazy="true"
+                  :priority="index < 2"
+                  class="card-image"
+                />
               </div>
             </div>
             <div class="card-overlay">
@@ -46,43 +54,38 @@
 </template>
 
 <script setup lang="ts">
-import cubo from '@/assets/image/llms.webp'
-import flower from '@/assets/image/vision.webp'
-import prisma from '@/assets/image/analysis.webp'
-import rings from '@/assets/image/mlops.webp'
-import sphere from '@/assets/image/paraboloide.webp'
-import torus from '@/assets/image/toroide.webp'
+import ResponsiveImage from './ResponsiveImage.vue'
 
 const expertiseItems = [
   {
     title: 'LLMs y RAG',
     description: 'Implementa LLMs y sistemas de recuperación de información en tiempo real para desarrollar agentes de IA, co-pilotos y herramientas de soporte de decisiones con funcionalidad precisa y consciente del contexto.',
-    image: cubo
+    baseName: 'llms'
   },
   {
     title: 'Visión por computadora',
     description: 'Utiliza reconocimiento de imágenes, modelado 3D y detección de defectos para impulsar la innovación en sistemas autónomos y manufactura de precisión.',
-    image: flower
+    baseName: 'vision'
   },
   {
     title: 'Análisis predictivo',
     description: 'Aplica analytics avanzado para mantenimiento predictivo, detección de anomalías y pronóstico de demanda para optimizar el rendimiento del sistema y resultados del negocio.',
-    image: prisma
+    baseName: 'analysis'
   },
   {
     title: 'MLOps',
     description: 'Automatiza workflows de ML, desde entrenamiento de modelos hasta pipelines de CI/CD y monitoreo, para asegurar sistemas de IA escalables y resilientes en producción.',
-    image: rings
+    baseName: 'mlops'
   },
   {
     title: 'Soluciones Edge',
     description: 'Integra IA en el edge para procesamiento de baja latencia en redes IoT, sistemas embebidos y monitoreo remoto bajo restricciones de recursos.',
-    image: sphere
+    baseName: 'paraboloide'
   },
   {
     title: 'Consultoría en IA',
     description: 'Estrategia y consultoría en IA para ayudarte a definir tu roadmap tecnológico y maximizar el ROI de tus inversiones en inteligencia artificial.',
-    image: torus
+    baseName: 'toroide'
   }
 ]
 
@@ -237,13 +240,17 @@ const scrollRight = () => {
   padding: 8px 12px;
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  cursor: pointer;
-  transition: all 0.3s ease;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, background-color;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .scroll-indicator:hover {
   background: rgba(0, 0, 0, 0.9);
-  transform: scale(1.05);
+  transform: scale(1.05) translateZ(0);
 }
 
 .scroll-arrow {
@@ -302,15 +309,21 @@ const scrollRight = () => {
   flex-shrink: 0;
   border-radius: 0;
   overflow: hidden;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid rgba(51, 62, 173, 0.3);
+  will-change: transform, box-shadow, border-color;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .expertise-card:hover {
   border: 1.5px solid transparent;
   border-image: linear-gradient(135deg, #333ead, #31ccf0, #00ffbf) 1;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transform: translateY(-4px) translateZ(0);
 }
 
 .card-front {
@@ -326,8 +339,12 @@ const scrollRight = () => {
   justify-content: center;
   align-items: center;
   padding: 0;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .icon-container {
@@ -361,12 +378,16 @@ const scrollRight = () => {
   align-items: center;
   padding: 2rem;
   opacity: 0;
-  transform: translateY(100%);
-  transition: all 0.3s ease;
+  transform: translateY(100%) translateZ(0);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .overlay-content {
@@ -375,15 +396,15 @@ const scrollRight = () => {
   width: 100%;
 }
 
-/* Hover Effects */
+/* Hover Effects - OPTIMIZED */
 .expertise-card:hover .card-front {
   opacity: 0;
-  transform: translateY(-100%);
+  transform: translateY(-100%) translateZ(0);
 }
 
 .expertise-card:hover .card-overlay {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
 }
 
 /* Responsive Design */

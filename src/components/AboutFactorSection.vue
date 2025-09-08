@@ -31,7 +31,15 @@
           </div>
         </div>
         <div class="about-visual">
-          <img src="/src/assets/image/conocenos.webp" alt="Conócenos">
+          <ResponsiveImage
+            base-name="conocenos"
+            alt="Conócenos"
+            :width="'100%'"
+            :height="800"
+            :lazy="true"
+            :priority="false"
+            class="about-image"
+          />
         </div>
       </div>
     </div>
@@ -40,6 +48,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import ResponsiveImage from './ResponsiveImage.vue'
 
 const isVisible = ref(false)
 
@@ -63,16 +72,20 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Entrance animations */
+/* Entrance animations - OPTIMIZED FOR NO REFLOWS */
 .about-content {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(30px) translateZ(0);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .about-content.animate-in {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
 }
 
 .section-title,
@@ -80,8 +93,12 @@ onMounted(() => {
 .about-stats,
 .about-visual {
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px) translateZ(0);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .about-content.animate-in .section-title,
@@ -89,7 +106,7 @@ onMounted(() => {
 .about-content.animate-in .about-stats,
 .about-content.animate-in .about-visual {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
 }
 
 .section-title { transition-delay: 0.1s; }
@@ -99,13 +116,17 @@ onMounted(() => {
 
 .stat {
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px) translateZ(0);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .about-stats.animate-in .stat {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
 }
 
 .about-factor {
@@ -190,7 +211,7 @@ onMounted(() => {
   justify-content: center;
 }
 
-.about-visual img {
+.about-visual .about-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -212,7 +233,7 @@ onMounted(() => {
     order: -1;
   }
   
-  .about-visual img {
+  .about-visual .about-image {
     width: 100%;
     height: 400px;
     min-height: auto;

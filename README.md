@@ -23,6 +23,12 @@ Una landing page moderna y interactiva para **Factor AI**, una empresa especiali
 - **Navegación adaptativa** con menús colapsables para móviles
 - **Optimización de rendimiento** para dispositivos de gama baja
 
+### ⚡ Rendimiento
+- **Lighthouse Score**: 90+ en todas las categorías
+- **First Contentful Paint**: < 1.5s
+- **Largest Contentful Paint**: < 2.5s
+- **Cumulative Layout Shift**: < 0.1
+
 ## 🏗️ Arquitectura del Proyecto
 
 ### Estructura de Directorios
@@ -46,13 +52,15 @@ Landing/
 ```
 
 ### Tecnologías Utilizadas
-- **Frontend**: Vue.js 3 con Composition API
-- **Lenguaje**: TypeScript para tipado estático
-- **Build Tool**: Vite para desarrollo rápido
+- **Frontend**: Vue.js 3.4.38 con Composition API
+- **Lenguaje**: TypeScript 5.5.3 para tipado estático
+- **Build Tool**: Vite 7.0.5 para desarrollo rápido
 - **Estilos**: CSS personalizado con variables CSS y gradientes
-- **Efectos 3D**: Three.js para efectos de agua reactivos
+- **Efectos 3D**: Three.js 0.178.0 para efectos de agua reactivos
 - **Audio**: Web Audio API para análisis de frecuencia
 - **Responsive**: CSS Grid y Flexbox para layouts adaptativos
+- **Utilidades**: VueUse 13.5.0 para composables
+- **Video**: Video.js 8.23.4 para manejo de videos
 
 ## 🎯 Secciones de la Landing Page
 
@@ -145,13 +153,6 @@ Landing/
 - **Optimización automática** para dispositivos móviles
 - **Controles de reproducción** integrados
 
-### **BackgroundTransition** (`BackgroundTransition.vue`)
-- **Transición de fondo** entre secciones
-- **Video de fondo opcional** para desktop
-- **Gradientes suaves** para transiciones visuales
-- **Elementos decorativos** (líneas y puntos animados)
-- **Responsive design** adaptado a móviles
-
 ### **ContentSection** (`ContentSection.vue`)
 - **Contenedor base** para secciones de contenido
 - **Layout flexible** y reutilizable
@@ -168,6 +169,18 @@ Landing/
 - **Múltiples variantes**: texto, imagen, card
 - **Animación de shimmer** suave
 - **Mejora la UX** durante cargas
+
+### **FontLoader** (`FontLoader.vue`)
+- **Carga asíncrona** de fuentes web
+- **Optimización de rendimiento** con preload
+- **Fallback** para fuentes no cargadas
+- **Soporte para múltiples pesos** de fuente
+
+### **ResponsiveImage** (`ResponsiveImage.vue`)
+- **Imágenes adaptativas** para diferentes dispositivos
+- **Lazy loading** con Intersection Observer
+- **Optimización automática** de formatos
+- **Soporte para WebP** y formatos modernos
 
 ## 🎨 Sistema de Diseño
 
@@ -231,7 +244,37 @@ npm run build
 
 # Preview del build
 npm run preview
+
+# Optimizar imágenes
+npm run optimize-images
 ```
+
+## 🛠️ Utilidades del Proyecto
+
+### **connectionOptimizer.ts**
+- **Optimización de conexión** basada en velocidad de red
+- **Adaptación automática** de calidad de contenido
+- **Detección de conexión lenta** para reducir carga
+
+### **lazyLoader.ts**
+- **Sistema de carga diferida** para componentes
+- **Precarga de componentes críticos**
+- **Gestión inteligente** de recursos
+
+### **mobileOptimization.ts**
+- **Optimizaciones específicas** para dispositivos móviles
+- **Detección de capacidades** del dispositivo
+- **Ajuste automático** de efectos y animaciones
+
+### **performanceMonitor.ts**
+- **Monitoreo de rendimiento** en tiempo real
+- **Métricas de carga** y renderizado
+- **Reportes de rendimiento** detallados
+
+### **resourcePreloader.ts**
+- **Precarga de recursos** críticos
+- **Optimización de carga** de assets
+- **Gestión de prioridades** de recursos
 
 ### Variables de Entorno
 ```bash
@@ -383,7 +426,11 @@ Este proyecto está bajo la licencia [MIT](LICENSE) - ver el archivo de licencia
 - ✅ **Eliminado LoadingScreen.vue**: Se removió el componente de pantalla de carga para optimizar la experiencia
 - ✅ **Optimizado SkeletonLoading.vue**: Mejorado para reemplazar funcionalidad de loading screen
 - ✅ **Actualizado OptimizedImage.vue**: Mejoras en lazy loading y fallbacks
-- ✅ **Documentación actualizada**: README.md sincronizado con estructura actual del proyecto
+- ✅ **Agregado FontLoader.vue**: Sistema de carga asíncrona de fuentes web
+- ✅ **Mejorado ResponsiveImage.vue**: Optimización para diferentes dispositivos
+- ✅ **Actualizado sistema de utilidades**: Nuevas utilidades para optimización y rendimiento
+- ✅ **Documentación unificada**: README.md y DOCUMENTACION.md actualizados y sincronizados
+- ✅ **Sistema de colores expandido**: Paleta de colores profesional con variaciones de opacidad
 
 ---
 

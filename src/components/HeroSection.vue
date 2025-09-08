@@ -274,10 +274,12 @@ onMounted(() => {
   // Animations are now controlled by App.vue after loading screen completes
   // This prevents animations from running while content is hidden
 
-  // Import the audio effect
-  import('@/assets/effects/audio-reactive-water.js').catch(() => {
-    console.warn('Audio effect module not found')
-  })
+  // Lazy load audio effect only when needed (not on mobile)
+  if (window.innerWidth > 768) {
+    import('@/assets/effects/audio-reactive-water.js').catch(() => {
+      console.warn('Audio effect module not found')
+    })
+  }
 
   // Add click handler for play/stop button
   const audioBtn = document.getElementById('audioBtn')
@@ -313,7 +315,7 @@ onUnmounted(() => {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+/* Fonts are now loaded via preload in index.html for better performance */
 
 .hero {
   display: flex;
@@ -421,7 +423,7 @@ onUnmounted(() => {
 .effect-button {
   background: transparent;
   border: none;
-  cursor: pointer;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
   position: absolute;
   top: clamp(25%, 30%, 35%);
   right: clamp(10%, 15%, 20%);
@@ -521,7 +523,7 @@ onUnmounted(() => {
   border-radius: 9px;
   font-weight: 500;
   font-size: 0.85rem;
-  cursor: pointer;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
   transition: all 0.3s cubic-bezier(.4,1,.7,1.2);
   font-family: var(--font-primary);
 }

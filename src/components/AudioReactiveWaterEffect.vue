@@ -898,7 +898,7 @@ watch(() => props.audioReactivity, (newReactivity) => {
   background: none;
   color: white;
   border: none;
-  cursor: pointer;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
   font-family: inherit;
   font-size: 12px;
   text-transform: none;

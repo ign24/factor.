@@ -4,10 +4,62 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/webp" href="/circulo.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/factor.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="/src/assets/image/optimized/fondo-mobile.webp" as="image" type="image/webp">
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/sora/v16/xMQOuFFYT72X5wkB_18qmnFmSfM.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v16/V8mDoQDjQSkFtoNN3UdGfZMWBxQ.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://unpkg.com">
+    
+    <!-- DNS prefetch for performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//unpkg.com">
+    
+    <!-- Load optimized fonts with display=swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Load Eleven Labs widget asynchronously -->
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+    
+    <style>
+      /* Critical CSS for above-the-fold content */
+      body { 
+        margin: 0; 
+        font-family: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+        background: #000;
+        color: #fff;
+        font-display: swap;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      /* Font loading optimization */
+      .font-loading {
+        font-display: swap;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+      
+      /* Hide Eleven Labs gadget on mobile devices */
+      @media (max-width: 768px) {
+        elevenlabs-convai {
+          display: none !important;
+        }
+      }
+      
+      /* Prevent layout shift */
+      #app {
+        min-height: 100vh;
+      }
+    </style>
+    
     <title>Desarrollo de Software IA Personalizado & Consultoria - factor.</title>
   </head>
   <body>

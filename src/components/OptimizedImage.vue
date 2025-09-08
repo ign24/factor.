@@ -1,143 +1,154 @@
 <template>
   <div class="optimized-image-container" :style="containerStyle">
-    <!-- Skeleton placeholder -->
-    <div 
-      v-if="!isLoaded" 
-      class="image-skeleton"
-      :style="skeletonStyle"
-    ></div>
-    
-    <!-- Actual image -->
     <img
+      v-if="isLoaded"
       :src="src"
       :alt="alt"
-      :width="width"
-      :height="height"
-      :loading="loading"
-      :decoding="decoding"
+      :class="imageClass"
       :style="imageStyle"
       @load="onImageLoad"
       @error="onImageError"
-      class="optimized-image"
-      :class="{ 'loaded': isLoaded }"
     />
+    <div v-else class="image-placeholder" :style="placeholderStyle">
+      <div class="skeleton-loader"></div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import type { CSSProperties } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 interface Props {
   src: string
   alt: string
-  width: number
-  height: number
-  loading?: 'lazy' | 'eager'
-  decoding?: 'async' | 'sync' | 'auto'
-  objectFit?: 'cover' | 'contain' | 'fill' | 'none'
-  borderRadius?: string
-  showSkeleton?: boolean
+  width?: string | number
+  height?: string | number
+  lazy?: boolean
+  priority?: boolean
+  class?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  loading: 'lazy',
-  decoding: 'async',
-  objectFit: 'cover',
-  borderRadius: '8px',
-  showSkeleton: true
+  width: '100%',
+  height: 'auto',
+  lazy: true,
+  priority: false,
+  class: ''
 })
 
-const emit = defineEmits<{
-  load: [event: Event]
-  error: [event: Event]
-}>()
-
 const isLoaded = ref(false)
+const isInView = ref(false)
+const hasError = ref(false)
 
-const containerStyle = computed((): CSSProperties => ({
-  width: `${props.width}px`,
-  height: `${props.height}px`,
-  position: 'relative',
-  display: 'inline-block',
-  borderRadius: props.borderRadius
+const containerStyle = computed(() => ({
+  width: typeof props.width === 'number' ? `${props.width}px` : props.width,
+  height: typeof props.height === 'number' ? `${props.height}px` : props.height,
+  position: 'relative' as const,
+  overflow: 'hidden' as const
 }))
 
-const imageStyle = computed((): CSSProperties => ({
-  objectFit: props.objectFit,
-  opacity: isLoaded.value ? 1 : 0,
-  transition: 'opacity 0.3s ease-in-out',
-  borderRadius: props.borderRadius
-}))
-
-const skeletonStyle = computed((): CSSProperties => ({
+const imageStyle = computed(() => ({
   width: '100%',
   height: '100%',
-  borderRadius: props.borderRadius
+  objectFit: 'cover' as const,
+  objectPosition: 'center' as const,
+  transition: 'opacity 0.3s ease-in-out'
 }))
 
-const onImageLoad = (event: Event) => {
+const placeholderStyle = computed(() => ({
+  width: '100%',
+  height: '100%',
+  backgroundColor: '#f0f0f0',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}))
+
+const imageClass = computed(() => [
+  'optimized-image',
+  props.class,
+  { 'loaded': isLoaded.value }
+].filter(Boolean).join(' '))
+
+let observer: IntersectionObserver | null = null
+
+const onImageLoad = () => {
   isLoaded.value = true
-  emit('load', event)
+  hasError.value = false
 }
 
-const onImageError = (event: Event) => {
-  emit('error', event)
+const onImageError = () => {
+  hasError.value = true
+  isLoaded.value = false
 }
+
+const setupIntersectionObserver = () => {
+  if (!props.lazy || props.priority) {
+    isInView.value = true
+    return
+  }
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          isInView.value = true
+          observer?.disconnect()
+        }
+      })
+    },
+    {
+      rootMargin: '50px 0px',
+      threshold: 0.1
+    }
+  )
+
+  const container = document.querySelector('.optimized-image-container')
+  if (container) {
+    observer.observe(container)
+  }
+}
+
+onMounted(() => {
+  setupIntersectionObserver()
+})
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect()
+  }
+})
 </script>
 
 <style scoped>
 .optimized-image-container {
+  position: relative;
   overflow: hidden;
 }
 
 .optimized-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .optimized-image.loaded {
-  position: relative;
+  opacity: 1;
 }
 
-.image-skeleton {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: linear-gradient(90deg, 
-    rgba(255, 255, 255, 0.08) 25%, 
-    rgba(255, 255, 255, 0.15) 50%, 
-    rgba(255, 255, 255, 0.08) 75%
-  );
+.skeleton-loader {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+  animation: loading 1.5s infinite;
 }
 
-@keyframes shimmer {
+@keyframes loading {
   0% {
-    background-position: -200% 0;
-  }
-  100% {
     background-position: 200% 0;
   }
-}
-
-/* Optimización para usuarios que prefieren movimiento reducido */
-@media (prefers-reduced-motion: reduce) {
-  .image-skeleton {
-    animation: none;
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  .optimized-image {
-    transition: none;
+  100% {
+    background-position: -200% 0;
   }
 }
 </style>

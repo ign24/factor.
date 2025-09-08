@@ -245,7 +245,7 @@ onMounted(() => {
   border: 1px solid rgba(51, 157, 191, 0.08);
   border-radius: 16px;
   margin-bottom: 16px;
-  cursor: pointer;
+  cursor: url('/src/assets/image/puntero.png'), pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
