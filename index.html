@@ -61,6 +61,7 @@
       #app {
         min-height: 100vh;
         background: #000;
+        position: relative;
       }
       
       /* Ensure navigation is visible immediately */
@@ -73,6 +74,23 @@
       .main-content {
         opacity: 1;
         visibility: visible;
+      }
+      
+      /* Fallback content in case Vue doesn't load */
+      #app::before {
+        content: "Cargando...";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 24px;
+        color: #fff;
+        z-index: 1000;
+      }
+      
+      /* Hide fallback when Vue loads */
+      #app:not(:empty)::before {
+        display: none;
       }
     </style>
     
