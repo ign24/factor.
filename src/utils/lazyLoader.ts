@@ -4,10 +4,8 @@ export class LazyLoader {
   private loadedComponents: Map<string, any> = new Map()
   private loadingPromises: Map<string, Promise<any>> = new Map()
   private observer: IntersectionObserver | null = null
-  private isMobile: boolean = false
 
   private constructor() {
-    this.checkMobile()
     this.setupResizeListener()
   }
 
@@ -18,16 +16,13 @@ export class LazyLoader {
     return LazyLoader.instance
   }
 
-  private checkMobile(): void {
-    this.isMobile = window.innerWidth < 768
-  }
-
   private setupResizeListener(): void {
+    // Resize listener for future mobile detection if needed
     let resizeTimeout: number
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout)
       resizeTimeout = window.setTimeout(() => {
-        this.checkMobile()
+        // Future mobile detection logic can be added here
       }, 250)
     })
   }
@@ -35,22 +30,9 @@ export class LazyLoader {
   // Define component mappings for lazy loading
   private getComponentMap(): Record<string, () => Promise<any>> {
     return {
-      'Navigation': () => import('../components/Navigation.vue'),
-      'HeroSection': () => import('../components/HeroSection.vue'),
-      'HeroSectionMobile': () => import('../components/HeroSectionMobile.vue'),
-      'TrustedExpertsSection': () => import('../components/TrustedExpertsSection.vue'),
-      'AIExpertiseSection': () => import('../components/AIExpertiseSection.vue'),
-      'SolutionsSection': () => import('../components/SolutionsSection.vue'),
-      'CaseStudiesSection': () => import('../components/CaseStudiesSection.vue'),
-      'AboutFactorSection': () => import('../components/AboutFactorSection.vue'),
-      'ContactSection': () => import('../components/ContactSection.vue'),
-      'FAQsSection': () => import('../components/FAQsSection.vue'),
-      'Footer': () => import('../components/Footer.vue'),
-      'SkeletonLoading': () => import('../components/SkeletonLoading.vue'),
-      'FontLoader': () => import('../components/FontLoader.vue'),
+      // Only include components that are NOT statically imported in App.vue
       'LazyComponent': () => import('../components/LazyComponent.vue'),
       'MobileOptimizedSection': () => import('../components/MobileOptimizedSection.vue'),
-      'ResponsiveImage': () => import('../components/ResponsiveImage.vue'),
       'AudioReactiveWaterEffect': () => import('../components/AudioReactiveWaterEffect.vue')
     }
   }
@@ -91,9 +73,8 @@ export class LazyLoader {
 
   // Preload critical components
   async preloadCriticalComponents(): Promise<void> {
-    const criticalComponents = this.isMobile 
-      ? ['Navigation', 'HeroSectionMobile', 'TrustedExpertsSection']
-      : ['Navigation', 'HeroSection', 'TrustedExpertsSection']
+    // Since most components are statically imported, we only preload truly dynamic ones
+    const criticalComponents = ['AudioReactiveWaterEffect']
 
     const preloadPromises = criticalComponents.map(component => 
       this.loadComponent(component).catch(error => 
@@ -107,13 +88,8 @@ export class LazyLoader {
   // Preload components based on scroll position
   async preloadOnScroll(): Promise<void> {
     const nonCriticalComponents = [
-      'AIExpertiseSection',
-      'SolutionsSection', 
-      'CaseStudiesSection',
-      'AboutFactorSection',
-      'FAQsSection',
-      'ContactSection',
-      'Footer'
+      'LazyComponent',
+      'MobileOptimizedSection'
     ]
 
     let currentIndex = 0

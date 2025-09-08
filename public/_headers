@@ -21,35 +21,42 @@
 /manifest.json
   Cache-Control: public, max-age=86400
 
-# Robots y sitemap
-/robots.txt
-  Cache-Control: public, max-age=86400
-/sitemap.xml
-  Cache-Control: public, max-age=86400
-
 # Imágenes - Cachear por 1 año
 *.webp
   Cache-Control: public, max-age=31536000, immutable
+
 *.jpg
   Cache-Control: public, max-age=31536000, immutable
+
 *.png
   Cache-Control: public, max-age=31536000, immutable
+
 *.svg
   Cache-Control: public, max-age=31536000, immutable
 
 # Audio y video
 *.mp3
   Cache-Control: public, max-age=31536000, immutable
+
 *.webm
   Cache-Control: public, max-age=31536000, immutable
 
-# Fuentes (si las tienes)
+# Fuentes
 *.woff2
   Cache-Control: public, max-age=31536000, immutable
+
 *.woff
   Cache-Control: public, max-age=31536000, immutable
+
 *.ttf
   Cache-Control: public, max-age=31536000, immutable
+
+# Robots y sitemap - Específicos después de wildcards
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400
 
 # Seguridad
 /*

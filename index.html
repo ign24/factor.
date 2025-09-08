@@ -57,9 +57,22 @@
         }
       }
       
-      /* Prevent layout shift */
+      /* Prevent layout shift and ensure immediate content visibility */
       #app {
         min-height: 100vh;
+        background: #000;
+      }
+      
+      /* Ensure navigation is visible immediately */
+      .navigation {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      /* Critical content should be visible */
+      .main-content {
+        opacity: 1;
+        visibility: visible;
       }
     </style>
     

@@ -3,14 +3,16 @@
     <!-- Skeleton Loading -->
     <SkeletonLoading 
       v-if="isLoading" 
-      :duration="2000"
+      :duration="800"
       @skeleton-complete="onSkeletonComplete"
       ref="skeletonLoadingRef"
     />
     
+    <!-- Navigation - Always visible for better FCP -->
+    <Navigation />
+    
     <!-- Main Content -->
     <div v-show="!isLoading" class="main-content">
-      <Navigation />
       <main>
         <HeroSection v-if="!isMobile" @background-ready="onBackgroundReady" />
         <HeroSectionMobile v-if="isMobile" @background-ready="onBackgroundReady" />
@@ -297,8 +299,8 @@ body {
 /* Main content transition */
 .main-content {
   opacity: 0;
-  animation: fadeInContent 1s ease-out forwards;
-  animation-delay: 0.3s;
+  animation: fadeInContent 0.6s ease-out forwards;
+  animation-delay: 0.1s;
 }
 
 @keyframes fadeInContent {
