@@ -171,7 +171,7 @@ const scrollToExpertise = (e: Event) => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url('/src/assets/image/fondo.webp');
+  background-image: url('/fondo.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
