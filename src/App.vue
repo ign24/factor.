@@ -1,18 +1,10 @@
 <template>
   <div id="app" style="position:relative; min-height:100vh;">
-    <!-- Skeleton Loading -->
-    <SkeletonLoading 
-      v-if="isLoading" 
-      :duration="300"
-      @skeleton-complete="onSkeletonComplete"
-      ref="skeletonLoadingRef"
-    />
-    
     <!-- Navigation - Always visible for better FCP -->
     <Navigation />
     
     <!-- Main Content -->
-    <div v-show="!isLoading" class="main-content">
+    <div class="main-content">
       <main>
         <HeroSection v-if="!isMobile" @background-ready="onBackgroundReady" />
         <HeroSectionMobile v-if="isMobile" @background-ready="onBackgroundReady" />
@@ -60,16 +52,13 @@ import AboutFactorSection from './components/AboutFactorSection.vue'
 import ContactSection from './components/ContactSection.vue'
 import FAQsSection from './components/FAQsSection.vue'
 import Footer from './components/Footer.vue'
-import SkeletonLoading from './components/SkeletonLoading.vue'
 import FontLoader from './components/FontLoader.vue'
 import { applyConnectionOptimizations } from './utils/connectionOptimizer'
 import { initLazyLoading, preloadCriticalComponents } from './utils/lazyLoader'
 import { initResourcePreloading } from './utils/resourcePreloader'
 import { startTiming, endTiming, logPerformanceReport } from './utils/performanceMonitor'
 
-// Loading state
-const isLoading = ref(true)
-const skeletonLoadingRef = ref<InstanceType<typeof SkeletonLoading>>()
+// Loading state removed for debugging
 
 // Mobile detection
 const isMobile = ref(false)
@@ -86,31 +75,8 @@ const handleResize = () => {
 
 // Handle background ready event
 const onBackgroundReady = () => {
-  // Background is ready, but we still wait for skeleton loading to complete
-}
-
-// Handle skeleton loading complete  
-const onSkeletonComplete = () => {
-  isLoading.value = false
-  
-  // Trigger entrance animations after main content fade in completes
-  setTimeout(() => {
-    triggerEntranceAnimations()
-  }, 1300) // Wait for main-content animation (1s) + delay (0.3s) + extra buffer
-  
-  // Ensure page starts at hero section
-  setTimeout(() => {
-    // Check if we're not already at the hero section
-    if (window.location.hash !== '#hero') {
-      // Update the URL to include #hero
-      window.location.hash = '#hero'
-      // Scroll to hero section smoothly
-      const heroSection = document.querySelector('#hero')
-      if (heroSection) {
-        heroSection.scrollIntoView({ behavior: 'smooth' })
-      }
-    }
-  }, 1500) // Wait a bit longer to ensure all content is loaded
+  // Background is ready
+  triggerEntranceAnimations()
 }
 
 // Function to trigger entrance animations
