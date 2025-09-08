@@ -1,35 +1,7 @@
 <template>
   <section id="hero" class="hero" @wheel="handleWheelScroll">
-    <!-- First video for seamless looping -->
-    <video 
-      class="hero-video-background video-1" 
-      autoplay 
-      muted 
-      loop
-      playsinline
-      preload="auto"
-      ref="video1Ref"
-      @loadedmetadata="onVideo1Loaded"
-      @timeupdate="onVideo1TimeUpdate"
-      @ended="onVideo1Ended"
-    >
-      <source src="/src/assets/image/fondo.webp" type="video/webm">
-    </video>
-    
-    <!-- Second video for seamless transition -->
-    <video 
-      class="hero-video-background video-2" 
-      muted 
-      loop
-      playsinline
-      preload="auto"
-      ref="video2Ref"
-      @loadedmetadata="onVideo2Loaded"
-      @timeupdate="onVideo2TimeUpdate"
-      @ended="onVideo2Ended"
-    >
-      <source src="/src/assets/image/fondo.webp" type="video/webm">
-    </video>
+    <!-- Background image instead of video -->
+    <div class="hero-background-image"></div>
     
     <div class="hero-content-left">
 
@@ -66,118 +38,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import '@/assets/effects/audio-reactive-water.css'
 
-const video1Ref = ref<HTMLVideoElement>()
-const video2Ref = ref<HTMLVideoElement>()
-const currentVideo = ref(1)
-const isTransitioning = ref(false)
-const fadeDuration = 5000 // 5 segundos de transición
+// Scroll state
 const isScrolling = ref(false)
 
 const emit = defineEmits<{
   'background-ready': []
 }>()
 
-const onVideo1Loaded = () => {
-  if (video1Ref.value) {
-    video1Ref.value.currentTime = 0
-    video1Ref.value.play().catch(() => {
-      console.log('Video 1 autoplay prevented')
-    })
-    
-    // Emit event when background is ready
-    emit('background-ready')
-  }
-}
-
-const onVideo2Loaded = () => {
-  if (video2Ref.value) {
-    video2Ref.value.currentTime = 0
-    // Video 2 starts hidden and will be activated later
-  }
-}
-
-const onVideo1TimeUpdate = () => {
-  if (video1Ref.value && !isTransitioning.value) {
-    const duration = video1Ref.value.duration
-    const currentTime = video1Ref.value.currentTime
-    
-    // Start transition 5 seconds before video ends
-    if (duration && currentTime >= duration - 5) {
-      startTransition(2)
-    }
-  }
-}
-
-const onVideo2TimeUpdate = () => {
-  if (video2Ref.value && !isTransitioning.value) {
-    const duration = video2Ref.value.duration
-    const currentTime = video2Ref.value.currentTime
-    
-    // Start transition 5 seconds before video ends
-    if (duration && currentTime >= duration - 5) {
-      startTransition(1)
-    }
-  }
-}
-
-const startTransition = (nextVideo: number) => {
-  if (isTransitioning.value) return
-  
-  isTransitioning.value = true
-  currentVideo.value = nextVideo
-  
-  if (nextVideo === 2) {
-    // Transition to video 2
-    if (video2Ref.value) {
-      video2Ref.value.currentTime = 0
-      video2Ref.value.play().catch(() => {})
-    }
-    
-    // Long fade transition
-    if (video1Ref.value) {
-      video1Ref.value.style.opacity = '0'
-    }
-    if (video2Ref.value) {
-      video2Ref.value.style.opacity = '1'
-    }
-  } else {
-    // Transition to video 1
-    if (video1Ref.value) {
-      video1Ref.value.currentTime = 0
-      video1Ref.value.play().catch(() => {})
-    }
-    
-    // Long fade transition
-    if (video2Ref.value) {
-      video2Ref.value.style.opacity = '0'
-    }
-    if (video1Ref.value) {
-      video1Ref.value.style.opacity = '1'
-    }
-  }
-  
-  // Reset transition state after fade completes
-  setTimeout(() => {
-    isTransitioning.value = false
-  }, fadeDuration)
-}
-
-const onVideo1Ended = () => {
-  // Fallback if timeupdate doesn't work
-  if (!isTransitioning.value) {
-    startTransition(2)
-  }
-}
-
-const onVideo2Ended = () => {
-  // Fallback if timeupdate doesn't work
-  if (!isTransitioning.value) {
-    startTransition(1)
-  }
-}
+// Emit background ready immediately since we're using a static image
+onMounted(() => {
+  emit('background-ready')
+})
 
 
 
@@ -248,32 +122,6 @@ const scrollToExpertise = (e: Event) => {
   }
 }
 
-onMounted(() => {
-  // Initialize dual video system
-  if (video1Ref.value && video2Ref.value) {
-    // Set initial states
-    video1Ref.value.loop = true
-    video1Ref.value.muted = true
-    video1Ref.value.playsInline = true
-    video1Ref.value.currentTime = 0
-    
-    video2Ref.value.loop = true
-    video2Ref.value.muted = true
-    video2Ref.value.playsInline = true
-    video2Ref.value.currentTime = 0
-    
-    // Video 1 starts visible, video 2 hidden
-    if (video1Ref.value) {
-      video1Ref.value.style.opacity = '1'
-    }
-    if (video2Ref.value) {
-      video2Ref.value.style.opacity = '0'
-    }
-  }
-
-  // Animations are now controlled by App.vue after loading screen completes
-  // This prevents animations from running while content is hidden
-
   // Lazy load audio effect only when needed (not on mobile)
   if (window.innerWidth > 768) {
     import('@/assets/effects/audio-reactive-water.js').catch(() => {
@@ -300,18 +148,6 @@ onMounted(() => {
       }
     })
   }
-})
-
-onUnmounted(() => {
-  if (video1Ref.value) {
-    video1Ref.value.pause()
-    video1Ref.value.currentTime = 0
-  }
-  if (video2Ref.value) {
-    video2Ref.value.pause()
-    video2Ref.value.currentTime = 0
-  }
-})
 </script>
 
 <style>
@@ -329,16 +165,17 @@ onUnmounted(() => {
   font-family: var(--font-primary);
 }
 
-.hero-video-background {
+.hero-background-image {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  object-fit: cover;
-  object-position: center;
+  background-image: url('/src/assets/image/fondo.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: -1;
-  transition: opacity 5s ease-in-out;
 }
 
 

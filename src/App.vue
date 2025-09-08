@@ -3,7 +3,7 @@
     <!-- Skeleton Loading -->
     <SkeletonLoading 
       v-if="isLoading" 
-      :duration="800"
+      :duration="300"
       @skeleton-complete="onSkeletonComplete"
       ref="skeletonLoadingRef"
     />
