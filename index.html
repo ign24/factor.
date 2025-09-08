@@ -61,7 +61,6 @@
       #app {
         min-height: 100vh;
         background: #000;
-        position: relative;
       }
       
       /* Ensure navigation is visible immediately */
@@ -75,42 +74,13 @@
         opacity: 1;
         visibility: visible;
       }
-      
-      /* Fallback content in case Vue doesn't load */
-      .loading-fallback {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 24px;
-        color: #fff;
-        z-index: 1000;
-        display: block;
-      }
-      
-      .loading-fallback.hidden {
-        display: none;
-      }
     </style>
     
     <title>Desarrollo de Software IA Personalizado & Consultoria - factor.</title>
   </head>
   <body>
-    <div id="app">
-      <div class="loading-fallback" id="loading-fallback">Cargando...</div>
-    </div>
+    <div id="app"></div>
     <elevenlabs-convai agent-id="agent_7501k2b6b1c3e96rp726ebpmv9q0"></elevenlabs-convai>
     <script type="module" src="/src/main.ts"></script>
-    <script>
-      // Hide loading fallback when Vue loads
-      document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-          const fallback = document.getElementById('loading-fallback');
-          if (fallback) {
-            fallback.classList.add('hidden');
-          }
-        }, 2000); // Hide after 2 seconds
-      });
-    </script>
   </body>
 </html>
