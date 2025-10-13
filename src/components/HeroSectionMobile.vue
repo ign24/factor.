@@ -106,9 +106,9 @@ onMounted(() => {
   initMobileOptimizations()
   
   // Preload critical images for mobile
-  preloadImage('/src/assets/image/optimized/llms-mobile.webp')
-  preloadImage('/src/assets/image/optimized/vision-mobile.webp')
-  preloadImage('/src/assets/image/optimized/analysis-mobile.webp')
+  preloadImage('/assets/image/optimized/llms-mobile.webp')
+  preloadImage('/assets/image/optimized/vision-mobile.webp')
+  preloadImage('/assets/image/optimized/analysis-mobile.webp')
   
   // Trigger entrance animations with reduced delay for better performance
   requestAnimationFrame(() => {
@@ -147,7 +147,7 @@ onMounted(() => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url('/src/assets/image/optimized/fondo-mobile.webp');
+  background-image: url('/assets/image/optimized/fondo-mobile.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -160,9 +160,9 @@ onMounted(() => {
 }
 
 /* Fallback for devices that don't support webp */
-@supports not (background-image: url('/src/assets/image/optimized/fondo-mobile.webp')) {
+@supports not (background-image: url('/assets/image/optimized/fondo-mobile.webp')) {
   .hero-background-image {
-    background-image: url('/src/assets/image/fondo.webp');
+    background-image: url('/fondo.webp');
   }
 }
 

@@ -81,10 +81,10 @@ const isInView = ref(false)
 const hasError = ref(false)
 
 // Generate optimized image paths
-const mobileSrc = computed(() => `/src/assets/image/optimized/${props.baseName}-mobile.webp`)
-const tabletSrc = computed(() => `/src/assets/image/optimized/${props.baseName}-tablet.webp`)
-const desktopSrc = computed(() => `/src/assets/image/optimized/${props.baseName}-desktop.webp`)
-const fallbackSrc = computed(() => `/src/assets/image/optimized/${props.baseName}-mobile.webp`)
+const mobileSrc = computed(() => `/assets/image/optimized/${props.baseName}-mobile.webp`)
+const tabletSrc = computed(() => `/assets/image/optimized/${props.baseName}-tablet.webp`)
+const desktopSrc = computed(() => `/assets/image/optimized/${props.baseName}-desktop.webp`)
+const fallbackSrc = computed(() => `/assets/image/optimized/${props.baseName}-mobile.webp`)
 
 // Image type
 const imageType = 'image/webp'

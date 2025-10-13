@@ -40,10 +40,10 @@ export class MobileOptimizer {
     if (!this.isMobile) return
 
     const criticalResources = [
-      '/src/assets/image/optimized/fondo-mobile.webp',
-      '/src/assets/image/optimized/llms-mobile.webp',
-      '/src/assets/image/optimized/vision-mobile.webp',
-      '/src/assets/image/optimized/analysis-mobile.webp'
+      '/assets/image/optimized/fondo-mobile.webp',
+      '/assets/image/optimized/llms-mobile.webp',
+      '/assets/image/optimized/vision-mobile.webp',
+      '/assets/image/optimized/analysis-mobile.webp'
     ]
 
     criticalResources.forEach(resource => {
@@ -57,10 +57,10 @@ export class MobileOptimizer {
 
     // Add non-critical resources to preload queue
     const nonCriticalResources = [
-      '/src/assets/image/optimized/mlops-mobile.webp',
-      '/src/assets/image/optimized/paraboloide-mobile.webp',
-      '/src/assets/image/optimized/toroide-mobile.webp',
-      '/src/assets/image/optimized/conocenos-mobile.webp'
+      '/assets/image/optimized/mlops-mobile.webp',
+      '/assets/image/optimized/paraboloide-mobile.webp',
+      '/assets/image/optimized/toroide-mobile.webp',
+      '/assets/image/optimized/conocenos-mobile.webp'
     ]
     
     // Add resources to queue

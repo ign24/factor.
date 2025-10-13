@@ -63,10 +63,10 @@ export class ResourcePreloader {
   // Get critical resources based on device and connection
   private getCriticalResources(): string[] {
     const baseResources = [
-      '/src/assets/image/optimized/fondo-mobile.webp',
-      '/src/assets/image/optimized/llms-mobile.webp',
-      '/src/assets/image/optimized/vision-mobile.webp',
-      '/src/assets/image/optimized/analysis-mobile.webp'
+      '/assets/image/optimized/fondo-mobile.webp',
+      '/assets/image/optimized/llms-mobile.webp',
+      '/assets/image/optimized/vision-mobile.webp',
+      '/assets/image/optimized/analysis-mobile.webp'
     ]
 
     if (this.isMobile) {
@@ -74,20 +74,20 @@ export class ResourcePreloader {
     }
 
     return [
-      '/src/assets/image/optimized/fondo-desktop.webp',
-      '/src/assets/image/optimized/llms-desktop.webp',
-      '/src/assets/image/optimized/vision-desktop.webp',
-      '/src/assets/image/optimized/analysis-desktop.webp'
+      '/assets/image/optimized/fondo-desktop.webp',
+      '/assets/image/optimized/llms-desktop.webp',
+      '/assets/image/optimized/vision-desktop.webp',
+      '/assets/image/optimized/analysis-desktop.webp'
     ]
   }
 
   // Get secondary resources for lazy loading
   private getSecondaryResources(): string[] {
     const baseResources = [
-      '/src/assets/image/optimized/mlops-mobile.webp',
-      '/src/assets/image/optimized/paraboloide-mobile.webp',
-      '/src/assets/image/optimized/toroide-mobile.webp',
-      '/src/assets/image/optimized/conocenos-mobile.webp'
+      '/assets/image/optimized/mlops-mobile.webp',
+      '/assets/image/optimized/paraboloide-mobile.webp',
+      '/assets/image/optimized/toroide-mobile.webp',
+      '/assets/image/optimized/conocenos-mobile.webp'
     ]
 
     if (this.isMobile) {
@@ -95,10 +95,10 @@ export class ResourcePreloader {
     }
 
     return [
-      '/src/assets/image/optimized/mlops-desktop.webp',
-      '/src/assets/image/optimized/paraboloide-desktop.webp',
-      '/src/assets/image/optimized/toroide-desktop.webp',
-      '/src/assets/image/optimized/conocenos-desktop.webp'
+      '/assets/image/optimized/mlops-desktop.webp',
+      '/assets/image/optimized/paraboloide-desktop.webp',
+      '/assets/image/optimized/toroide-desktop.webp',
+      '/assets/image/optimized/conocenos-desktop.webp'
     ]
   }
 
