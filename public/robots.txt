@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://factor.com/sitemap.xml
+Sitemap: https://factor.com.ar/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1

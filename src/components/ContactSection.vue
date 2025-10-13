@@ -80,10 +80,22 @@
               </select>
             </div>
             
-            <button type="submit" class="submit-button" :class="{ loading: isSubmitting }">
+            <!-- Messages -->
+            <div v-if="submitStatus === 'success'" class="form-message success-message">
+              <CheckIcon />
+              <span>¡Mensaje enviado exitosamente! Te responderé en menos de 24 horas.</span>
+            </div>
+            
+            <div v-if="submitStatus === 'error'" class="form-message error-message">
+              <ErrorIcon />
+              <span>{{ errorMessage }}</span>
+            </div>
+            
+            <button type="submit" class="submit-button" :class="{ loading: isSubmitting }" :disabled="isSubmitting">
               <span v-if="!isSubmitting">Empezar proyecto</span>
               <span v-else>Enviando...</span>
               <SendIcon v-if="!isSubmitting" />
+              <div v-else class="loading-spinner"></div>
             </button>
           </form>
         </div>
@@ -94,9 +106,13 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
+import emailjs from '@emailjs/browser'
+import { EMAILJS_CONFIG } from '../config/emailjs'
 
 const isSubmitting = ref(false)
 const isVisible = ref(false)
+const submitStatus = ref<'idle' | 'success' | 'error'>('idle')
+const errorMessage = ref('')
 
 const form = reactive({
   name: '',
@@ -108,22 +124,79 @@ const form = reactive({
 
 const handleSubmit = async () => {
   isSubmitting.value = true
+  submitStatus.value = 'idle'
+  errorMessage.value = ''
   
-  // Simulate form submission
-  await new Promise(resolve => setTimeout(resolve, 2000))
-  
-  // Here you would typically send the form data to your backend
-  console.log('Form submitted:', form)
-  
-  // Reset form
-  Object.keys(form).forEach(key => {
-    form[key as keyof typeof form] = ''
-  })
-  
-  isSubmitting.value = false
-  
-  // Show success message (you could use a toast library)
-  alert('¡Gracias! Te responderé pronto.')
+  try {
+    // Validación básica
+    if (!form.name || !form.email || !form.project) {
+      throw new Error('Por favor completa todos los campos obligatorios')
+    }
+
+    // Preparar datos para EmailJS
+    const templateParams = {
+      to_email: 'ignacio_zu@outlook.com',
+      from_name: form.name,
+      from_email: form.email,
+      company: form.company || 'No especificada',
+      project_description: form.project,
+      budget: form.budget,
+      reply_to: form.email,
+      subject: `Nueva consulta de ${form.name} - Factor AI`,
+      message: `
+        Nombre: ${form.name}
+        Email: ${form.email}
+        Empresa: ${form.company || 'No especificada'}
+        Presupuesto: ${form.budget}
+        
+        Descripción del proyecto:
+        ${form.project}
+      `
+    }
+
+    // Verificar que EmailJS esté configurado
+    if (EMAILJS_CONFIG.PUBLIC_KEY === 'YOUR_PUBLIC_KEY_HERE') {
+      throw new Error('EmailJS no está configurado correctamente. Consulta src/config/emailjs.ts')
+    }
+
+    // Enviar email usando EmailJS
+    const response = await emailjs.send(
+      EMAILJS_CONFIG.SERVICE_ID,
+      EMAILJS_CONFIG.TEMPLATE_ID,
+      templateParams,
+      EMAILJS_CONFIG.PUBLIC_KEY
+    )
+
+    if (response.status === 200) {
+      submitStatus.value = 'success'
+      
+      // Reset form
+      Object.keys(form).forEach(key => {
+        form[key as keyof typeof form] = ''
+      })
+      
+      // Auto-hide success message after 5 seconds
+      setTimeout(() => {
+        submitStatus.value = 'idle'
+      }, 5000)
+      
+    } else {
+      throw new Error('Error al enviar el mensaje')
+    }
+    
+  } catch (error: any) {
+    console.error('Error submitting form:', error)
+    submitStatus.value = 'error'
+    errorMessage.value = error.message || 'Error al enviar el mensaje. Por favor intenta nuevamente.'
+    
+    // Auto-hide error message after 5 seconds
+    setTimeout(() => {
+      submitStatus.value = 'idle'
+      errorMessage.value = ''
+    }, 5000)
+  } finally {
+    isSubmitting.value = false
+  }
 }
 
 // Icon Components
@@ -144,6 +217,24 @@ const SendIcon = {
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="22" y1="2" x2="11" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       <polygon points="22,2 15,22 11,13 2,9 22,2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `
+}
+
+const CheckIcon = {
+  template: `
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `
+}
+
+const ErrorIcon = {
+  template: `
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+      <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width="2"/>
+      <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2"/>
     </svg>
   `
 }
@@ -614,6 +705,17 @@ onMounted(() => {
   cursor: not-allowed;
 }
 
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submit-button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 .submit-button svg {
   width: 16px;
   height: 16px;
@@ -622,6 +724,64 @@ onMounted(() => {
 
 .submit-button:hover svg {
   transform: translateX(2px);
+}
+
+/* Form Messages */
+.form-message {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  animation: messageSlideIn 0.3s ease-out forwards;
+}
+
+.success-message {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(21, 128, 61, 0.1) 100%);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: rgb(34, 197, 94);
+}
+
+.error-message {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(185, 28, 28, 0.1) 100%);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: rgb(239, 68, 68);
+}
+
+.form-message svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 768px) {
