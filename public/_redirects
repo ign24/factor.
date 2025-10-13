@@ -1,10 +1,15 @@
-# Redirecciones para el dominio personalizado
+# SPA fallback - DEBE IR PRIMERO (sin redirecciones de dominio que puedan causar loops)
+/*    /index.html   200
+
+# Las siguientes líneas solo se activan si tienes el dominio personalizado configurado
+# Coméntalas si solo estás usando el dominio de Netlify por ahora
+
 # Redirigir www a la versión sin www
-https://www.factor.com.ar/* https://factor.com.ar/:splat 301!
+# https://www.factor.com.ar/* https://factor.com.ar/:splat 301!
 
 # Redirigir HTTP a HTTPS
-http://factor.com.ar/* https://factor.com.ar/:splat 301!
-http://www.factor.com.ar/* https://factor.com.ar/:splat 301!
+# http://factor.com.ar/* https://factor.com.ar/:splat 301!
+# http://www.factor.com.ar/* https://factor.com.ar/:splat 301!
 
 # Redirigir el dominio de Netlify al dominio personalizado
-https://factorhero.netlify.app/* https://factor.com.ar/:splat 301!
+# https://factorhero.netlify.app/* https://factor.com.ar/:splat 301!
