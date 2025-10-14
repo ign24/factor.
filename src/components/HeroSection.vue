@@ -157,7 +157,7 @@ const scrollToExpertise = (e: Event) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
+  min-height: 90vh;
   position: relative;
   background: var(--bg-primary);
   overflow: hidden;
@@ -191,16 +191,14 @@ const scrollToExpertise = (e: Event) => {
 
 .hero-effect-right {
   flex: 1 1 50%;
-  display:flex;
+  display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   max-width: clamp(25px, 4vw, 30px);
   max-height: clamp(25px, 4vw, 30px);
   position: relative;
   z-index: 0;
   padding-right: clamp(15vw,20vw,30vw);
-  margin-bottom: clamp(5vw,30vw,20vw);
-  margin-top: clamp(10vw,10vw,20vw);
 }
 
 /* Entrance animations */
@@ -244,6 +242,7 @@ const scrollToExpertise = (e: Event) => {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 90vh;
 }
 
 #controls {
@@ -258,7 +257,7 @@ const scrollToExpertise = (e: Event) => {
 }
 
 .effect-button {
-  background: transparent;
+  background: black;
   border: none;
   cursor: url('/src/assets/image/puntero.png'), pointer;
   position: absolute;

@@ -269,11 +269,18 @@ body {
 }
 
 #app {
-  min-height: 100vh;
+  min-height: 70vh;
   position: relative;
   z-index: 1;
-  background: url('./assets/image/fondo.webp') no-repeat center center;
-  background-size: cover;
+  background: linear-gradient(
+    180deg,
+    rgb(2, 4, 6) 0%,
+    rgb(5, 10, 18) 20%,
+    rgb(8, 15, 28) 40%,
+    rgb(10, 18, 32) 60%,
+    rgb(5, 10, 18) 80%,
+    rgb(2, 4, 6) 100%
+  );
   background-attachment: fixed;
 }
 
