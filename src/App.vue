@@ -1,5 +1,12 @@
 <template>
   <div id="app" style="position:relative; min-height:100vh;">
+    <!-- Cursor Light Effect -->
+    <div 
+      class="cursor-light" 
+      ref="cursorLight"
+      :style="{ left: cursorX + 'px', top: cursorY + 'px' }"
+    ></div>
+    
     <!-- Skeleton Loading -->
     <SkeletonLoading 
       v-if="isLoading" 
@@ -74,6 +81,11 @@ const skeletonLoadingRef = ref<InstanceType<typeof SkeletonLoading>>()
 // Mobile detection
 const isMobile = ref(false)
 
+// Cursor light effect
+const cursorX = ref(0)
+const cursorY = ref(0)
+const cursorLight = ref<HTMLElement | null>(null)
+
 // Function to check if screen is mobile
 const checkMobile = () => {
   isMobile.value = window.innerWidth < 768
@@ -82,6 +94,12 @@ const checkMobile = () => {
 // Function to handle resize
 const handleResize = () => {
   checkMobile()
+}
+
+// Function to handle mouse move for cursor light effect
+const handleMouseMove = (e: MouseEvent) => {
+  cursorX.value = e.clientX
+  cursorY.value = e.clientY
 }
 
 // Handle background ready event
@@ -227,6 +245,9 @@ onMounted(async () => {
   // Add resize listener
   window.addEventListener('resize', handleResize)
   
+  // Add mouse move listener for cursor light effect
+  window.addEventListener('mousemove', handleMouseMove)
+  
   // Ensure page always starts at hero section on initial load
   if (window.location.hash !== '#hero') {
     // Update the URL immediately to show #hero
@@ -244,6 +265,7 @@ onMounted(async () => {
 // Cleanup on unmount
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
+  window.removeEventListener('mousemove', handleMouseMove)
 })
 </script>
 
@@ -518,5 +540,103 @@ body {
   mask-composite: exclude;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
+}
+
+/* Cursor Light Effect */
+.cursor-light {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(51, 62, 173, 0.25) 0%,
+    rgba(49, 204, 240, 0.20) 20%,
+    rgba(0, 255, 191, 0.15) 35%,
+    rgba(49, 204, 240, 0.10) 50%,
+    rgba(51, 62, 173, 0.06) 65%,
+    rgba(49, 204, 240, 0.03) 80%,
+    rgba(0, 255, 191, 0.01) 92%,
+    transparent 100%
+  );
+  background-size: 200% 200%;
+  mix-blend-mode: screen;
+  filter: blur(30px);
+  transition: opacity 0.3s ease;
+  will-change: transform, opacity;
+  opacity: 0;
+  animation: fadeInCursorLight 0.5s ease-out 1s forwards, subtleGlow 4s ease-in-out infinite;
+}
+
+.cursor-light::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    transparent 0%,
+    transparent 50%,
+    rgba(49, 204, 240, 0.02) 70%,
+    rgba(0, 255, 191, 0.01) 85%,
+    rgba(51, 62, 173, 0.005) 95%,
+    transparent 100%
+  );
+  background-size: 200% 200%;
+  filter: blur(20px);
+  pointer-events: none;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes fadeInCursorLight {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes subtleGlow {
+  0%, 100% {
+    filter: blur(30px) brightness(1);
+    transform: translate(-50%, -50%) scale(1);
+    background-position: 0% 0%;
+  }
+  33% {
+    filter: blur(35px) brightness(1.15);
+    transform: translate(-50%, -50%) scale(1.08);
+    background-position: 50% 50%;
+  }
+  66% {
+    filter: blur(32px) brightness(1.20);
+    transform: translate(-50%, -50%) scale(1.12);
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.6;
+    background-position: 0% 0%;
+  }
+  50% {
+    opacity: 1;
+    background-position: 100% 100%;
+  }
+}
+
+/* Hide cursor light on mobile devices */
+@media (max-width: 768px) {
+  .cursor-light {
+    display: none;
+  }
 }
 </style>
