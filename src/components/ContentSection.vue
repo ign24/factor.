@@ -15,9 +15,11 @@
         <div 
           v-for="(item, index) in items" 
           :key="index"
-          class="gradient-card text-center p-8"
+          class="gradient-card text-center p-8 stats-card-animate"
+          :style="{ '--animation-delay': `${index * 200}ms` }"
         >
-          <div class="text-5xl font-bold gradient-text-primary mb-4">
+          <div class="text-5xl font-bold gradient-text-primary mb-4 stats-number-gradient"
+               :style="{ '--gradient-delay': `${index * 0.1}s` }">
             <AnimatedCounter 
               :value="item.number" 
               :duration="2000" 
@@ -60,6 +62,7 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import AnimatedCounter from './AnimatedCounter.vue'
 import AnimatedText from './AnimatedText.vue'
 
@@ -72,7 +75,35 @@ interface Props {
   trustMessage?: string
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+// Trigger entrance animations for stats cards
+onMounted(() => {
+  if (props.type === 'stats') {
+    // Use Intersection Observer for better performance
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const cards = entry.target.querySelectorAll('.stats-card-animate')
+          cards.forEach((card) => {
+            setTimeout(() => {
+              card.classList.add('animate-in')
+            }, 100) // Small delay to ensure smooth animation
+          })
+          observer.unobserve(entry.target)
+        }
+      })
+    }, {
+      threshold: 0.3,
+      rootMargin: '0px 0px -50px 0px'
+    })
+
+    const statsSection = document.getElementById(props.sectionId)
+    if (statsSection) {
+      observer.observe(statsSection)
+    }
+  }
+})
 </script>
 
 <style scoped>
@@ -269,4 +300,65 @@ defineProps<Props>()
 }
 
 /* Gradient Text classes are now imported from global styles */
+
+/* Statistics Cards Entrance Animation */
+.stats-card-animate {
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  border-color: transparent;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: var(--animation-delay, 0ms);
+  will-change: opacity, transform, border-color;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.stats-card-animate.animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  border-color: var(--border-subtle);
+}
+
+/* Smooth border animation */
+.stats-card-animate {
+  border: 1px solid transparent;
+}
+
+.stats-card-animate.animate-in {
+  border: 1px solid var(--border-subtle);
+}
+
+/* Animated gradient for statistics numbers */
+.stats-number-gradient {
+  background: linear-gradient(
+    90deg,
+    #333ead 0%,
+    #4a5bb8 25%,
+    #31ccf0 50%,
+    #4a5bb8 75%,
+    #333ead 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-flow-subtle 10s linear infinite;
+  animation-delay: var(--gradient-delay, 0s);
+  will-change: background-position;
+}
+
+@keyframes gradient-flow-subtle {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+/* Enhanced hover effect with scale */
+.gradient-card:hover {
+  transform: translateY(-4px) scale(1.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 </style> 

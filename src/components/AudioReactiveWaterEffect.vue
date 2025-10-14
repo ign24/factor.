@@ -895,23 +895,60 @@ watch(() => props.audioReactivity, (newReactivity) => {
 }
 
 .audio-btn {
-  background: none;
+  position: relative;
   color: white;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: url('/src/assets/image/puntero.png'), pointer;
   font-family: inherit;
-  font-size: 12px;
-  text-transform: none;
-  transition: all 0.3s ease;
-  padding: 8px 12px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: rgba(49, 157, 191, 0.15);
+  backdrop-filter: blur(12px);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.audio-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
 }
 
 .audio-btn:hover {
-  opacity: 0.8;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(49, 157, 191, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 6px 20px rgba(49, 157, 191, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.audio-btn:hover::before {
+  left: 100%;
+}
+
+.audio-btn:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .help-hint {

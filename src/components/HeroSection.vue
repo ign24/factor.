@@ -33,7 +33,15 @@
     </div>
     
     <!-- Botón play/stop posicionado independientemente -->
-    <button id="audioBtn" class="effect-button"></button>
+    <button id="audioBtn" class="effect-button">
+      <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+      <span class="button-text">play</span>
+    </button>
   </section>
 </template>
 
@@ -132,18 +140,28 @@ const scrollToExpertise = (e: Event) => {
   // Add click handler for play/stop button
   const audioBtn = document.getElementById('audioBtn')
   if (audioBtn) {
-    // Set initial text
-    audioBtn.textContent = '[ play ]'
+    const playIcon = audioBtn.querySelector('.play-icon') as HTMLElement
+    const pauseIcon = audioBtn.querySelector('.pause-icon') as HTMLElement
+    const buttonText = audioBtn.querySelector('.button-text') as HTMLElement
+    
+    // Set initial state
+    audioBtn.setAttribute('data-playing', 'false')
     
     audioBtn.addEventListener('click', () => {
       const button = audioBtn as HTMLElement
       const isPlaying = button.getAttribute('data-playing') === 'true'
       
       if (isPlaying) {
-        button.textContent = '[ play ]'
+        // Switch to play state
+        playIcon.style.display = 'block'
+        pauseIcon.style.display = 'none'
+        buttonText.textContent = 'play'
         button.setAttribute('data-playing', 'false')
       } else {
-        button.textContent = '[ stop ]'
+        // Switch to pause state
+        playIcon.style.display = 'none'
+        pauseIcon.style.display = 'block'
+        buttonText.textContent = 'pause'
         button.setAttribute('data-playing', 'true')
       }
     })
@@ -195,10 +213,11 @@ const scrollToExpertise = (e: Event) => {
   align-items: center;
   justify-content: center;
   max-width: clamp(25px, 4vw, 30px);
-  max-height: clamp(25px, 4vw, 30px);
+  max-height: clamp(25px, 40vw, 50px);
   position: relative;
   z-index: 0;
-  padding-right: clamp(15vw,20vw,30vw);
+  padding-right: 25%;
+  padding-bottom: 5%;
 }
 
 /* Entrance animations */
@@ -257,34 +276,66 @@ const scrollToExpertise = (e: Event) => {
 }
 
 .effect-button {
-  background: black;
-  border: none;
+  position: relative;
   cursor: url('/src/assets/image/puntero.png'), pointer;
   position: absolute;
   top: clamp(25%, 30%, 35%);
-  right: clamp(10%, 15%, 20%);
+  right: clamp(5%, 10%, 30%);
   transform: translateY(-50%);
   z-index: 150;
   width: auto;
   height: auto;
-  padding: clamp(4px, 0.5vw, 8px) clamp(6px, 1vw, 12px);
-  transition: all 0.3s ease;
-  color: var(--text-primary);
-  font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+  padding: clamp(8px, 1vw, 12px) clamp(16px, 2.5vw, 24px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: white;
+  font-size: clamp(0.9rem, 1.6vw, 1.2rem);
   font-family: 'Inter', monospace;
-  font-weight: 300;
+  font-weight: 500;
   white-space: nowrap;
-  letter-spacing: clamp(0.3px, 0.5px, 0.7px);
   text-align: center;
   line-height: 1;
-  animation: buttonEntrance 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  border-radius: 8px;
+  backdrop-filter: blur(12px);
+  animation: buttonEntrance 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 3.5s forwards;
   opacity: 0;
-  transform: translateY(-50%) scale(0.8) translateX(20px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.effect-button svg {
+  width: clamp(16px, 2vw, 20px);
+  height: clamp(16px, 2vw, 20px);
+  flex-shrink: 0;
+}
+
+.effect-button .button-text {
+  font-size: clamp(0.8rem, 1.4vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.effect-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  transition: left 0.5s ease;
 }
 
 .effect-button:hover {
-  opacity: 0.8;
-  transform: translateY(-50%) scale(1.05);
+  transform: translateY(-50%) translateY(-2px) scale(2);
+}
+
+.effect-button:hover::before {
+  left: 100%;
+}
+
+.effect-button:active {
+  transform: translateY(-50%) translateY(0) scale(1.09);
 }
 
 @keyframes buttonEntrance {

@@ -493,8 +493,7 @@ body {
 
 .gradient-card:hover {
   border-color: var(--border-primary);
-  box-shadow: var(--shadow-glow);
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
 }
 
 /* Gradient borders */
