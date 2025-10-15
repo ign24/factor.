@@ -545,8 +545,8 @@ body {
 /* Cursor Light Effect */
 .cursor-light {
   position: fixed;
-  width: 150px;
-  height: 150px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
@@ -579,7 +579,7 @@ body {
   transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 20%;
   background: radial-gradient(
     circle,
     transparent 0%,
@@ -589,10 +589,10 @@ body {
     rgba(51, 62, 173, 0.005) 95%,
     transparent 100%
   );
-  background-size: 200% 200%;
+  background-size: 600% 600%;
   filter: blur(20px);
   pointer-events: none;
-  animation: glowPulse 3s ease-in-out infinite;
+  animation: glowPulse 2s ease-in-out infinite;
 }
 
 @keyframes fadeInCursorLight {

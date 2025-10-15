@@ -122,32 +122,19 @@ export class MobileOptimizer {
     })
   }
 
-  // Reduce animation complexity on mobile
-  reduceAnimationsOnMobile(): void {
-    if (!this.isMobile) return
-
-    const style = document.createElement('style')
-    style.textContent = `
-      @media (max-width: 768px) {
-        * {
-          animation-duration: 0.3s !important;
-          transition-duration: 0.3s !important;
-        }
-        
-        .animate-optimized {
-          transition-duration: 0.2s !important;
-        }
-      }
-    `
-    document.head.appendChild(style)
-  }
+  // Reduce animation complexity on mobile - DISABLED
+  // This was forcing all animations to 0.3s which made everything too fast
+  // reduceAnimationsOnMobile(): void {
+  //   if (!this.isMobile) return
+  //   // Disabled to preserve original animation timings
+  // }
 
   // Initialize mobile optimizations
   init(): void {
     this.preloadCriticalResources()
     this.preloadOnScroll()
     this.optimizeImagesForMobile()
-    this.reduceAnimationsOnMobile()
+    // this.reduceAnimationsOnMobile() - Disabled to preserve animation timings
   }
 }
 

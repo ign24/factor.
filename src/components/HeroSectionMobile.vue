@@ -1,8 +1,5 @@
  s<template>
   <section id="hero-mobile" class="hero-mobile" @wheel="handleWheelScroll">
-    <!-- Optimized background image for mobile -->
-    <div class="hero-background-image"></div>
-    
     <div class="hero-content-mobile">
       <h1 class="animate-title">
         <span class="main-title">IA REAL</span><br />
@@ -131,39 +128,14 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
   position: relative;
   background: transparent;
   overflow: hidden;
   font-family: var(--font-primary);
-  padding: 1.5rem 1rem;
+  padding: 12rem 1rem 1.5rem;
   text-align: center;
-}
-
-.hero-background-image {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: url('/assets/image/optimized/fondo-mobile.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: -1;
-  will-change: transform;
-  /* Optimize for mobile performance */
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-/* Fallback for devices that don't support webp */
-@supports not (background-image: url('/assets/image/optimized/fondo-mobile.webp')) {
-  .hero-background-image {
-    background-image: url('/fondo.webp');
-  }
 }
 
 .hero-content-mobile {
