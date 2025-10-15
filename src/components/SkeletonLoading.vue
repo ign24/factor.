@@ -407,88 +407,10 @@ defineExpose({
   }
 }
 
-/* Responsive - Replica el responsive del HeroSection */
+/* Ocultar skeleton en mobile - Desktop only */
 @media (max-width: 768px) {
-  .skeleton-header {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .skeleton-nav {
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .nav-item {
-    width: 60px;
-    height: 15px;
-  }
-  
-  .nav-item.contact {
-    width: 80px;
-    height: 30px;
-  }
-  
-  .skeleton-hero {
-    flex-direction: column;
-    padding: 0 1rem;
-    gap: 2rem;
-  }
-  
-  .skeleton-content-left {
-    padding-left: 0;
-    padding-top: 2rem;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .skeleton-effect-right {
-    padding-right: 0;
-    margin-left: 0;
-    order: -1; /* Efecto arriba en móvil */
-  }
-  
-  .title-line.primary {
-    width: 150px;
-    height: 3rem;
-  }
-  
-  .subtitle-line {
-    width: 250px;
-    height: 2rem;
-  }
-  
-  .action-button.primary {
-    width: 200px;
-    height: 3rem;
-  }
-  
-  .action-link {
-    width: 150px;
-  }
-  
-  .play-button {
-    width: 100px;
-    height: 35px;
-  }
-  
-  .skeleton-floating-button {
-    width: 160px;
-    height: 50px;
-    bottom: 1rem;
-    right: 1rem;
-  }
-  
-  .call-text {
-    width: 80px;
-    height: 14px;
-  }
-  
-  .footer-text {
-    width: 250px;
-    height: 14px;
+  .skeleton-container {
+    display: none;
   }
 }
 
