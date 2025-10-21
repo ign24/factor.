@@ -203,20 +203,106 @@ onMounted(() => {
   z-index: 2;
 }
 
-/* Entrance animations */
+/* Entrance animations - ENHANCED FLUID MOTION */
 .section-header,
 .solutions-grid,
 .cta-section {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(40px) translateZ(0);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .section-header.animate-in,
 .solutions-grid.animate-in,
 .cta-section.animate-in {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
+}
+
+/* Section title with blur effect */
+.section-title {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(30px) translateZ(0);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.1s;
+}
+
+.section-header.animate-in .section-title {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) translateZ(0);
+}
+
+/* Section subtitle */
+.section-subtitle {
+  opacity: 0;
+  transform: translateY(20px) translateZ(0);
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.3s;
+}
+
+.section-header.animate-in .section-subtitle {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+}
+
+/* Solution cards with stagger */
+.solution-card {
+  opacity: 0;
+  transform: translateY(50px) scale(0.95) translateZ(0);
+  transition: opacity 0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: opacity, transform;
+}
+
+.solutions-grid.animate-in .solution-card:nth-child(1) { transition-delay: 0.1s; }
+.solutions-grid.animate-in .solution-card:nth-child(2) { transition-delay: 0.2s; }
+.solutions-grid.animate-in .solution-card:nth-child(3) { transition-delay: 0.3s; }
+.solutions-grid.animate-in .solution-card:nth-child(4) { transition-delay: 0.4s; }
+
+.solutions-grid.animate-in .solution-card {
+  opacity: 1;
+  transform: translateY(0) scale(1) translateZ(0);
+}
+
+/* CTA section elements */
+.cta-title {
+  opacity: 0;
+  transform: translateY(25px) translateZ(0);
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.2s;
+}
+
+.cta-text {
+  opacity: 0;
+  transform: translateY(20px) translateZ(0);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.3s;
+}
+
+.cta-primary {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95) translateZ(0);
+  transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: 0.4s;
+}
+
+.cta-section.animate-in .cta-title,
+.cta-section.animate-in .cta-text,
+.cta-section.animate-in .cta-primary {
+  opacity: 1;
+  transform: translateY(0) scale(1) translateZ(0);
 }
 
 .section-header {
@@ -233,6 +319,15 @@ onMounted(() => {
   background-clip: text;
   margin-bottom: 24px;
   line-height: 1.1;
+}
+
+/* Light mode: remove gradient, use solid color */
+:root[data-theme="light"] .section-title {
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  color: #1a1a1a;
 }
 
 .section-subtitle {

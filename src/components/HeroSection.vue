@@ -7,12 +7,12 @@
 
       
       <h1 class="animate-title">
-        <span class="main-title">IA REAL</span><br />
-        <span class="subtitle">diseñada para generar impacto.</span>
+        <span class="main-title">Inteligencia Artificial</span><br />
+        <span class="subtitle">para empresas que buscan resultados reales</span>
       </h1>
       <p class="hero-description animate-description">
-        Creamos soluciones completas con inteligencia artificial integrada.  
-        Entregamos MVPs listos para producción, con automatización real, visión de producto y mínima complejidad operativa.
+        Desarrollamos soluciones de IA personalizadas que optimizan procesos, 
+        mejoran la eficiencia y generan valor tangible para su organización.
       </p>
       <div class="hero-actions animate-actions">
         <button class="cta-primary" @click="scrollToContact">
@@ -21,7 +21,7 @@
       </div>
       <div class="hero-secondary-cta animate-secondary">
         <a href="#expertise" class="see-how-link" @click="scrollToExpertise">
-          Ver cómo funciona ↓
+          Conocer nuestros servicios ↓
         </a>
       </div>
     </div>
@@ -59,7 +59,65 @@ const emit = defineEmits<{
 // Emit background ready immediately since we're using a static image
 onMounted(() => {
   emit('background-ready')
+  
+  // Trigger entrance animations after a short delay
+  setTimeout(() => {
+    const elements = [
+      document.querySelector('.animate-title'),
+      document.querySelector('.animate-description'),
+      document.querySelector('.animate-actions'),
+      document.querySelector('.animate-secondary'),
+      document.querySelector('.animate-effect')
+    ]
+    
+    elements.forEach(el => {
+      if (el && el instanceof HTMLElement) {
+        el.style.opacity = '1'
+        el.style.transform = 'translateY(0) translateX(0) scale(1) translateZ(0)'
+      }
+    })
+  }, 200)
 })
+
+// Lazy load audio effect only when needed (not on mobile)
+if (window.innerWidth > 768) {
+  import('@/assets/effects/audio-reactive-water.js').then((module) => {
+    // La función updateBaseRadius ya se ejecuta automáticamente en el módulo
+    console.log('Audio effect loaded successfully')
+  }).catch(() => {
+    console.warn('Audio effect module not found')
+  })
+}
+
+// Add click handler for play/stop button
+const audioBtn = document.getElementById('audioBtn')
+if (audioBtn) {
+  const playIcon = audioBtn.querySelector('.play-icon') as HTMLElement
+  const pauseIcon = audioBtn.querySelector('.pause-icon') as HTMLElement
+  const buttonText = audioBtn.querySelector('.button-text') as HTMLElement
+  
+  // Set initial state
+  audioBtn.setAttribute('data-playing', 'false')
+  
+  audioBtn.addEventListener('click', () => {
+    const button = audioBtn as HTMLElement
+    const isPlaying = button.getAttribute('data-playing') === 'true'
+    
+    if (isPlaying) {
+      // Switch to play state
+      playIcon.style.display = 'block'
+      pauseIcon.style.display = 'none'
+      buttonText.textContent = 'play'
+      button.setAttribute('data-playing', 'false')
+    } else {
+      // Switch to pause state
+      playIcon.style.display = 'none'
+      pauseIcon.style.display = 'block'
+      buttonText.textContent = 'pause'
+      button.setAttribute('data-playing', 'true')
+    }
+  })
+}
 
 
 
@@ -130,57 +188,23 @@ const scrollToExpertise = (e: Event) => {
   }
 }
 
-  // Lazy load audio effect only when needed (not on mobile)
-  if (window.innerWidth > 768) {
-    import('@/assets/effects/audio-reactive-water.js').catch(() => {
-      console.warn('Audio effect module not found')
-    })
-  }
-
-  // Add click handler for play/stop button
-  const audioBtn = document.getElementById('audioBtn')
-  if (audioBtn) {
-    const playIcon = audioBtn.querySelector('.play-icon') as HTMLElement
-    const pauseIcon = audioBtn.querySelector('.pause-icon') as HTMLElement
-    const buttonText = audioBtn.querySelector('.button-text') as HTMLElement
-    
-    // Set initial state
-    audioBtn.setAttribute('data-playing', 'false')
-    
-    audioBtn.addEventListener('click', () => {
-      const button = audioBtn as HTMLElement
-      const isPlaying = button.getAttribute('data-playing') === 'true'
-      
-      if (isPlaying) {
-        // Switch to play state
-        playIcon.style.display = 'block'
-        pauseIcon.style.display = 'none'
-        buttonText.textContent = 'play'
-        button.setAttribute('data-playing', 'false')
-      } else {
-        // Switch to pause state
-        playIcon.style.display = 'none'
-        pauseIcon.style.display = 'block'
-        buttonText.textContent = 'pause'
-        button.setAttribute('data-playing', 'true')
-      }
-    })
-  }
 </script>
 
 <style>
 /* Fonts are now loaded via preload in index.html for better performance */
 
 .hero {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "content visual";
   align-items: center;
-  justify-content: center;
-  min-height: 90vh;
+  min-height: 85vh;
   position: relative;
   background: var(--bg-primary);
   overflow: hidden;
-  gap: clamp(10px, 3vw, 20px);
+  padding: 0 clamp(2rem, 5vw, 4rem);
   font-family: var(--font-primary);
+  gap: clamp(2rem, 4vw, 4rem);
 }
 
 .hero-background-image {
@@ -198,57 +222,85 @@ const scrollToExpertise = (e: Event) => {
 
 
 .hero-content-left {
-  flex: 1 1 50%;
+  grid-area: content;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  z-index: 1;
-  padding-left: clamp(5vw, 20vw, 18vw);
-  padding-top: clamp(0vh, 0vh, 0vh);
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  z-index: 2;
+  max-width: 100%;
+  padding-right: 1rem;
+  padding-left: clamp(9rem, 2vw, 2rem);
+  gap: 1rem;
 }
 
 .hero-effect-right {
-  flex: 1 1 50%;
+  grid-area: visual;
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: clamp(25px, 4vw, 30px);
-  max-height: clamp(25px, 40vw, 50px);
   position: relative;
-  z-index: 0;
-  padding-right: 25%;
-  padding-bottom: 5%;
+  z-index: 1;
+  height: 85vh;
+  overflow: visible;
+  padding: clamp(1rem, 3vw, 3rem);
+  box-sizing: border-box;
 }
 
-/* Entrance animations */
+/* Entrance animations - Enhanced with fluid motion */
 .animate-title {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(40px) translateZ(0);
+  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .animate-description {
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(30px) translateZ(0);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.2s;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .animate-actions {
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(25px) scale(0.95) translateZ(0);
+  transition: opacity 1s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: 0.4s;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .animate-secondary {
   opacity: 0;
-  transform: translateY(15px);
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(20px) translateZ(0);
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.6s;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .animate-effect {
   opacity: 0;
-  transform: translateX(30px) scale(0.9);
-  transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateX(40px) scale(0.9) translateZ(0);
+  transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.3s;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 
@@ -261,7 +313,33 @@ const scrollToExpertise = (e: Event) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 90vh;
+  max-width: min(90vw, 90vh);
+  max-height: min(90vw, 90vh);
+  aspect-ratio: 1;
+}
+
+/* Tamaño para tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  #container {
+    max-width: min(80vw, 80vh);
+    max-height: min(80vw, 80vh);
+  }
+}
+
+/* Tamaño específico para notebooks */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  #container {
+    max-width: min(75vw, 75vh);
+    max-height: min(75vw, 75vh);
+  }
+}
+
+/* Tamaño para pantallas muy grandes */
+@media (min-width: 1440px) {
+  #container {
+    max-width: min(70vw, 70vh);
+    max-height: min(70vw, 70vh);
+  }
 }
 
 #controls {
@@ -276,11 +354,10 @@ const scrollToExpertise = (e: Event) => {
 }
 
 .effect-button {
-  position: relative;
-  cursor: url('/src/assets/image/puntero.png'), pointer;
   position: absolute;
-  top: clamp(25%, 30%, 35%);
-  right: clamp(5%, 10%, 30%);
+  cursor: url('/src/assets/image/puntero.png'), pointer;
+  top: 15%;
+  right: 15%;
   transform: translateY(-50%);
   z-index: 150;
   width: auto;
@@ -358,84 +435,92 @@ const scrollToExpertise = (e: Event) => {
 /* Removed gradient-move animation for cleaner look */
 
 .main-title {
-  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
-  font-weight: 900;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.0;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.05;
   margin-bottom: 0.05em;
   font-family: var(--font-primary);
   letter-spacing: -0.02em;
 }
 
+/* Light mode: remove gradient, use solid color */
+:root[data-theme="light"] .main-title {
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+  color: #1a1a1a;
+}
+
 .subtitle {
-  font-size: clamp(1.1rem, 2.2vw, 1.7rem);
-  font-weight: 400;
-  color: var(--brand-cyan);
-  line-height: 1.1;
+  font-size: clamp(1rem, 2.2vw, 1.5rem);
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.15;
   font-family: var(--font-primary);
   letter-spacing: 0.01em;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
+  opacity: 0.85;
+  white-space: nowrap;
 }
 
 .hero-description {
-  font-size: 0.95rem;
-  background: linear-gradient(135deg, #ffffff 0%, #cccccc 50%, #999999 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.2;
-  margin: 0.3rem 0 0.8rem 0;
-  max-width: 450px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0.2rem 0 0.8rem 0;
+  max-width: 500px;
   font-family: var(--font-primary);
-  font-weight: 400;
+  font-weight: 300;
+  opacity: 0.8;
 }
 
 .hero-actions {
   display: flex;
   gap: 0.7rem;
-  margin-bottom: 1.1rem;
+  margin-bottom: 0.6rem;
 }
 
 .cta-primary {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1.5px solid;
-  border-image: linear-gradient(135deg, var(--brand-purple-80), var(--brand-cyan-80), var(--brand-green-80)) 1;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 0.7rem 1.4rem;
-  border-radius: 9px;
+  background: var(--bg-primary);
+  color: var(--color-white);
+  border: 2px solid;
+  border-image: linear-gradient(90deg, var(--color-blue-light), var(--color-blue)) 1;
+  padding: 1.1rem 2.2rem;
+  border-radius: 8px;
   font-weight: 500;
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   cursor: url('/src/assets/image/puntero.png'), pointer;
-  transition: all 0.3s cubic-bezier(.4,1,.7,1.2);
+  transition: all 0.3s ease;
   font-family: var(--font-primary);
+  box-shadow: 0 4px 12px rgba(49, 204, 240, 0.2);
+  letter-spacing: 0.01em;
+  position: relative;
 }
 
 .cta-primary:hover {
-  border-image: linear-gradient(135deg, var(--brand-purple), var(--brand-cyan), var(--brand-green)) 1;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(49, 204, 240, 0.4);
+  border-image: linear-gradient(90deg, var(--color-blue-light), var(--color-blue)) 1;
 }
 
 .hero-secondary-cta {
-  margin-top: 0.7rem;
+  margin-top: 0.3rem;
 }
 
 .see-how-link {
-  color: var(--brand-cyan);
+  color: var(--button-primary);
   text-decoration: none;
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   font-family: var(--font-primary);
+  font-weight: 300;
   transition: color 0.3s ease;
+  letter-spacing: 0.01em;
 }
 
 .see-how-link:hover {
-  color: white;
-  -webkit-text-fill-color: white;
-  background: none;
+  color: var(--button-accent);
 }
 
 /* Removed comma styling */
@@ -443,5 +528,84 @@ const scrollToExpertise = (e: Event) => {
 canvas {
   z-index: 0;
   pointer-events: none;
+}
+
+/* Light mode button styles */
+:root[data-theme="light"] .cta-primary {
+  background: var(--bg-primary);
+  color: var(--color-white);
+  border: 2px solid;
+  border-image: linear-gradient(90deg, var(--color-blue-light), var(--color-blue)) 1;
+  box-shadow: 0 4px 12px rgba(51, 157, 191, 0.3);
+}
+
+:root[data-theme="light"] .cta-primary:hover {
+  box-shadow: 0 6px 20px rgba(51, 157, 191, 0.4);
+  border-image: linear-gradient(90deg, var(--color-blue-light), var(--color-blue)) 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "visual"
+      "content";
+    padding: 2rem 1rem;
+    min-height: auto;
+    gap: 2rem;
+  }
+  
+  .hero-content-left {
+    grid-area: content;
+    text-align: center;
+    align-items: center;
+    padding-right: 0;
+    max-width: none;
+  }
+  
+  .hero-effect-right {
+    grid-area: visual;
+    height: 350px;
+    order: -1;
+    padding-right: 0;
+    justify-content: center;
+  }
+  
+  #container {
+    max-width: 320px;
+    max-height: 320px;
+  }
+  
+  .effect-button {
+    top: 8%;
+    right: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+  
+  .hero-effect-right {
+    height: 300px;
+  }
+  
+  #container {
+    max-width: 280px;
+    max-height: 280px;
+  }
+  
+  .effect-button {
+    top: 6%;
+    right: 3%;
+  }
+  
+  .subtitle {
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
+    white-space: nowrap;
+  }
 }
 </style>

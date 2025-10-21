@@ -15,32 +15,39 @@
     </div>
 
     <div class="skeleton-hero">
-      <!-- Contenido izquierdo - Replica exactamente hero-content-left -->
-      <div class="skeleton-content-left">
-        <!-- Título principal -->
-        <div class="skeleton-title-main">
-          <div class="title-line primary"></div>
+      <!-- Layout con Grid para coincidir con el hero real -->
+      <div class="skeleton-hero-grid">
+        <!-- Contenido izquierdo - Replica exactamente hero-content-left -->
+        <div class="skeleton-content-left">
+          <!-- Título principal -->
+          <div class="skeleton-title-main">
+            <div class="title-line primary"></div>
+          </div>
+          
+          <!-- Subtítulo -->
+          <div class="skeleton-title-subtitle">
+            <div class="subtitle-line"></div>
+          </div>
+          
+          <!-- Descripción -->
+          <div class="skeleton-description">
+            <div class="desc-line"></div>
+            <div class="desc-line"></div>
+          </div>
+          
+          <!-- Botones de acción -->
+          <div class="skeleton-actions">
+            <div class="action-button primary"></div>
+            <div class="action-link"></div>
+          </div>
         </div>
         
-        <!-- Subtítulo -->
-        <div class="skeleton-title-subtitle">
-          <div class="subtitle-line"></div>
-        </div>
-        
-        <!-- Descripción -->
-        <div class="skeleton-description">
-          <div class="desc-line"></div>
-          <div class="desc-line"></div>
-        </div>
-        
-        <!-- Botones de acción -->
-        <div class="skeleton-actions">
-          <div class="action-button primary"></div>
-          <div class="action-link"></div>
+        <!-- Área visual derecha -->
+        <div class="skeleton-visual-right">
+          <div class="visual-effect"></div>
+          <div class="play-button"></div>
         </div>
       </div>
-      
-
     </div>
 
     <!-- Botón flotante de llamada -->
@@ -175,24 +182,34 @@ defineExpose({
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
-  gap: clamp(10px, 3vw, 20px);
-  padding: 0 clamp(5vw, 10vw, 15vw);
+  height: 85vh;
+  padding: 0 clamp(2rem, 5vw, 4rem);
+}
+
+/* Grid layout para coincidir con el hero real */
+.skeleton-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "content visual";
+  align-items: center;
+  width: 100%;
+  gap: clamp(2rem, 4vw, 4rem);
 }
 
 /* Contenido izquierdo - Replica exactamente hero-content-left */
 .skeleton-content-left {
-  flex: 1 1 50%;
+  grid-area: content;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding-left: clamp(5vw, 15vw, 20vw);
-  padding-top: clamp(5vh, 5vh, 20vh);
-  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-right: 1rem;
+  padding-left: clamp(1rem, 2vw, 2rem);
 }
 
 .skeleton-title-main {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 
 .title-line.primary {
@@ -388,6 +405,73 @@ defineExpose({
   animation-delay: 1.6s;
 }
 
+/* Área visual derecha */
+.skeleton-visual-right {
+  grid-area: visual;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 85vh;
+  padding: clamp(1rem, 3vw, 3rem);
+  box-sizing: border-box;
+}
+
+.visual-effect {
+  width: min(90vw, 90vh);
+  height: min(90vw, 90vh);
+  background: linear-gradient(90deg, 
+    rgba(0, 255, 255, 0.1) 25%, 
+    rgba(0, 255, 255, 0.2) 50%, 
+    rgba(0, 255, 255, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  border-radius: 50%;
+  animation: shimmer 2s infinite;
+  animation-delay: 0.5s;
+  aspect-ratio: 1;
+}
+
+/* Tamaño para tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .visual-effect {
+    width: min(80vw, 80vh);
+    height: min(80vw, 80vh);
+  }
+}
+
+/* Tamaño específico para notebooks */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .visual-effect {
+    width: min(75vw, 75vh);
+    height: min(75vw, 75vh);
+  }
+}
+
+@media (min-width: 1440px) {
+  .visual-effect {
+    width: min(70vw, 70vh);
+    height: min(70vw, 70vh);
+  }
+}
+
+.play-button {
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  width: 80px;
+  height: 30px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.2) 25%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    rgba(255, 255, 255, 0.2) 75%
+  );
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: shimmer 2s infinite;
+  animation-delay: 1.6s;
+}
+
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -411,6 +495,42 @@ defineExpose({
 @media (max-width: 768px) {
   .skeleton-container {
     display: none;
+  }
+}
+
+/* Responsive para skeleton */
+@media (max-width: 1024px) {
+  .skeleton-hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "visual"
+      "content";
+    gap: 2rem;
+  }
+  
+  .skeleton-content-left {
+    grid-area: content;
+    text-align: center;
+    align-items: center;
+    padding-right: 0;
+  }
+  
+  .skeleton-visual-right {
+    grid-area: visual;
+    height: 350px;
+    order: -1;
+    padding-right: 0;
+    justify-content: center;
+  }
+  
+  .visual-effect {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .play-button {
+    top: 8%;
+    right: 5%;
   }
 }
 

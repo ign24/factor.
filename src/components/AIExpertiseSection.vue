@@ -1,11 +1,11 @@
 <template>
   <section id="ai-expertise" class="section-padding">
     <div class="container">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text-primary">
+      <div class="text-center mb-16" :class="{ 'animate-in': isVisible }" ref="headerRef">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 gradient-text-primary expertise-title">
           Explora Nuestra Expertise
         </h2>
-        <p class="text-xl gradient-text-gray-white max-w-4xl mx-auto leading-relaxed text-justify">
+        <p class="text-xl gradient-text-gray-white max-w-4xl mx-auto leading-relaxed text-justify expertise-description">
           Aprovecha nuestra experiencia en tecnologías avanzadas: LLMs, RAG, MLOps, computer vision, edge solutions y predictive analytics. Entregamos soluciones escalables y listas para producción para optimizar workflows, mejorar decisiones y generar resultados reales.
         </p>
       </div>
@@ -54,7 +54,28 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import ResponsiveImage from './ResponsiveImage.vue'
+
+const isVisible = ref(false)
+const headerRef = ref<HTMLElement>()
+
+onMounted(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          isVisible.value = true
+        }
+      })
+    },
+    { threshold: 0.1 }
+  )
+  
+  if (headerRef.value) {
+    observer.observe(headerRef.value)
+  }
+})
 
 const expertiseItems = [
   {
@@ -103,13 +124,23 @@ const scrollRight = () => {
 <style scoped>
 .section-padding {
   padding: 4rem 0;
-  background: linear-gradient(200deg, rgb(2,5,7) 0%, rgb(4,9,11) 35%, rgb(6,11,14) 65%, rgb(3,7,9) 100%);
-  color: white;
+  color: var(--text-primary);
   position: relative;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Separador superior plateado elegante */
-.section-padding::before {
+/* Dark theme background */
+.dark-theme .section-padding {
+  background: linear-gradient(200deg, rgb(2,5,7) 0%, rgb(4,9,11) 35%, rgb(6,11,14) 65%, rgb(3,7,9) 100%);
+}
+
+/* Light theme - Sin overlay */
+.light-theme .section-padding {
+  background: var(--bg-primary);
+}
+
+/* Separador superior plateado elegante - Solo en modo oscuro */
+.dark-theme .section-padding::before {
   content: '';
   position: absolute;
   top: 0;
@@ -128,8 +159,8 @@ const scrollRight = () => {
   z-index: 2;
 }
 
-/* Separador inferior plateado elegante */
-.section-padding::after {
+/* Separador inferior plateado elegante - Solo en modo oscuro */
+.dark-theme .section-padding::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -146,6 +177,12 @@ const scrollRight = () => {
     transparent 100%
   );
   z-index: 2;
+}
+
+/* Modo claro - Sin overlays */
+.light-theme .section-padding::before,
+.light-theme .section-padding::after {
+  display: none;
 }
 
 .container {
@@ -236,10 +273,8 @@ const scrollRight = () => {
   font-weight: 500;
   z-index: 10;
   animation: pulse 2s infinite;
-  background: rgba(0, 0, 0, 0.7);
   padding: 8px 12px;
   border-radius: 20px;
-  backdrop-filter: blur(10px);
   cursor: url('/src/assets/image/puntero.png'), pointer;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -248,8 +283,27 @@ const scrollRight = () => {
   -webkit-backface-visibility: hidden;
 }
 
-.scroll-indicator:hover {
+/* Dark theme scroll indicator */
+.dark-theme .scroll-indicator {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+.dark-theme .scroll-indicator:hover {
   background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.05) translateZ(0);
+}
+
+/* Light theme scroll indicator - limpio */
+.light-theme .scroll-indicator {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  color: #0096cc;
+}
+
+.light-theme .scroll-indicator:hover {
+  background: rgba(255, 255, 255, 1);
   transform: scale(1.05) translateZ(0);
 }
 
@@ -371,7 +425,6 @@ const scrollRight = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(17, 24, 39, 0.205);
   border-radius: 0;
   display: flex;
   justify-content: center;
@@ -382,12 +435,23 @@ const scrollRight = () => {
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
   will-change: opacity, transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+
+/* Dark theme card overlay */
+.dark-theme .card-overlay {
+  background: rgba(17, 24, 39, 0.205);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme card overlay - limpio */
+.light-theme .card-overlay {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .overlay-content {
@@ -411,6 +475,83 @@ const scrollRight = () => {
 @media (min-width: 768px) {
   .md\:text-5xl {
     font-size: 3rem;
+  }
+}
+
+/* ========================================
+   ENHANCED ENTRANCE ANIMATIONS
+   ======================================== */
+
+/* Header animations */
+.text-center {
+  opacity: 0;
+  transform: translateY(40px) translateZ(0);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.text-center.animate-in {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+}
+
+/* Expertise title with blur effect */
+.expertise-title {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(35px) translateZ(0);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.15s;
+}
+
+.animate-in .expertise-title {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) translateZ(0);
+}
+
+/* Expertise description */
+.expertise-description {
+  opacity: 0;
+  transform: translateY(25px) translateZ(0);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.35s;
+}
+
+.animate-in .expertise-description {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+}
+
+/* Cards entrance with stagger */
+.expertise-card {
+  opacity: 0;
+  transform: translateY(50px) scale(0.95) translateZ(0);
+  animation: card-slide-in 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  will-change: opacity, transform;
+}
+
+.expertise-card:nth-child(1) { animation-delay: 0.1s; }
+.expertise-card:nth-child(2) { animation-delay: 0.2s; }
+.expertise-card:nth-child(3) { animation-delay: 0.3s; }
+.expertise-card:nth-child(4) { animation-delay: 0.4s; }
+.expertise-card:nth-child(5) { animation-delay: 0.5s; }
+.expertise-card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes card-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) translateZ(0);
   }
 }
 

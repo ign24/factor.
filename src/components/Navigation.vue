@@ -10,17 +10,25 @@
       />
     </div>
     
-    <!-- Hamburger Button -->
-    <button 
-      class="hamburger" 
-      :class="{ 'active': isMenuOpen }"
-      @click="toggleMenu"
-      aria-label="Toggle menu"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <!-- Mobile Controls -->
+    <div class="mobile-controls">
+      <!-- Theme Toggle Button -->
+      <div class="theme-toggle-wrapper animate-nav-item" style="animation-delay: 0.05s;">
+        <ThemeToggle />
+      </div>
+      
+      <!-- Hamburger Button -->
+      <button 
+        class="hamburger" 
+        :class="{ 'active': isMenuOpen }"
+        @click="toggleMenu"
+        aria-label="Toggle menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
     
     <!-- Desktop Navigation -->
     <nav class="navigation desktop-nav">
@@ -56,6 +64,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import ThemeToggle from './ThemeToggle.vue'
 
 const activeSection = ref('inicio')
 const isMenuOpen = ref(false)
@@ -155,6 +164,36 @@ onUnmounted(() => {
   height: 100px;
   width: auto;
   display: block;
+  transition: filter 0.3s ease;
+}
+
+/* Light mode logo visibility */
+.light-theme .logo-image {
+  filter: brightness(0.2) contrast(1.2);
+}
+
+/* Dark mode logo visibility */
+.dark-theme .logo-image {
+  filter: brightness(1) contrast(1);
+}
+
+/* Mobile Controls Container */
+.mobile-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: absolute;
+  right: clamp(20px, 3vw, 40px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1003;
+}
+
+/* Theme Toggle Wrapper */
+.theme-toggle-wrapper {
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Hamburger Button */
@@ -164,15 +203,24 @@ onUnmounted(() => {
   justify-content: space-around;
   width: 40px;
   height: 40px;
-  background: rgba(15, 88, 107, 0.8);
-  border: 1px solid rgba(51, 157, 191, 0.3);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   cursor: pointer;
   padding: 8px;
-  z-index: 1003;
   position: relative;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   backdrop-filter: blur(10px);
+}
+
+.dark-theme .hamburger {
+  background: rgba(15, 88, 107, 0.8);
+  border-color: rgba(51, 157, 191, 0.3);
+}
+
+.light-theme .hamburger {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 .hamburger:hover {
@@ -221,7 +269,7 @@ onUnmounted(() => {
   position: absolute;
   left: 50%;
   transform: translateX(-50%) scaleX(0);
-  background: rgba(4, 8, 9, 0.675);
+  background: var(--bg-elevated);
   backdrop-filter: blur(30px);
   border: 1px solid transparent;
   border-radius: 50px;
@@ -230,6 +278,32 @@ onUnmounted(() => {
   transform-origin: left center;
   transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 1002;
+}
+
+/* Dark theme navigation */
+.dark-theme .desktop-nav {
+  background: rgba(4, 8, 9, 0.675);
+  border-color: var(--border-primary);
+}
+
+/* Light theme navigation */
+.light-theme .desktop-nav {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Light theme navigation links */
+.light-theme .navbar a {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.light-theme .navbar a:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.light-theme .navbar a.active {
+  color: rgba(0, 0, 0, 0.9);
 }
 
 .nav-container {
@@ -321,12 +395,20 @@ onUnmounted(() => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(4, 8, 9, 0.955);
+  background: var(--bg-elevated);
   backdrop-filter: blur(20px);
   z-index: 1002;
   opacity: 0;
   visibility: hidden;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.dark-theme .mobile-nav-overlay {
+  background: rgba(4, 8, 9, 0.955);
+}
+
+.light-theme .mobile-nav-overlay {
+  background: rgba(255, 255, 255, 0.97);
 }
 
 .mobile-nav-overlay.active {
@@ -433,8 +515,14 @@ onUnmounted(() => {
   opacity: 0.6;
 }
 
+/* Mobile Theme Toggle - REMOVED (now in header) */
+
 /* Responsive Design */
 @media (max-width: 768px) {
+  .mobile-controls {
+    right: clamp(15px, 4vw, 30px);
+  }
+  
   .hamburger {
     display: flex;
   }

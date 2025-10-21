@@ -69,10 +69,14 @@ import FAQsSection from './components/FAQsSection.vue'
 import Footer from './components/Footer.vue'
 import SkeletonLoading from './components/SkeletonLoading.vue'
 import FontLoader from './components/FontLoader.vue'
+import { useTheme } from './composables/useTheme'
 import { applyConnectionOptimizations } from './utils/connectionOptimizer'
 import { initLazyLoading, preloadCriticalComponents } from './utils/lazyLoader'
 import { initResourcePreloading } from './utils/resourcePreloader'
 import { startTiming, endTiming, logPerformanceReport } from './utils/performanceMonitor'
+
+// Initialize theme system
+const { isDark, resolvedTheme } = useTheme()
 
 // Loading state
 const isLoading = ref(true)
@@ -285,15 +289,21 @@ html {
 
 body {
   font-family: var(--font-primary);
-  background: rgb(4, 8, 9);
+  background: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #app {
   min-height: 70vh;
   position: relative;
   z-index: 1;
+  transition: background 0.3s ease;
+}
+
+/* Dark Theme Background Gradient */
+.dark-theme #app {
   background: linear-gradient(
     180deg,
     rgb(2, 4, 6) 0%,
@@ -306,13 +316,37 @@ body {
   background-attachment: fixed;
 }
 
+/* Light Theme Background Gradient */
+.light-theme #app {
+  background: linear-gradient(
+    180deg,
+    rgb(248, 249, 250) 0%,
+    rgb(240, 242, 245) 20%,
+    rgb(233, 236, 239) 40%,
+    rgb(226, 230, 234) 60%,
+    rgb(240, 242, 245) 80%,
+    rgb(248, 249, 250) 100%
+  );
+  background-attachment: fixed;
+}
+
 /* Add subtle background only to sections after hero */
-.section-padding {
+.dark-theme .section-padding {
   background: linear-gradient(180deg, 
     transparent 0%,
     rgba(4, 8, 9, 0.3) 20%,
     rgba(4, 8, 9, 0.5) 50%,
     rgba(4, 8, 9, 0.3) 80%,
+    transparent 100%
+  );
+}
+
+.light-theme .section-padding {
+  background: linear-gradient(180deg, 
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 20%,
+    rgba(248, 249, 250, 0.5) 50%,
+    rgba(255, 255, 255, 0.3) 80%,
     transparent 100%
   );
 }
@@ -542,8 +576,8 @@ body {
   -webkit-mask-composite: xor;
 }
 
-/* Cursor Light Effect */
-.cursor-light {
+/* Cursor Light Effect - Theme aware */
+.dark-theme .cursor-light {
   position: fixed;
   width: 30px;
   height: 30px;
@@ -564,6 +598,34 @@ body {
   );
   background-size: 200% 200%;
   mix-blend-mode: screen;
+  filter: blur(30px);
+  transition: opacity 0.3s ease;
+  will-change: transform, opacity;
+  opacity: 0;
+  animation: fadeInCursorLight 0.5s ease-out 1s forwards, subtleGlow 4s ease-in-out infinite;
+}
+
+.light-theme .cursor-light {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(51, 62, 173, 0.15) 0%,
+    rgba(49, 204, 240, 0.12) 20%,
+    rgba(0, 150, 150, 0.10) 35%,
+    rgba(49, 204, 240, 0.06) 50%,
+    rgba(51, 62, 173, 0.04) 65%,
+    rgba(49, 204, 240, 0.02) 80%,
+    rgba(0, 150, 150, 0.01) 92%,
+    transparent 100%
+  );
+  background-size: 200% 200%;
+  mix-blend-mode: multiply;
   filter: blur(30px);
   transition: opacity 0.3s ease;
   will-change: transform, opacity;
@@ -638,5 +700,268 @@ body {
   .cursor-light {
     display: none;
   }
+}
+
+/* ========================================
+   GLOBAL THEME OVERRIDES - REMOVE OVERLAYS IN LIGHT MODE
+   ======================================== */
+
+/* Remove all section overlays in light mode */
+.light-theme .section-padding::before,
+.light-theme .section-padding::after,
+.light-theme .content-section::before,
+.light-theme .content-section::after {
+  display: none !important;
+}
+
+/* Clean backgrounds for sections in light mode */
+.light-theme .section-padding,
+.light-theme .content-section {
+  background: var(--bg-primary) !important;
+}
+
+/* Remove backdrop filters in light mode */
+.light-theme .expertise-card-content,
+.light-theme .card-overlay {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Clean card backgrounds in light mode */
+.light-theme .expertise-card-content {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.light-theme .card-overlay {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Clean scroll indicators in light mode */
+.light-theme .scroll-indicator {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: none !important;
+}
+
+/* Clean overlay texts in light mode */
+.light-theme .overlay-content {
+  color: var(--text-primary) !important;
+}
+
+.light-theme .overlay-content h3,
+.light-theme .overlay-content p {
+  color: var(--text-primary) !important;
+}
+
+/* Remove ALL blurs and dark overlays in light mode */
+.light-theme [style*="backdrop-filter"],
+.light-theme [class*="overlay"],
+.light-theme [class*="blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Clean any dark backgrounds in light mode */
+.light-theme .professional-card {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Clean glassmorphism elements */
+.light-theme [style*="rgba(0, 0, 0"],
+.light-theme [style*="rgba(4, 8, 9"] {
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Ensure footer is clean in light mode */
+.light-theme footer {
+  background: var(--bg-secondary) !important;
+}
+
+/* Clean navigation overlay */
+.light-theme .navigation {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ========================================
+   FORCE BLACK TEXT IN ALL SECTIONS - LIGHT MODE
+   ======================================== */
+
+/* Force all sections to have clean white background and black text */
+.light-theme #industries,
+.light-theme #case-studies,
+.light-theme #about,
+.light-theme #faqs,
+.light-theme .solutions,
+.light-theme .case-studies,
+.light-theme .about-section,
+.light-theme .faqs-section {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Force all headings to black in light mode */
+.light-theme h1,
+.light-theme h2,
+.light-theme h3,
+.light-theme h4,
+.light-theme h5,
+.light-theme h6,
+.light-theme .section-title,
+.light-theme .card-title,
+.light-theme .overlay-title,
+.light-theme .faq-title,
+.light-theme .section-header h2,
+.light-theme .section-header h3,
+.light-theme .section-header h4,
+.light-theme .section-header h5,
+.light-theme .section-header h6,
+.light-theme [class*="title"],
+.light-theme [class*="header"] {
+  color: var(--text-primary) !important;
+  font-weight: 700 !important;
+}
+
+/* Force all paragraphs and text to black */
+.light-theme p,
+.light-theme .section-subtitle,
+.light-theme .card-description,
+.light-theme .solution-card p,
+.light-theme .case-study-card p,
+.light-theme .faq-answer,
+.light-theme .gradient-text-gray-white {
+  color: var(--text-primary) !important;
+}
+
+/* Clean solution cards */
+.light-theme .solution-card,
+.light-theme .case-study-card,
+.light-theme .faq-item {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Clean card content */
+.light-theme .card-content,
+.light-theme .card-body {
+  color: var(--text-primary) !important;
+}
+
+/* Icons should be visible */
+.light-theme .card-icon {
+  color: var(--text-accent) !important;
+}
+
+/* Clean glows and effects */
+.light-theme .card-glow {
+  display: none !important;
+}
+
+/* Force all text elements to be visible */
+.light-theme span,
+.light-theme li,
+.light-theme a,
+.light-theme label,
+.light-theme button,
+.light-theme .text-sm,
+.light-theme .text-lg,
+.light-theme .description {
+  color: var(--text-primary) !important;
+}
+
+/* Specific section overrides */
+.light-theme .faq-question {
+  color: var(--text-primary) !important;
+}
+
+.light-theme .faq-answer p {
+  color: var(--text-secondary) !important;
+}
+
+.light-theme .case-study-title,
+.light-theme .case-study-description {
+  color: var(--text-primary) !important;
+}
+
+.light-theme .about-content,
+.light-theme .about-text {
+  color: var(--text-primary) !important;
+}
+
+/* Ensure visibility of ALL section backgrounds */
+.light-theme section {
+  background: var(--bg-primary) !important;
+}
+
+/* Remove any gradient backgrounds in text */
+.light-theme .gradient-text-gray-white,
+.light-theme [class*="gradient-text"] {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  color: var(--text-primary) !important;
+  background-clip: unset !important;
+}
+
+/* Clean any remaining dark sections */
+.light-theme [style*="color: white"],
+.light-theme [style*="color: #fff"],
+.light-theme [style*="color:#fff"],
+.light-theme [style*="color: #ffffff"],
+.light-theme [style*="color:#ffffff"],
+.light-theme [style*="color: rgb(255, 255, 255)"],
+.light-theme [style*="color:rgb(255, 255, 255)"] {
+  color: var(--text-primary) !important;
+}
+
+/* Force ANY element with light colors to be dark */
+.light-theme [style*="color: #f"],
+.light-theme [style*="color: #e"],
+.light-theme [style*="color: #d"],
+.light-theme [style*="color: #c"],
+.light-theme [style*="color: #b"],
+.light-theme [style*="color: #a"],
+.light-theme [style*="color: #9"],
+.light-theme [style*="color: #8"] {
+  color: var(--text-primary) !important;
+}
+
+/* Override any CSS classes that might have light colors */
+.light-theme .text-white,
+.light-theme .text-light,
+.light-theme .text-gray-100,
+.light-theme .text-gray-200,
+.light-theme .text-gray-300,
+.light-theme .text-gray-400,
+.light-theme .text-gray-500 {
+  color: var(--text-primary) !important;
+}
+
+/* Force visibility of any faded text */
+.light-theme [style*="opacity"],
+.light-theme [style*="opacity: 0.5"],
+.light-theme [style*="opacity: 0.6"],
+.light-theme [style*="opacity: 0.7"],
+.light-theme [style*="opacity: 0.8"] {
+  opacity: 1 !important;
+}
+
+/* SPECIFIC FAQ SECTION OVERRIDE - Force "Preguntas frecuentes" to be black */
+.light-theme #faqs .section-title,
+.light-theme .faqs .section-title,
+.light-theme .faqs h2 {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  color: var(--text-primary) !important;
+  background-clip: unset !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
 }
 </style>

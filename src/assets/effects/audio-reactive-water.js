@@ -186,6 +186,7 @@ const fragmentShader = `
       uniform float u_audioHigh;
       uniform float u_audioOverall;
       uniform float u_audioReactivity;
+      uniform float u_baseRadius;
       
       varying vec2 vUv;
 
@@ -199,10 +200,9 @@ const fragmentShader = `
         float waterHeight = texture2D(u_waterTexture, wCoord).r;
         float waterInfluence = clamp(waterHeight * u_waterStrength, -0.5, 0.5);
         
-        float baseRadius = 0.6;
         float audioPulse = u_audioOverall * u_audioReactivity * 0.1;
         float waterPulse = waterInfluence * 0.3;
-        float circleRadius = baseRadius + audioPulse + waterPulse;
+        float circleRadius = u_baseRadius + audioPulse + waterPulse;
         
         float distFromCenter = length(screenP);
         float inCircle = smoothstep(circleRadius + 0.1, circleRadius - 0.1, distFromCenter);
@@ -346,6 +346,9 @@ const material = new THREE.ShaderMaterial({
     },
     u_audioReactivity: {
       value: 1.0
+    },
+    u_baseRadius: {
+      value: 0.7
     }
   }
 });
@@ -893,3 +896,48 @@ material.uniforms.u_isMonochrome.value = false;
 setTimeout(() => {
   addRipple(window.innerWidth / 2, window.innerHeight / 2, 1.5);
 }, 500);
+
+// Función para actualizar el baseRadius basado en el tamaño de ventana
+function updateBaseRadius() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  
+  // Calcular el radio máximo seguro basado en las dimensiones de la ventana
+  // Usar el 40% del lado más pequeño para asegurar que no se corte
+  const maxSafeRadius = Math.min(width, height) * 0.4;
+  
+  // Convertir a coordenadas normalizadas (0-1)
+  const normalizedRadius = maxSafeRadius / Math.min(width, height);
+  
+  // Aplicar un factor de seguridad adicional (90% del máximo seguro)
+  let baseRadius = normalizedRadius * 0.9;
+  
+  // Límites mínimos y máximos para mantener la funcionalidad
+  baseRadius = Math.max(0.5, Math.min(0.8, baseRadius));
+  
+  // Ajustes específicos por rango de pantalla para optimización
+  if (width >= 1024 && width <= 1440) {
+    // Notebooks: usar el cálculo dinámico pero con un mínimo
+    baseRadius = Math.max(0.65, baseRadius);
+  } else if (width > 1440) {
+    // Pantallas grandes: más conservador
+    baseRadius = Math.max(0.6, baseRadius);
+  } else if (width >= 768 && width < 1024) {
+    // Tablets: usar el cálculo dinámico
+    baseRadius = Math.max(0.55, baseRadius);
+  } else {
+    // Móviles: más conservador para evitar cortes
+    baseRadius = Math.max(0.5, baseRadius);
+  }
+  
+  material.uniforms.u_baseRadius.value = baseRadius;
+}
+
+// Actualizar el baseRadius inicial y en resize
+updateBaseRadius();
+window.addEventListener("resize", () => {
+  updateBaseRadius();
+});
+
+// Exportar funciones para uso en Vue
+export { updateBaseRadius };

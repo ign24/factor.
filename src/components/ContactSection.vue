@@ -259,37 +259,115 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Entrance animations */
+/* Entrance animations - ENHANCED FLUID MOTION */
 .contact-info,
 .contact-form-container {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(40px) translateZ(0);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .contact-info.animate-in,
 .contact-form-container.animate-in {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
 }
 
 .contact-info {
-  transition-delay: 0.1s;
+  transition-delay: 0.15s;
+  filter: blur(4px);
+}
+
+.contact-info.animate-in {
+  filter: blur(0);
 }
 
 .contact-form-container {
-  transition-delay: 0.2s;
+  transition-delay: 0.3s;
+  transform: translateX(40px) scale(0.97) translateZ(0);
 }
 
+.contact-form-container.animate-in {
+  transform: translateX(0) scale(1) translateZ(0);
+}
+
+/* Contact title animation */
+.contact-title {
+  opacity: 0;
+  transform: translateY(30px) translateZ(0);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.25s;
+}
+
+.contact-info.animate-in .contact-title {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+}
+
+/* Contact description animation */
+.contact-description {
+  opacity: 0;
+  transform: translateY(20px) translateZ(0);
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.35s;
+}
+
+.contact-info.animate-in .contact-description {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+}
+
+/* Contact methods with stagger */
 .contact-method {
   opacity: 0;
-  transform: translateX(-20px);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-30px) translateZ(0);
+  transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: opacity, transform;
 }
 
 .contact-info.animate-in .contact-method {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0) translateZ(0);
+}
+
+/* Form elements with stagger */
+.form-group {
+  opacity: 0;
+  transform: translateY(20px) translateZ(0);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.contact-form-container.animate-in .form-group:nth-child(1) { transition-delay: 0.4s; }
+.contact-form-container.animate-in .form-group:nth-child(2) { transition-delay: 0.45s; }
+.contact-form-container.animate-in .form-group:nth-child(3) { transition-delay: 0.5s; }
+.contact-form-container.animate-in .form-group:nth-child(4) { transition-delay: 0.55s; }
+.contact-form-container.animate-in .form-group:nth-child(5) { transition-delay: 0.6s; }
+
+.contact-form-container.animate-in .form-group {
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
+}
+
+/* Submit button animation */
+.submit-button {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95) translateZ(0);
+  transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: 0.7s;
+}
+
+.contact-form-container.animate-in .submit-button {
+  opacity: 1;
+  transform: translateY(0) scale(1) translateZ(0);
 }
 
 .contact {
@@ -609,7 +687,9 @@ onMounted(() => {
 }
 
 .form-group select {
+  appearance: none;
   -moz-appearance: none;
+  -webkit-appearance: none;
 }
 
 .form-group select::-webkit-select-placeholder {

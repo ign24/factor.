@@ -1,5 +1,5 @@
  s<template>
-  <section id="hero-mobile" class="hero-mobile" @wheel="handleWheelScroll">
+  <section id="hero-mobile" class="hero-mobile">
     <div class="hero-content-mobile">
       <h1 class="animate-title">
         <span class="main-title">IA REAL</span><br />
@@ -207,7 +207,6 @@ onMounted(() => {
   margin-bottom: 0.1em;
   font-family: var(--font-primary);
   letter-spacing: -0.03em;
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
 .subtitle {
@@ -218,7 +217,6 @@ onMounted(() => {
   font-family: var(--font-primary);
   letter-spacing: 0.02em;
   margin-bottom: 0.3rem;
-  text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
 }
 
 .hero-description {
@@ -232,9 +230,17 @@ onMounted(() => {
   max-width: 100%;
   font-family: var(--font-primary);
   font-weight: 400;
-  text-align: center;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  text-align: justify;
   padding: 0 0.5rem;
+}
+
+/* Light mode: make description completely black */
+.light-theme .hero-description {
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: black;
+  background-clip: unset;
+  color: black;
 }
 
 .hero-actions {
@@ -249,13 +255,11 @@ onMounted(() => {
   color: var(--text-primary);
   border: 1.5px solid;
   border-image: linear-gradient(135deg, var(--brand-purple-80), var(--brand-cyan-80), var(--brand-green-80)) 1;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   padding: 1rem 2rem;
   border-radius: 8px;
   font-weight: 500;
   font-size: clamp(0.9rem, 3.5vw, 1rem);
-  cursor: url('/src/assets/image/puntero.png'), pointer;
+  cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: var(--font-primary);
@@ -293,6 +297,7 @@ onMounted(() => {
   -webkit-mask-composite: xor;
   z-index: -1;
   will-change: background-position;
+  pointer-events: none;
 }
 
 .cta-primary:hover {
@@ -310,7 +315,6 @@ onMounted(() => {
   font-size: clamp(0.8rem, 3vw, 0.9rem);
   font-family: var(--font-primary);
   transition: color 0.3s ease;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
   font-weight: 400;
 }
 

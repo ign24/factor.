@@ -9,11 +9,14 @@
   --color-blue-dark: #003B5C;
   --color-gray: #7A7A7A;
 
-  /* Main background and text colors */
+  /* Main background and text colors - Will be overridden by theme classes */
   --bg-primary: rgb(4,8,9);
+  --bg-secondary: rgb(15,88,107);
   --text-primary: var(--color-white);
   --text-secondary: #E0E0E0;
   --text-muted: #B0B0B0;
+  --bg-elevated: rgba(10, 20, 30, 0.8);
+  --border-subtle: rgba(255, 255, 255, 0.1);
 
   /* Accent and gradients */
   --gradient-primary: linear-gradient(135deg, 
@@ -75,12 +78,26 @@ html {
 
 body {
   /* Fondo general tech */
-  background: rgb(4,8,9);
+  background: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
   line-height: 1.6;
   /* Custom cursor */
   cursor: url('/src/assets/image/puntero.png'), auto;
+  /* Smooth theme transitions */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light theme body styles */
+.light-theme body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Dark theme body styles */
+.dark-theme body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 /* Typography Scale */
@@ -88,6 +105,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.01em;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
@@ -100,6 +119,8 @@ h6 { font-size: 1rem; }
 p {
   font-size: 1rem;
   line-height: 1.7;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 /* Links */

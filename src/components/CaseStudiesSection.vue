@@ -265,18 +265,6 @@ onMounted(() => {
   position: relative;
 }
 
-.case-studies::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(51, 157, 191, 0.03) 0%, transparent 50%),
-              radial-gradient(circle at 70% 80%, rgba(15, 88, 107, 0.02) 0%, transparent 50%);
-  pointer-events: none;
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -317,18 +305,21 @@ onMounted(() => {
 }
 
 .case-study {
-  background: rgba(15, 88, 107, 0.1);
-  border: 1px solid rgba(51, 157, 191, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   overflow: hidden;
   transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .case-study:hover {
-  background: rgba(15, 88, 107, 0.15);
-  border-color: rgba(51, 157, 191, 0.4);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(51, 157, 191, 0.1);
+  box-shadow: 0 20px 60px rgba(51, 157, 191, 0.15);
 }
 
 .case-image {
@@ -357,7 +348,7 @@ onMounted(() => {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
-  color: white;
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: 1rem;
   line-height: 1.3;
 }
@@ -365,7 +356,7 @@ onMounted(() => {
 .case-description {
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  color: #a0a0a0;
+  color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
   margin-bottom: 1.5rem;
   text-align: justify;
@@ -405,7 +396,7 @@ onMounted(() => {
   display: block;
   font-family: 'Inter', sans-serif;
   font-size: 0.85rem;
-  color: #a0a0a0;
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.3;
   text-align: center;
   max-width: 100%;
