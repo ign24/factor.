@@ -76,7 +76,7 @@ import { initResourcePreloading } from './utils/resourcePreloader'
 import { startTiming, endTiming, logPerformanceReport } from './utils/performanceMonitor'
 
 // Initialize theme system
-const { isDark, resolvedTheme } = useTheme()
+useTheme()
 
 // Loading state
 const isLoading = ref(true)

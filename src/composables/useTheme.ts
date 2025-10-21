@@ -15,7 +15,7 @@
  * ```
  */
 
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 /**
  * Theme type definition

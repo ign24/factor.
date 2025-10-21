@@ -41,43 +41,7 @@ const scrollToContact = () => {
   }
 }
 
-const handleWheelScroll = (e: WheelEvent) => {
-  // Solo procesar si no estamos ya haciendo scroll
-  if (isScrolling.value) return
-  
-  // Detectar si estamos en la Hero Section (viewport completo)
-  const heroSection = document.getElementById('hero-mobile')
-  if (!heroSection) return
-  
-  const rect = heroSection.getBoundingClientRect()
-  const isInHeroViewport = rect.top >= 0 && rect.bottom <= window.innerHeight
-  
-  if (isInHeroViewport) {
-    e.preventDefault()
-    
-    // Determinar dirección del scroll
-    const deltaY = e.deltaY
-    
-    if (deltaY > 0) { // Scroll hacia abajo
-      isScrolling.value = true
-      
-      // Scroll suave a la sección de expertise
-      const expertiseSection = document.querySelector('#expertise')
-      if (expertiseSection) {
-        // Scroll exactamente a la parte superior de la sección
-        expertiseSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        })
-        
-        // Resetear el flag después de un delay
-        setTimeout(() => {
-          isScrolling.value = false
-        }, 1500)
-      }
-    }
-  }
-}
+// Función de scroll removida - ya no se usa en móviles
 
 // Función para scroll manual al hacer click en el enlace
 const scrollToExpertise = (e: Event) => {

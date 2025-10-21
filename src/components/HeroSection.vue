@@ -81,7 +81,7 @@ onMounted(() => {
 
 // Lazy load audio effect only when needed (not on mobile)
 if (window.innerWidth > 768) {
-  import('@/assets/effects/audio-reactive-water.js').then((module) => {
+  import('@/assets/effects/audio-reactive-water.js').then(() => {
     // La función updateBaseRadius ya se ejecuta automáticamente en el módulo
     console.log('Audio effect loaded successfully')
   }).catch(() => {
