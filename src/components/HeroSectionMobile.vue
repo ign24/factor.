@@ -2,12 +2,12 @@
   <section id="hero-mobile" class="hero-mobile">
     <div class="hero-content-mobile">
       <h1 class="animate-title">
-        <span class="main-title">IA REAL</span><br />
-        <span class="subtitle">diseñada para generar impacto.</span>
+        <span class="main-title">Inteligencia Artificial</span><br />
+        <span class="subtitle">para empresas que buscan resultados reales</span>
       </h1>
       <p class="hero-description animate-description">
-        Creamos soluciones completas con inteligencia artificial integrada.  
-        Entregamos MVPs listos para producción, con automatización real, visión de producto y mínima complejidad operativa.
+        Desarrollamos soluciones de IA personalizadas que optimizan procesos, 
+        mejoran la eficiencia y generan valor tangible para su organización.
       </p>
       <div class="hero-actions animate-actions">
         <button class="cta-primary" @click="scrollToContact">
@@ -16,7 +16,7 @@
       </div>
       <div class="hero-secondary-cta animate-secondary">
         <a href="#expertise" class="see-how-link" @click="scrollToExpertise">
-          Ver cómo funciona ↓
+          Conocer nuestros servicios ↓
         </a>
       </div>
     </div>
@@ -98,8 +98,9 @@ onMounted(() => {
   background: transparent;
   overflow: hidden;
   font-family: var(--font-primary);
-  padding: 12rem 1rem 1.5rem;
+  padding: 10rem 0.8rem 1.5rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .hero-content-mobile {
@@ -110,8 +111,9 @@ onMounted(() => {
   z-index: 1;
   max-width: 100%;
   width: 100%;
-  padding: 0 0.5rem;
-  gap: 0.5rem;
+  padding: 0 0.2rem;
+  gap: 0.3rem;
+  box-sizing: border-box;
 }
 
 /* Optimized entrance animations for mobile - NO REFLOWS */
@@ -161,41 +163,47 @@ onMounted(() => {
 }
 
 .main-title {
-  font-size: clamp(2.8rem, 9vw, 4.2rem);
+  font-size: clamp(2.2rem, 7vw, 3.5rem);
   font-weight: 900;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 0.95;
-  margin-bottom: 0.1em;
+  line-height: 1.1;
+  margin-bottom: 0.2em;
   font-family: var(--font-primary);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .subtitle {
-  font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+  font-size: clamp(1rem, 3.5vw, 1.4rem);
   font-weight: 400;
   color: var(--brand-cyan);
-  line-height: 1.15;
+  line-height: 1.2;
   font-family: var(--font-primary);
-  letter-spacing: 0.02em;
-  margin-bottom: 0.3rem;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.4rem;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .hero-description {
-  font-size: clamp(1rem, 4vw, 1.15rem);
+  font-size: clamp(0.9rem, 3.5vw, 1.1rem);
   background: linear-gradient(135deg, #ffffff 0%, #cccccc 50%, #999999 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  line-height: 1.5;
-  margin: 1.2rem 0 1.8rem 0;
+  line-height: 1.4;
+  margin: 1rem 0 1.5rem 0;
   max-width: 100%;
   font-family: var(--font-primary);
   font-weight: 400;
   text-align: justify;
-  padding: 0 0.5rem;
+  padding: 0 0.3rem;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 /* Light mode: make description completely black */
@@ -219,23 +227,24 @@ onMounted(() => {
   color: var(--text-primary);
   border: 1.5px solid;
   border-image: linear-gradient(135deg, var(--brand-purple-80), var(--brand-cyan-80), var(--brand-green-80)) 1;
-  padding: 1rem 2rem;
+  padding: 0.9rem 1.5rem;
   border-radius: 8px;
   font-weight: 500;
-  font-size: clamp(0.9rem, 3.5vw, 1rem);
+  font-size: clamp(0.85rem, 3vw, 0.95rem);
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: var(--font-primary);
   width: 100%;
-  max-width: 320px;
+  max-width: 280px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
-  min-height: 48px;
+  min-height: 44px;
   will-change: transform, box-shadow;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  box-sizing: border-box;
 }
 
 .cta-primary::before {
@@ -301,25 +310,75 @@ onMounted(() => {
   }
 }
 
-/* Small Mobile Devices */
-@media (max-width: 375px) {
+/* Extra Small Mobile Devices */
+@media (max-width: 320px) {
+  .hero-mobile {
+    padding: 7rem 0.3rem 0.8rem;
+  }
+  
+  .hero-content-mobile {
+    padding: 0 0.05rem;
+    gap: 0.15rem;
+  }
+  
   .main-title {
-    font-size: clamp(2.4rem, 8.5vw, 3.2rem);
+    font-size: clamp(1.6rem, 5.5vw, 2.4rem);
+    line-height: 1.2;
   }
   
   .subtitle {
-    font-size: clamp(1.1rem, 4.2vw, 1.4rem);
+    font-size: clamp(0.8rem, 2.8vw, 1.1rem);
+    line-height: 1.3;
   }
   
   .hero-description {
-    font-size: clamp(0.95rem, 3.8vw, 1.05rem);
-    padding: 0 0.3rem;
+    font-size: clamp(0.75rem, 2.8vw, 0.95rem);
+    padding: 0 0.15rem;
+    line-height: 1.3;
+    margin: 0.6rem 0 1rem 0;
   }
   
   .cta-primary {
-    max-width: 280px;
-    padding: 0.9rem 1.8rem;
-    font-size: clamp(0.85rem, 3.2vw, 0.95rem);
+    max-width: 240px;
+    padding: 0.7rem 1rem;
+    font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+    min-height: 40px;
+  }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 375px) {
+  .hero-mobile {
+    padding: 8rem 0.5rem 1rem;
+  }
+  
+  .hero-content-mobile {
+    padding: 0 0.1rem;
+    gap: 0.2rem;
+  }
+  
+  .main-title {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    line-height: 1.15;
+  }
+  
+  .subtitle {
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    line-height: 1.25;
+  }
+  
+  .hero-description {
+    font-size: clamp(0.8rem, 3vw, 1rem);
+    padding: 0 0.2rem;
+    line-height: 1.35;
+    margin: 0.8rem 0 1.2rem 0;
+  }
+  
+  .cta-primary {
+    max-width: 260px;
+    padding: 0.8rem 1.2rem;
+    font-size: clamp(0.8rem, 2.8vw, 0.9rem);
+    min-height: 42px;
   }
 }
 
