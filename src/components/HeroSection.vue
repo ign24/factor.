@@ -195,10 +195,10 @@ const scrollToExpertise = (e: Event) => {
 
 .hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.95fr 1.05fr;
   grid-template-areas: "content visual";
   align-items: center;
-  min-height: 85vh;
+  min-height: 90vh;
   position: relative;
   background: var(--bg-primary);
   overflow: hidden;
@@ -231,20 +231,22 @@ const scrollToExpertise = (e: Event) => {
   z-index: 2;
   max-width: 100%;
   padding-right: 1rem;
-  padding-left: clamp(9rem, 2vw, 2rem);
-  gap: 1rem;
+  padding-left: clamp(2rem, 6vw, 6rem);
+  gap: 0.8rem;
 }
 
 .hero-effect-right {
   grid-area: visual;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-end;
   position: relative;
   z-index: 1;
-  height: 85vh;
+  height: 90vh;
   overflow: visible;
-  padding: clamp(1rem, 3vw, 3rem);
+  padding: clamp(2rem, 4vw, 4rem);
+  padding-right: 0;
+  padding-top: 3vh;
   box-sizing: border-box;
 }
 
@@ -313,32 +315,32 @@ const scrollToExpertise = (e: Event) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: min(90vw, 90vh);
-  max-height: min(90vw, 90vh);
+  max-width: min(65vw, 90vh);
+  max-height: min(65vw, 90vh);
   aspect-ratio: 1;
 }
 
 /* Tamaño para tablets */
 @media (min-width: 768px) and (max-width: 1023px) {
   #container {
-    max-width: min(80vw, 80vh);
-    max-height: min(80vw, 80vh);
+    max-width: min(68vw, 80vh);
+    max-height: min(68vw, 80vh);
   }
 }
 
 /* Tamaño específico para notebooks */
 @media (min-width: 1024px) and (max-width: 1440px) {
   #container {
-    max-width: min(75vw, 75vh);
-    max-height: min(75vw, 75vh);
+    max-width: min(62vw, 85vh);
+    max-height: min(62vw, 85vh);
   }
 }
 
 /* Tamaño para pantallas muy grandes */
 @media (min-width: 1440px) {
   #container {
-    max-width: min(70vw, 70vh);
-    max-height: min(70vw, 70vh);
+    max-width: min(58vw, 80vh);
+    max-height: min(58vw, 80vh);
   }
 }
 
@@ -435,11 +437,11 @@ const scrollToExpertise = (e: Event) => {
 /* Removed gradient-move animation for cleaner look */
 
 .main-title {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.05;
-  margin-bottom: 0.05em;
+  margin-bottom: 0;
   font-family: var(--font-primary);
   letter-spacing: -0.02em;
 }
@@ -454,23 +456,23 @@ const scrollToExpertise = (e: Event) => {
 }
 
 .subtitle {
-  font-size: clamp(1rem, 2.2vw, 1.5rem);
+  font-size: clamp(0.85rem, 1.5vw, 1.1rem);
   font-weight: 300;
   color: var(--text-secondary);
-  line-height: 1.15;
+  line-height: 1.25;
   font-family: var(--font-primary);
   letter-spacing: 0.01em;
-  margin-bottom: 0.1rem;
+  margin-bottom: 0;
   opacity: 0.85;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .hero-description {
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 1.1vw, 0.95rem);
   color: var(--text-secondary);
   line-height: 1.5;
-  margin: 0.2rem 0 0.8rem 0;
-  max-width: 500px;
+  margin: 0 0 0.5rem 0;
+  max-width: 450px;
   font-family: var(--font-primary);
   font-weight: 300;
   opacity: 0.8;
@@ -479,7 +481,8 @@ const scrollToExpertise = (e: Event) => {
 .hero-actions {
   display: flex;
   gap: 0.7rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
 }
 
 .cta-primary {
@@ -487,10 +490,10 @@ const scrollToExpertise = (e: Event) => {
   color: var(--color-white);
   border: 2px solid;
   border-image: linear-gradient(90deg, var(--color-blue-light), var(--color-blue)) 1;
-  padding: 1.1rem 2.2rem;
+  padding: 0.9rem 1.8rem;
   border-radius: 8px;
   font-weight: 500;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   cursor: url('/src/assets/image/puntero.png'), pointer;
   transition: all 0.3s ease;
   font-family: var(--font-primary);
@@ -506,13 +509,13 @@ const scrollToExpertise = (e: Event) => {
 }
 
 .hero-secondary-cta {
-  margin-top: 0.3rem;
+  margin-top: 0;
 }
 
 .see-how-link {
   color: var(--button-primary);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-family: var(--font-primary);
   font-weight: 300;
   transition: color 0.3s ease;

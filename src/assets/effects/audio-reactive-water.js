@@ -348,7 +348,7 @@ const material = new THREE.ShaderMaterial({
       value: 1.0
     },
     u_baseRadius: {
-      value: 0.7
+      value: 0.85
     }
   }
 });
@@ -909,25 +909,25 @@ function updateBaseRadius() {
   // Convertir a coordenadas normalizadas (0-1)
   const normalizedRadius = maxSafeRadius / Math.min(width, height);
   
-  // Aplicar un factor de seguridad adicional (90% del máximo seguro)
-  let baseRadius = normalizedRadius * 0.9;
+  // Aplicar un factor de seguridad adicional (95% del máximo seguro)
+  let baseRadius = normalizedRadius * 0.95;
   
   // Límites mínimos y máximos para mantener la funcionalidad
-  baseRadius = Math.max(0.5, Math.min(0.8, baseRadius));
+  baseRadius = Math.max(0.6, Math.min(0.95, baseRadius));
   
   // Ajustes específicos por rango de pantalla para optimización
   if (width >= 1024 && width <= 1440) {
-    // Notebooks: usar el cálculo dinámico pero con un mínimo
-    baseRadius = Math.max(0.65, baseRadius);
+    // Notebooks: usar el cálculo dinámico pero con un mínimo mayor
+    baseRadius = Math.max(0.8, baseRadius);
   } else if (width > 1440) {
-    // Pantallas grandes: más conservador
-    baseRadius = Math.max(0.6, baseRadius);
+    // Pantallas grandes: más grande
+    baseRadius = Math.max(0.75, baseRadius);
   } else if (width >= 768 && width < 1024) {
-    // Tablets: usar el cálculo dinámico
-    baseRadius = Math.max(0.55, baseRadius);
+    // Tablets: usar el cálculo dinámico más grande
+    baseRadius = Math.max(0.7, baseRadius);
   } else {
     // Móviles: más conservador para evitar cortes
-    baseRadius = Math.max(0.5, baseRadius);
+    baseRadius = Math.max(0.6, baseRadius);
   }
   
   material.uniforms.u_baseRadius.value = baseRadius;
